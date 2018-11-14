@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import fall2018.csc2017.battleship.BattleshipMainActivity;
 import fall2018.csc2017.slidingtiles.R;
 import fall2018.csc2017.slidingtiles.SlidingTilesComplexityActivity;
 
@@ -17,6 +18,7 @@ import fall2018.csc2017.slidingtiles.SlidingTilesComplexityActivity;
 public class GameSelectionActivity extends AppCompatActivity {
 
     private Button slidingTiles;
+    private Button battleShip;
     private String username;
 
     @Override
@@ -25,6 +27,7 @@ public class GameSelectionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game_selections);
         declarations();
         addSlidingTileButtonListener();
+        addBattleshipButtonListener();
         SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("my_prefs", Context.MODE_PRIVATE);
         int bg = sharedPref.getInt("background_resources", android.R.color.white); // the second parameter will be fallback if the preference is not found
         getWindow().setBackgroundDrawableResource(bg);
@@ -32,6 +35,7 @@ public class GameSelectionActivity extends AppCompatActivity {
 
     private void declarations() {
         slidingTiles = findViewById(R.id.slidingTileButton);
+        battleShip = findViewById(R.id.battleshipButton);
         username = getIntent().getStringExtra("username"); // retrieve the current user from previous activity
     }
 
@@ -45,6 +49,19 @@ public class GameSelectionActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(GameSelectionActivity.this, SlidingTilesComplexityActivity.class);
                 intent.putExtra("username", username);
+                startActivity(intent);
+            }
+        });
+    }
+
+    /**
+     * Listener for the Battleship game.
+     */
+    private void addBattleshipButtonListener() {
+        battleShip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(GameSelectionActivity.this, BattleshipMainActivity.class);
                 startActivity(intent);
             }
         });
