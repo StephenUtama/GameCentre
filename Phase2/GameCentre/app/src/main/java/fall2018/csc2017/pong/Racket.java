@@ -56,13 +56,13 @@ public class Racket {
         this.screenWidth = width;
         this.screenHeight = height;
 
-        this.length = screenWidth/8;
+        this.length = screenWidth/6;
         this.height = screenHeight/25;
 
         this.x = screenWidth/2;
-        this.y = screenHeight - 20;
+        this.y = screenHeight - 150;
 
-        this.rect = new RectF( this.x, this.y, x + length, y + height);
+        this.rect = new RectF( this.x, this.y, this.x + this.length, this.y + this.height);
 
         this.rectSpeed = screenWidth;
     }
