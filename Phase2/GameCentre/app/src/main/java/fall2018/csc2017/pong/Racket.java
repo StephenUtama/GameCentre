@@ -52,14 +52,25 @@ public class Racket {
      * @param height height of the screen
      */
     public Racket(int width, int height){
+        this.screenWidth = width;
+        this.screenHeight = height;
 
+        this.length = screenWidth/8;
+        this.height = screenHeight/25;
+
+        this.x = screenWidth/2;
+        this.y = screenHeight - 20;
+
+        this.rect = new RectF( this.x, this.y, x + length, y + height);
+
+        this.rectSpeed = screenWidth;
     }
 
     /**
      * Getter method for rectangle representation of the Racket
      */
     public RectF getRect(){
-        return null;
+        return this.rect;
     }
 
     /**
@@ -67,7 +78,7 @@ public class Racket {
      * @param state new movement direction from final values
      */
     public void setMovementState(int state){
-
+        this.rectMove = state;
     }
 
     /**
@@ -75,7 +86,21 @@ public class Racket {
      * @param fps how smooth the movement is
      */
     public void update (long fps){
+        float distance = this.rectSpeed/fps;
+        if (this.rectMove == LEFT){
+            x = x - distance;
+        } else if(this.rectMove == RIGHT){
+            x = x + distance;
+        }
 
+        if (this.rect.left < 0){ // this might be wrong. use this.x instead of this.rect
+            this.x = 0;
+        }else if (this.rect.right > screenWidth){
+            this.x = this.screenWidth - this.length;
+        }
+
+        this.rect.left = this.x;
+        this.rect.right = this.x + this.length;
     }
 
 
