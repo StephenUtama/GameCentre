@@ -4,6 +4,7 @@ import android.graphics.RectF;
 
 /**
  * Racket (bar on the bottom) class of Pong game
+ * cited from: http://androidgameprogramming.com/programming-a-pong-game-part-3/
  */
 public class Racket {
     /**

@@ -47,12 +47,12 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
     /**
      * Size of vertical screen in pixels.
      */
-    int screenX;
+    int screenWidth;
 
     /**
      * Size of horizontal screen in pixels.
      */
-    int screenY;
+    int screenHeight;
 
     /**
      * The player's racket.
@@ -93,66 +93,19 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
         super(context);
 
         // Set the screen width and height
-        screenX = x;
-        screenY = y;
+        screenWidth = x;
+        screenHeight = y;
 
         // Initialize ourHolder and paint objects
         ourHolder = getHolder();
         paint = new Paint();
 
         // A new racket
-        racket = new Racket(screenX, screenY);
+        racket = new Racket(screenWidth, screenHeight);
 
         // Create a ball
-        ball = new Ball(screenX, screenY);
+        ball = new Ball(screenWidth, screenHeight);
 
-//    /*
-//        Instantiate our sound pool
-//        dependent upon which version
-//        of Android is present
-//    */
-//
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            AudioAttributes audioAttributes = new AudioAttributes.Builder()
-//                    .setUsage(AudioAttributes.USAGE_MEDIA)
-//                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-//                    .build();
-//
-//            sp = new SoundPool.Builder()
-//                    .setMaxStreams(5)
-//                    .setAudioAttributes(audioAttributes)
-//                    .build();
-//        } else {
-//            sp = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
-//        }
-//
-//
-//        try{
-//            // Create objects of the 2 required classes
-//            AssetManager assetManager = context.getAssets();
-//            AssetFileDescriptor descriptor;
-//
-//            // Load our fx in memory ready for use
-//            descriptor = assetManager.openFd("beep1.ogg");
-//            beep1ID = sp.load(descriptor, 0);
-//
-//            descriptor = assetManager.openFd("beep2.ogg");
-//            beep2ID = sp.load(descriptor, 0);
-//
-//            descriptor = assetManager.openFd("beep3.ogg");
-//            beep3ID = sp.load(descriptor, 0);
-//
-//            descriptor = assetManager.openFd("loseLife.ogg");
-//            loseLifeID = sp.load(descriptor, 0);
-//
-//            descriptor = assetManager.openFd("explode.ogg");
-//            explodeID = sp.load(descriptor, 0);
-//
-//        }catch(IOException e){
-//            // Print an error message to the console
-//            Log.e("error", "failed to load sound files");
-//        }
-//
         setupAndRestart();
 
     }
@@ -162,7 +115,7 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
      */
     public void setupAndRestart(){
         // Put the ball back to the start
-        ball.reset(screenX, screenY);
+        ball.reset(screenWidth, screenHeight);
         // if game over reset scores and lives
         if(lives == 0) {
             score = 0;
@@ -196,4 +149,10 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
             }
         }
     }
+
+    public void draw(){
+
+    }
+
+    // TODO implement resume and pause
 }
