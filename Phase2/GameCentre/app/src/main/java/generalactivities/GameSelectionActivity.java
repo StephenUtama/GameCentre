@@ -6,9 +6,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import fall2018.csc2017.battleship.BattleshipMainActivity;
+import fall2018.csc2017.pong.PongMainActivity;
 import fall2018.csc2017.slidingtiles.R;
 import fall2018.csc2017.slidingtiles.SlidingTilesComplexityActivity;
 
@@ -20,6 +22,7 @@ public class GameSelectionActivity extends AppCompatActivity {
     private Button slidingTiles;
     private Button battleShip;
     private String username;
+    private Button pong;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +31,7 @@ public class GameSelectionActivity extends AppCompatActivity {
         declarations();
         addSlidingTileButtonListener();
         addBattleshipButtonListener();
+        addPongGameButtonListener();
         SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("my_prefs", Context.MODE_PRIVATE);
         int bg = sharedPref.getInt("background_resources", android.R.color.white); // the second parameter will be fallback if the preference is not found
         getWindow().setBackgroundDrawableResource(bg);
@@ -36,6 +40,7 @@ public class GameSelectionActivity extends AppCompatActivity {
     private void declarations() {
         slidingTiles = findViewById(R.id.slidingTileButton);
         battleShip = findViewById(R.id.battleshipButton);
+        pong = findViewById((R.id.pong_game));
         username = getIntent().getStringExtra("username"); // retrieve the current user from previous activity
     }
 
@@ -62,6 +67,16 @@ public class GameSelectionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(GameSelectionActivity.this, BattleshipMainActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void addPongGameButtonListener(){
+        pong.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(GameSelectionActivity.this, PongMainActivity.class);
                 startActivity(intent);
             }
         });

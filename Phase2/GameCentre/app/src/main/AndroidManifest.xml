@@ -37,6 +37,7 @@
         <activity android:name=".DownloadingActivity" />
         <activity android:name="generalactivities.SettingActivity" />
         <activity android:name="fall2018.csc2017.battleship.BattleshipMainActivity"></activity>
+        <activity android:name="fall2018.csc2017.pong.PongMainActivity"></activity>
     </application>
 
 </manifest>
