@@ -8,7 +8,7 @@ public class Ball {
     /**
      * Coordinates of the ball on the screen
      */
-    private RectF Rect;
+    private RectF rect;
     /**
      * Velocity in the X direction
      */
@@ -28,7 +28,7 @@ public class Ball {
 
     public Ball(int screenX, int screenY) {
 
-        // Make the mBall size relative to the screen resolution
+        // Make the ball size relative to the screen resolution
         BallWidth = screenX / 100;
         BallHeight = BallWidth;
 
@@ -37,17 +37,17 @@ public class Ball {
         YVelocity = screenY / 4;
         XVelocity = YVelocity;
 
-        // Initialize the Rect which is the coordinates of the ball.
-        Rect = new RectF();
+        // Initialize the rect which is the coordinates of the ball.
+        rect = new RectF();
 
     }
 
     /**
-     * Returns the Rect
-     * @return Rect, the position of the ball.
+     * Returns the rect
+     * @return rect, the position of the ball.
      */
     public RectF getRect() {
-        return Rect;
+        return rect;
     }
 
     /**
@@ -56,10 +56,10 @@ public class Ball {
      */
     public void update(long fps) {
         // Use fps to calculate so that it moves at consistent speed among all devices.
-        Rect.left = Rect.left + (XVelocity / fps);
-        Rect.top = Rect.top + (YVelocity / fps);
-        Rect.right = Rect.left + BallWidth;
-        Rect.bottom = Rect.top - BallHeight;
+        rect.left = rect.left + (XVelocity / fps);
+        rect.top = rect.top + (YVelocity / fps);
+        rect.right = rect.left + BallWidth;
+        rect.bottom = rect.top - BallHeight;
     }
 
     /**
@@ -95,5 +95,35 @@ public class Ball {
     public void increaseVelocity(){
         XVelocity += XVelocity / 10;
         YVelocity += YVelocity / 10;
+    }
+
+    /**
+     * Clears an obstacle on vertical axis
+     * @param y coordinate
+     */
+    public void clearObstacleY(float y){
+        rect.bottom = y;
+        rect.top = y - BallHeight;
+    }
+
+    /**
+     * Clears an obstacle on horizontal axis
+     * @param x coordinate
+     */
+    public void clearObstacleX(float x){
+        rect.left = x;
+        rect.right = x + BallWidth;
+    }
+
+    /**
+     * Reset coordinate of ball to the bottom center of the screen
+     * @param x coordinate
+     * @param y coordinate
+     */
+    public void reset(int x, int y){
+        rect.left = x / 2;
+        rect.top = y - 20;
+        rect.right = x / 2 + BallWidth;
+        rect.bottom = y - 20 - BallHeight;
     }
 }
