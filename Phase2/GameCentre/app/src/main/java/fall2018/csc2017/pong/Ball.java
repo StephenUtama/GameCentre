@@ -26,6 +26,11 @@ public class Ball {
      */
     private float BallHeight;
 
+    /**
+     * Constructor for Ball
+     * @param screenX Width of screen
+     * @param screenY Height of screen
+     */
     public Ball(int screenX, int screenY) {
 
         // Make the ball size relative to the screen resolution

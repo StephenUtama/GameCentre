@@ -11,15 +11,15 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
     /**
      * A Thread that we will start and stop from the pause and resume methods.
      */
-    Thread gameThread = null;
+    Thread thread = null;
 
     /**
      * A SurfaceHolder allows us to draw.
      */
-    SurfaceHolder ourHolder;
+    SurfaceHolder surfaceHolder;
 
     /**
-     * Whether or not game is running (from gameThread).
+     * Whether or not game is running (from thread).
      * Volatile because it is accessed from inside and outside the thread
      */
     volatile boolean playing;
@@ -83,7 +83,12 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
      */
     int lives = 3;
 
-
+    /**
+     * Constructor for PongSurfaceView
+     * @param context
+     * @param x width of screen
+     * @param y height of screen
+     */
     public PongSurfaceView(Context context, int x, int y) {
 
     /*
@@ -96,8 +101,8 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
         screenWidth = x;
         screenHeight = y;
 
-        // Initialize ourHolder and paint objects
-        ourHolder = getHolder();
+        // Initialize surfaceHolder and paint objects
+        surfaceHolder = getHolder();
         paint = new Paint();
 
         // A new racket
