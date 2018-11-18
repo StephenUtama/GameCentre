@@ -82,4 +82,5 @@ public class GameSelectionActivity extends AppCompatActivity {
             }
         });
     }
+
 }
