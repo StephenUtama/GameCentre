@@ -250,3 +250,5 @@ public class StartingActivity extends AppCompatActivity {
         }
     }
 }
+
+//
