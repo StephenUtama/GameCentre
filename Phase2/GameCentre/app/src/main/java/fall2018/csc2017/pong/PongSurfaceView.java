@@ -166,6 +166,9 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
 
     }
 
+    /**
+     * Start/Restart the game.
+     */
     public void setupAndRestart(){
         // Put the ball back to the start
         ball.reset(screenX, screenY);
