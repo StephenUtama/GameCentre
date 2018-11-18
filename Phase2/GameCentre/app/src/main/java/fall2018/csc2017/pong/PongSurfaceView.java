@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.Log;
 import android.graphics.RectF;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -156,8 +157,9 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
         }
     }
 
-
-
+    /**
+     * Updates the rect of the ball and racket
+     */
     public void update() {
 
         // Move the racket if required
@@ -256,5 +258,36 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
         this.playing = true;
         this.thread = new Thread(this);
         this.thread.start();
+    }
+
+    // The SurfaceView class implements onTouchListener
+// So we can override this method and detect screen touches.
+    @Override
+    public boolean onTouchEvent(MotionEvent motionEvent) {
+
+        switch (motionEvent.getAction() & MotionEvent.ACTION_MASK) {
+
+            // Player has touched the screen
+            case MotionEvent.ACTION_DOWN:
+
+                paused = false;
+
+                // Is the touch on the right or left?
+                if(motionEvent.getX() > screenWidth / 2){
+                    racket.setMovementState(racket.RIGHT);
+                }
+                else{
+                    racket.setMovementState(racket.LEFT);
+                }
+
+                break;
+
+            // Player has removed finger from screen
+            case MotionEvent.ACTION_UP:
+
+                racket.setMovementState(racket.STOPPED);
+                break;
+        }
+        return true;
     }
 }
