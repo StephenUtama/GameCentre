@@ -235,9 +235,6 @@ public class StartingActivity extends AppCompatActivity {
     private void loadScoreboards() {
         try {
             InputStream inputStream = this.openFileInput("SAVED_SCOREBOARDS");
-            if (inputStream == null) {
-                scoreboards = new SlidingTileScoreboards();
-            }
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
                 scoreboards = (SlidingTileScoreboards) input.readObject();
