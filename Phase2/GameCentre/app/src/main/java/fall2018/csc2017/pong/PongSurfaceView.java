@@ -1,19 +1,10 @@
 package fall2018.csc2017.pong;
 
 import android.content.Context;
-import android.content.res.AssetFileDescriptor;
-import android.content.res.AssetManager;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.media.AudioAttributes;
-import android.media.AudioManager;
-import android.media.SoundPool;
-import android.os.Build;
-import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-
-import java.io.IOException;
 
 public class PongSurfaceView extends SurfaceView implements Runnable {
 
@@ -64,9 +55,9 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
     int screenY;
 
     /**
-     * The player's bat.
+     * The player's racket.
      */
-    Bat bat;
+    Racket racket;
 
     /**
      * The ball.
@@ -109,8 +100,8 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
         ourHolder = getHolder();
         paint = new Paint();
 
-        // A new bat
-        bat = new Bat(screenX, screenY);
+        // A new racket
+        racket = new Racket(screenX, screenY);
 
         // Create a ball
         ball = new Ball(screenX, screenY);
