@@ -89,7 +89,7 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
 
     /**
      * Constructor for PongSurfaceView
-     * @param context
+     * @param context context of the PongMainActivity
      * @param x width of screen
      * @param y height of screen
      */
@@ -260,8 +260,6 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
         this.thread.start();
     }
 
-    // The SurfaceView class implements onTouchListener
-// So we can override this method and detect screen touches.
     @Override
     public boolean onTouchEvent(MotionEvent motionEvent) {
 

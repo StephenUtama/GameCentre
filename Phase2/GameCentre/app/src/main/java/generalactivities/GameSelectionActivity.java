@@ -11,6 +11,7 @@ import android.widget.Button;
 
 import fall2018.csc2017.battleship.BattleshipMainActivity;
 import fall2018.csc2017.pong.PongMainActivity;
+import fall2018.csc2017.pong.PongStartingActivity;
 import fall2018.csc2017.slidingtiles.R;
 import fall2018.csc2017.slidingtiles.SlidingTilesComplexityActivity;
 
@@ -76,7 +77,7 @@ public class GameSelectionActivity extends AppCompatActivity {
         pong.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(GameSelectionActivity.this, PongMainActivity.class);
+                Intent intent = new Intent(GameSelectionActivity.this, PongStartingActivity.class);
                 startActivity(intent);
             }
         });
