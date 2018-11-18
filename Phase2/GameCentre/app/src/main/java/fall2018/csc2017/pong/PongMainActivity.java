@@ -17,17 +17,17 @@ public class PongMainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.pong_game_view);
         // Get a Display object to access screen details
         Display display = getWindowManager().getDefaultDisplay();
 
         // Load the resolution into a Point object
         Point size = new Point();
         display.getSize(size);
-
+        pongView = findViewById(R.id.pongSurfaceView);
         // Initialize pongView and set it as the view
         pongView = new PongSurfaceView(this, size.x, size.y);
-        setContentView(pongView);
+
 
     }
 

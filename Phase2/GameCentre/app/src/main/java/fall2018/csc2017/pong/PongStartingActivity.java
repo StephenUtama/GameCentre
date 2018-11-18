@@ -17,15 +17,21 @@ public class PongStartingActivity extends AppCompatActivity {
     private Button pongGame;
     private Button pongScore;
     private Button pongLoad;
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pong_main_menu);
+        declarations();
+        addPongGameButtonListener();
+    }
+
+    private void declarations(){
         pongGame = findViewById(R.id.new_pong);
         pongScore = findViewById(R.id.pong_score);
         pongLoad = findViewById(R.id.pong_load);
-        addPongGameButtonListener();
+        username = getIntent().getStringExtra("username");
     }
 
     private void addPongGameButtonListener() {
@@ -62,4 +68,15 @@ public class PongStartingActivity extends AppCompatActivity {
         });
     }
      **/
+
+    // TODO
+    /**
+     * 1. Pause button and resume from there
+     * 2. Once the game is over, prompt the user with text field
+     * 3. Save the game when it is over
+     * 4. Add the save button to the paused menu
+     * 5. Save that game state into a file when save is clicked
+     * 6. Connect scoreboard to saved file and user
+     * 7. Add extra functions to pong game (eg. sound and power up items)
+     */
 }
