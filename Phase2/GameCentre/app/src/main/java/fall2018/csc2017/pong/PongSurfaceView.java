@@ -3,6 +3,7 @@ package fall2018.csc2017.pong;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.RectF;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -139,7 +140,7 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
 
             // If not paused update the frame
             if(!paused){
-                // update();
+                update();
             }
 
             // Draw the frame
@@ -155,6 +156,62 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
         }
     }
 
+    /**
+     * Updates the rect of the ball.
+     */
+    public void update() {
+
+        // Move the mBat if required
+        racket.update(fps);
+        ball.update(fps);
+        // Check for mBall colliding with mBat
+        if(RectF.intersects(racket.getRect(), ball.getRect())) {
+            ball.setRandomXVelocity();
+            ball.reverseYVelocity();
+            ball.clearObstacleY(racket.getRect().top - 2);
+
+            score++;
+            ball.increaseVelocity();
+
+            // sp.play(beep1ID, 1, 1, 0, 0, 1);
+        }
+        // Bounce the mBall back when it hits the bottom of screen
+        if(ball.getRect().bottom > screenHeight){
+            ball.reverseYVelocity();
+            ball.clearObstacleY(screenHeight - 2);
+
+            // Lose a life
+            lives--;
+            // sp.play(loseLifeID, 1, 1, 0, 0, 1);
+
+            if(lives == 0){
+                paused = true;
+                setupAndRestart();
+            }
+        }
+        // Bounce the mBall back when it hits the top of screen
+        if(ball.getRect().top < 0){
+            ball.reverseYVelocity();
+            ball.clearObstacleY(12);
+
+            // sp.play(beep2ID, 1, 1, 0, 0, 1);
+        }
+        // If the mBall hits left wall bounce
+        if(ball.getRect().left < 0){
+            ball.reverseXVelocity();
+            ball.clearObstacleX(2);
+
+            // sp.play(beep3ID, 1, 1, 0, 0, 1);
+        }
+        // If the mBall hits right wall bounce
+        if(ball.getRect().right > screenWidth){
+            ball.reverseXVelocity();
+            ball.clearObstacleX(screenWidth - 22);
+
+            // sp.play(beep3ID, 1, 1, 0, 0, 1);
+        }
+
+    }
     public void draw(){
 
     }
