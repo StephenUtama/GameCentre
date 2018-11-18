@@ -1,4 +1,4 @@
-package pongunittest;
+package pong;
 
 import fall2018.csc2017.pong.Racket;
 
