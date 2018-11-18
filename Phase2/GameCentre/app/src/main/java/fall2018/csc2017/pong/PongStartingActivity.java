@@ -22,7 +22,7 @@ public class PongStartingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pong_main_menu);
-        pongGame = findViewById(R.id.pong_game);
+        pongGame = findViewById(R.id.new_pong);
         pongScore = findViewById(R.id.pong_score);
         pongLoad = findViewById(R.id.pong_load);
         addPongGameButtonListener();
