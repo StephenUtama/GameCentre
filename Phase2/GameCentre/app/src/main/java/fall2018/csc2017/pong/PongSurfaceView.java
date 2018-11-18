@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.Log;
+import android.graphics.RectF;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -153,6 +154,66 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
                 fps = 1000 / timeThisFrame;
             }
         }
+    }
+
+
+
+    public void update() {
+
+        // Move the racket if required
+        racket.update(fps);
+        ball.update(fps);
+
+        // If ball colliding with racket
+        if(RectF.intersects(racket.getRect(), ball.getRect())) {
+            ball.setRandomXVelocity();
+            ball.reverseYVelocity();
+            ball.clearObstacleY(racket.getRect().top - 2);
+
+            score++;
+            ball.increaseVelocity();
+
+            // sp.play(beep1ID, 1, 1, 0, 0, 1);
+        }
+
+        // If ball hits bottom of the screen
+        if(ball.getRect().bottom > screenHeight){
+            ball.reverseYVelocity();
+            ball.clearObstacleY(screenHeight - 2);
+
+            // Lose a life
+            lives--;
+            // sp.play(loseLifeID, 1, 1, 0, 0, 1);
+
+            if(lives == 0){
+                paused = true;
+                setupAndRestart();
+            }
+        }
+        // If ball hits top of the screen
+        if(ball.getRect().top < 0){
+            ball.reverseYVelocity();
+            ball.clearObstacleY(12);
+
+            // sp.play(beep2ID, 1, 1, 0, 0, 1);
+        }
+
+        // If ball hits left of the screen
+        if(ball.getRect().left < 0){
+            ball.reverseXVelocity();
+            ball.clearObstacleX(2);
+
+            // sp.play(beep3ID, 1, 1, 0, 0, 1);
+        }
+
+        // If ball hits right of the screen
+        if(ball.getRect().right > screenWidth){
+            ball.reverseXVelocity();
+            ball.clearObstacleX(screenWidth - 22);
+
+            // sp.play(beep3ID, 1, 1, 0, 0, 1);
+        }
+
     }
 
     /**
