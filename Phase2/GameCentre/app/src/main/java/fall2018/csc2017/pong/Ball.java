@@ -127,8 +127,8 @@ public class Ball {
      */
     public void reset(int x, int y){
         rect.left = x / 2;
-        rect.top = y - 20;
+        rect.top = y / 10;
         rect.right = x / 2 + BallWidth;
-        rect.bottom = y - 20 - BallHeight;
+        rect.bottom = y / 10 - BallHeight;
     }
 }
