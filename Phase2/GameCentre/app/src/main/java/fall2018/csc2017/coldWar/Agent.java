@@ -4,5 +4,5 @@ public abstract class Agent {
     String owner;
 
     public abstract void attack(Agent agent);
-    public abstract void getPicture(); // TODO fix the return type
+    public abstract int getPicture();
 }

@@ -7,17 +7,19 @@ import android.view.View;
 import android.widget.GridView;
 import android.widget.ImageView;
 
+import java.util.List;
+
 public class ImageAdapterGridView extends BaseAdapter {
     private Context mContext;
-    private Integer[] imageIDs;
+    private List<Integer> imageIDs;
 
-    public ImageAdapterGridView(Context c, Integer[] imageIDs) {
+    public ImageAdapterGridView(Context c, List<Integer> imageIDs) {
         mContext = c;
         this.imageIDs = imageIDs;
     }
 
     public int getCount() {
-        return imageIDs.length;
+        return imageIDs.size();
     }
 
     public Object getItem(int position) {
@@ -39,7 +41,7 @@ public class ImageAdapterGridView extends BaseAdapter {
         } else {
             mImageView = (ImageView) convertView;
         }
-        mImageView.setImageResource(imageIDs[position]);
+        mImageView.setImageResource(imageIDs.get(position));
         return mImageView;
     }
 }

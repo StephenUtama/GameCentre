@@ -7,15 +7,16 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import fall2018.csc2017.slidingtiles.R;
 
 public class ColdWarMainActivity extends AppCompatActivity {
 
     GridView gridView;
 
-    Integer[] imageIDs = {
-            R.drawable.tile_1, R.drawable.tile_2, R.drawable.tile_3,
-    };
+    List<Integer> imageIDs;
 
     int selectedPosition = -1;
 
@@ -25,6 +26,8 @@ public class ColdWarMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cold_war_main);
 
+        ColdWarGameInfo gameInfo = new ColdWarGameInfo();
+        imageIDs = gameInfo.getImageIDs();
         gridView = findViewById(R.id.battleshipGridView);
         gridView.setAdapter(new ImageAdapterGridView(this, imageIDs));
 
