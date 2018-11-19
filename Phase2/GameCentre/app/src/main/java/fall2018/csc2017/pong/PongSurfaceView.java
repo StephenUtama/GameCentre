@@ -7,11 +7,8 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.widget.Toast;
-<<<<<<< Updated upstream
-=======
 
 import generalactivities.SettingActivity;
->>>>>>> Stashed changes
 
 public class PongSurfaceView extends SurfaceView implements Runnable {
 
@@ -43,12 +40,7 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
      * @param screenWidth width of screen
      * @param screenHeight height of screen
      */
-<<<<<<< Updated upstream
     public PongSurfaceView(Context context, int screenWidth, int screenHeight, Object controller) {
-
-=======
-    public PongSurfaceView(Context context, int screenWidth, int screenHeight) {
->>>>>>> Stashed changes
         super(context);
         this.context = context;
         // Initialize the width and height of the screen.

@@ -1,6 +1,4 @@
-package fall2018.csc2017.coldWar;
-
-import android.widget.ArrayAdapter;
+package fall2018.csc2017.coldwar;
 
 import java.util.ArrayList;
 import java.util.List;

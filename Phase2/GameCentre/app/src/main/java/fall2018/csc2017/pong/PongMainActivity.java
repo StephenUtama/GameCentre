@@ -1,10 +1,5 @@
 package fall2018.csc2017.pong;
 
-<<<<<<< Updated upstream
-=======
-import android.app.Activity;
-import android.content.Intent;
->>>>>>> Stashed changes
 import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;

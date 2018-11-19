@@ -1,4 +1,4 @@
-package fall2018.csc2017.coldWar;
+package fall2018.csc2017.coldwar;
 import generalclasses.Manager;
 
 public class ColdWarManager extends Manager {
