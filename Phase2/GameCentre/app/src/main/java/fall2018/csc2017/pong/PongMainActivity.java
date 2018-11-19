@@ -33,7 +33,7 @@ public class PongMainActivity extends AppCompatActivity {
         // Initialize pongView and set it as the view
         pongView = new PongSurfaceView(this, size.x, size.y);
 
-        //find your frame layout
+        //Create your frame layout
         FrameLayout frameLayout = new FrameLayout(this);
 
         //Adding PongView into frameLayout
@@ -48,9 +48,13 @@ public class PongMainActivity extends AppCompatActivity {
                 Toast.makeText(PongMainActivity.this, "Paused!", Toast.LENGTH_SHORT).show();
                 }
         });
+
+        /// Declaring and initializing LayoutParams for the frameLayout
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.WRAP_CONTENT,
                 FrameLayout.LayoutParams.WRAP_CONTENT);
+
+        // Setting the location of the button
         params.setMargins(0, 0, 0, 0);
         params.gravity = Gravity.CENTER_HORIZONTAL;
 
