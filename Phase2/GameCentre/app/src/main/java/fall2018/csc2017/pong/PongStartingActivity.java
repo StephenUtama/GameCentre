@@ -91,9 +91,7 @@ public class PongStartingActivity extends AppCompatActivity {
         pongLoad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PongStartingActivity.this, PongMainActivity.class);
-                intent.putExtra("username", username);
-                startActivity(intent);
+
                 AlertDialog.Builder alert = new AlertDialog.Builder(PongStartingActivity.this);
                 alert.setTitle("Select your save");
                 alert.setIcon(android.R.drawable.ic_dialog_alert);
@@ -129,6 +127,7 @@ public class PongStartingActivity extends AppCompatActivity {
         // start the game with the correct GameInfo
         Intent intent = new Intent(PongStartingActivity.this, PongMainActivity.class);
         intent.putExtra("saveToLoad", saveToLoad);
+        intent.putExtra("username", username);
         startActivity(intent);
     }
 
