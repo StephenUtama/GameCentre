@@ -1,4 +1,4 @@
-package fall2018.csc2017.coldwar;
+package fall2018.csc2017.coldWar;
 
 import fall2018.csc2017.slidingtiles.R;
 
