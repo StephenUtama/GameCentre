@@ -69,7 +69,9 @@ public class PongMainActivity extends AppCompatActivity {
         inGameMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(PongMainActivity.this, "Paused!", Toast.LENGTH_SHORT).show();
+                PongGameController.paused = true;
+                Toast.makeText(PongMainActivity.this, "Paused and Saved!", Toast.LENGTH_SHORT).show();
+
             }
         });
     }

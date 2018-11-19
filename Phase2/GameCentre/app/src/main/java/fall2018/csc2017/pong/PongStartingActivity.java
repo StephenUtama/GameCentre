@@ -39,7 +39,7 @@ public class PongStartingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PongStartingActivity.this, PongMainActivity.class);
-                //intent.putExtra("username", username);
+                intent.putExtra("username", username);
                 startActivity(intent);
             }
         });

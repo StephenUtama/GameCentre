@@ -44,12 +44,12 @@ public class PongGameController implements GameController {
      * Whether or not game is running (from thread).
      * Volatile because it is accessed from inside and outside the thread
      */
-    volatile boolean playing;
+    volatile static boolean playing;
 
     /**
      * Whether or not the game is paused.
      */
-    boolean paused = true;
+    static boolean paused = true;
 
     /**
      * Canvas to draw on.
