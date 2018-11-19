@@ -27,7 +27,7 @@ public class User implements Serializable {
     /**
      * A hash map that maps each user's saves to its saved GameInfo based on its game.
      */
-    private HashMap<String, HashMap<String, GameInfo>> gameToSaves;
+    private HashMap<String, HashMap<String, Object>> gameToSaves;
 
     public User(String name, String password) {
         this.name = name;
@@ -54,12 +54,12 @@ public class User implements Serializable {
     /**
      * @param newSave a new GameInfo to be saved.
      */
-    public void addSave(String game, String saveName, GameInfo newSave) {
+    public void addSave(String game, String saveName, Object newSave) {
         if (gameToSaves.keySet().contains(game)) {
-            HashMap<String, GameInfo> saves = gameToSaves.get(game);
+            HashMap<String, Object> saves = gameToSaves.get(game);
             saves.put(saveName, newSave);
         } else {
-            HashMap<String, GameInfo> saves = new HashMap<>();
+            HashMap<String, Object> saves = new HashMap<>();
             saves.put(saveName, newSave);
             gameToSaves.put(game, saves);
         }
@@ -70,7 +70,7 @@ public class User implements Serializable {
      * @param game a game that is from the available set of games.
      * @return the hash map of save names to GameInfos for game.
      */
-    public HashMap<String, GameInfo> getSavesForGame(String game) {
+    public HashMap<String, Object> getSavesForGame(String game) {
         if (gameToSaves.keySet().contains(game)) {
             return gameToSaves.get(game);
         }

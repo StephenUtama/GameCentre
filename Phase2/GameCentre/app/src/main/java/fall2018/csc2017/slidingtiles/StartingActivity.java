@@ -139,7 +139,7 @@ public class StartingActivity extends AppCompatActivity {
                 alert.setTitle("Select your save");
                 alert.setIcon(android.R.drawable.ic_dialog_alert);
 
-                final HashMap<String, GameInfo> saves = user.getSavesForGame(game);
+                final HashMap<String, Object> saves = user.getSavesForGame(game);
                 final String[] saveNamesWithCorrectComplexity = getSaveNamesComplexity(complexity,
                         saves);
                 alert.setItems(saveNamesWithCorrectComplexity, new DialogInterface.OnClickListener() {
@@ -163,11 +163,11 @@ public class StartingActivity extends AppCompatActivity {
      * @param i                              the index used to get the desired save in
      *                                       saveNamesWithCorrectComplexity.
      */
-    private void loadSaveAndBegin(HashMap<String, GameInfo> saves,
+    private void loadSaveAndBegin(HashMap<String, Object> saves,
                                   String[] saveNamesWithCorrectComplexity, int i) {
         // get the corresponding save
         String saveName = saveNamesWithCorrectComplexity[i];
-        GameInfo saveToLoad = saves.get(saveName);
+        GameInfo saveToLoad = (GameInfo) saves.get(saveName);
         makeToastLoadedText();
 
         // start the game with the correct GameInfo
@@ -184,7 +184,7 @@ public class StartingActivity extends AppCompatActivity {
      * @param saves      the hash map of all the existing saves
      * @return a string array of save names that have complexity complexity
      */
-    private String[] getSaveNamesComplexity(String complexity, HashMap<String, GameInfo> saves) {
+    private String[] getSaveNamesComplexity(String complexity, HashMap<String, Object> saves) {
         ArrayList<String> tempResult = new ArrayList<>();
         for (String saveName : saves.keySet()) {
             SlidingTilesGameInfo info = (SlidingTilesGameInfo) saves.get(saveName);

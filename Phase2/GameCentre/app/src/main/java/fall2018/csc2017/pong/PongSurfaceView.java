@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
+import android.widget.Toast;
 
 public class PongSurfaceView extends SurfaceView implements Runnable {
 
@@ -33,7 +34,7 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
      * @param screenWidth width of screen
      * @param screenHeight height of screen
      */
-    public PongSurfaceView(Context context, int screenWidth, int screenHeight) {
+    public PongSurfaceView(Context context, int screenWidth, int screenHeight, Object controller) {
 
         super(context);
 
@@ -42,10 +43,18 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
         this.screenHeight = screenHeight;
 
         // Initialize the controller
-        controller = new PongGameController(screenWidth, screenHeight, getHolder());
+        if (controller == null) {
+            this.controller = new PongGameController(screenWidth, screenHeight, getHolder());
+        }
+        else {
+            this.controller = (PongGameController) controller;
+        }
+        this.controller.setupAndRestart();
 
-        controller.setupAndRestart();
+    }
 
+    public PongGameController getController(){
+        return controller;
     }
 
     @Override
@@ -72,7 +81,6 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
             }
         }
     }
-
 
     @Override
     public boolean onTouchEvent(MotionEvent motionEvent) {

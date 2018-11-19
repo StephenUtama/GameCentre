@@ -1,5 +1,7 @@
 package fall2018.csc2017.pong;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
@@ -8,9 +10,17 @@ import android.view.Display;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import fall2018.csc2017.slidingtiles.GameActivity;
 import fall2018.csc2017.slidingtiles.R;
+import fall2018.csc2017.slidingtiles.SlidingTilesGameInfo;
+import fall2018.csc2017.slidingtiles.StartingActivity;
 import generalactivities.GameSelectionActivity;
 import generalactivities.MenuActivity;
+import generalclasses.GameInfo;
+import generalclasses.User;
 
 public class PongStartingActivity extends AppCompatActivity {
 
@@ -18,6 +28,7 @@ public class PongStartingActivity extends AppCompatActivity {
     private Button pongScore;
     private Button pongLoad;
     private String username;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +36,8 @@ public class PongStartingActivity extends AppCompatActivity {
         setContentView(R.layout.pong_main_menu);
         declarations();
         addPongGameButtonListener();
+        user = User.usernameToUser.get(username);
+        addPongLoadButtonListener();
     }
 
     private void declarations(){
@@ -56,18 +69,68 @@ public class PongStartingActivity extends AppCompatActivity {
             }
         });
     }
+    **/
+
+    /**
+     * Get all the save names that have a given complexity.
+     *
+     * @param saves      the hash map of all the existing saves
+     * @return a string array of save names that have complexity complexity
+     */
+    private String[] getSaveNames(HashMap<String, Object> saves) {
+        ArrayList<String> tempResult = new ArrayList<>();
+        for (String saveName : saves.keySet()) {
+            tempResult.add(saveName);
+            }
+        return tempResult.toArray(new String[tempResult.size()]);
+    }
+
+
 
     private void addPongLoadButtonListener() {
-        pongGame.setOnClickListener(new View.OnClickListener() {
+        pongLoad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PongStartingActivity.this, PongMainActivity.class);
-                //intent.putExtra("username", username);
+                intent.putExtra("username", username);
                 startActivity(intent);
+                AlertDialog.Builder alert = new AlertDialog.Builder(PongStartingActivity.this);
+                alert.setTitle("Select your save");
+                alert.setIcon(android.R.drawable.ic_dialog_alert);
+
+                final HashMap<String, Object> saves = user.getSavesForGame("Pong");
+                final String[] saveNames = getSaveNames(saves);
+                alert.setItems(saveNames, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int i) {
+                        loadSaveAndBegin(saves, saveNames, i);
+                    }
+                });
+                alert.show();
             }
         });
     }
-     **/
+
+    /**
+     * Get the save that corresponds to index i in saveNamesWithCorrectComplexity, and load that
+     * save to begin GameActivity.
+     *
+     * @param saves                          the hash map that details all the user's saves.
+     * @param saveNames string list of all save names with correct complexity.
+     * @param i                              the index used to get the desired save in
+     *                                       saveNamesWithCorrectComplexity.
+     */
+    private void loadSaveAndBegin(HashMap<String, Object> saves,String[] saveNames ,int i) {
+        String saveName = saveNames[i];
+
+        // get the corresponding save
+        PongGameController saveToLoad = (PongGameController) saves.get(saveName);
+
+        // start the game with the correct GameInfo
+        Intent intent = new Intent(PongStartingActivity.this, PongMainActivity.class);
+        intent.putExtra("saveToLoad", saveToLoad);
+        startActivity(intent);
+    }
 
     // TODO
     /**

@@ -8,13 +8,15 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 import android.widget.Toast;
 
+import java.io.Serializable;
+
 import generalclasses.GameController;
 
 /**
  * Controller acts on both model and view. It controls the data flow into model object and updates
  * the view whenever data changes. It keeps view and model separate.
  */
-public class PongGameController implements GameController {
+public class PongGameController implements GameController, Serializable {
 
     /**
      * Size of vertical screen in pixels.
@@ -139,9 +141,8 @@ public class PongGameController implements GameController {
             // sp.play(loseLifeID, 1, 1, 0, 0, 1);
 
             if(lives == 0){
-//                PongMainActivity.
-//                paused = true;
-//                setupAndRestart();
+                paused = true;
+                setupAndRestart();
             }
         }
         // If ball hits top of the screen
