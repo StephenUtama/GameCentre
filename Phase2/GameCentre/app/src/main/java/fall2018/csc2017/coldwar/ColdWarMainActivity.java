@@ -29,7 +29,7 @@ public class ColdWarMainActivity extends AppCompatActivity {
 
         ColdWarGameInfo gameInfo = new ColdWarGameInfo();
         imageIDs = gameInfo.getImageIDs();
-        gridView = findViewById(R.id.battleshipGridView);
+        gridView = findViewById(R.id.coldWarGridView);
         gridView.setAdapter(new ImageAdapterGridView(this, imageIDs));
 
 
