@@ -1,4 +1,4 @@
-package fall2018.csc2017.battleship;
+package fall2018.csc2017.coldwar;
 
 import android.content.Context;
 import android.view.ViewGroup;
