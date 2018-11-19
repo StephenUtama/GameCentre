@@ -184,7 +184,6 @@ public class PongGameController implements GameController {
             this.paint.setTextSize(40);
             this.canvas.drawText("Score: " + this.score + "  Lives: " + this.lives,
                     10,50, this.paint);
-
             this.surfaceHolder.unlockCanvasAndPost(this.canvas);
         }
     }

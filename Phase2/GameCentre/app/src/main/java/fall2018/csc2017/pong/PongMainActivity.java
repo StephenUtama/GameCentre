@@ -1,5 +1,7 @@
 package fall2018.csc2017.pong;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +20,7 @@ public class PongMainActivity extends AppCompatActivity {
      * View of the game
      */
     PongSurfaceView pongView;
+    private Button inGameMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,15 +43,10 @@ public class PongMainActivity extends AppCompatActivity {
         frameLayout.addView(pongView);
 
         //Creating button
-        Button button1 = new Button(this);
-        button1.setText("Pause");
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(PongMainActivity.this, "Paused!", Toast.LENGTH_SHORT).show();
-                }
-        });
-
+        inGameMenu = new Button(this);
+        inGameMenu.setText("Menu");
+        inGameMenu.setBackgroundColor(Color.TRANSPARENT);
+        addInGameMenuButtonListener();
         /// Declaring and initializing LayoutParams for the frameLayout
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.WRAP_CONTENT,
@@ -56,15 +54,24 @@ public class PongMainActivity extends AppCompatActivity {
 
         // Setting the location of the button
         params.setMargins(0, 0, 0, 0);
-        params.gravity = Gravity.CENTER_HORIZONTAL;
+        params.gravity = Gravity.RIGHT;
 
-        //Adding button1 to frameLayout
-        frameLayout.addView(button1, params);
+        //Adding inGameMenu to frameLayout
+        frameLayout.addView(inGameMenu, params);
 
         setContentView(frameLayout);
 
 
 
+    }
+
+    private void addInGameMenuButtonListener() {
+        inGameMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(PongMainActivity.this, "Paused!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     /**
