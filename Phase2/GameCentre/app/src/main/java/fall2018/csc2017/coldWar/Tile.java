@@ -11,7 +11,7 @@ public class Tile {
 
     public int getPicture() {
         if (this.agent == null) {
-            return R.drawable.tile_25;
+            return R.drawable.cold_war_blank_tile;
         }
         return agent.getPicture();
     }

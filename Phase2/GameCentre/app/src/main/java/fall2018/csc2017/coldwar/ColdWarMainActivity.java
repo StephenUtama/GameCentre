@@ -7,10 +7,8 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import fall2018.csc2017.coldwar.ImageAdapterGridView;
 import fall2018.csc2017.slidingtiles.R;
 
 public class ColdWarMainActivity extends AppCompatActivity {
