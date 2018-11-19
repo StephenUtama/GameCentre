@@ -6,6 +6,7 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.Log;
 import android.view.SurfaceHolder;
+import android.widget.Toast;
 
 import generalclasses.GameController;
 
@@ -44,12 +45,12 @@ public class PongGameController implements GameController {
      * Whether or not game is running (from thread).
      * Volatile because it is accessed from inside and outside the thread
      */
-    volatile boolean playing;
+    volatile static boolean playing;
 
     /**
      * Whether or not the game is paused.
      */
-    boolean paused = true;
+    static boolean paused = true;
 
     /**
      * Canvas to draw on.
@@ -138,6 +139,7 @@ public class PongGameController implements GameController {
             // sp.play(loseLifeID, 1, 1, 0, 0, 1);
 
             if(lives == 0){
+                PongMainActivity.
                 paused = true;
                 setupAndRestart();
             }
@@ -184,7 +186,6 @@ public class PongGameController implements GameController {
             this.paint.setTextSize(40);
             this.canvas.drawText("Score: " + this.score + "  Lives: " + this.lives,
                     10,50, this.paint);
-
             this.surfaceHolder.unlockCanvasAndPost(this.canvas);
         }
     }

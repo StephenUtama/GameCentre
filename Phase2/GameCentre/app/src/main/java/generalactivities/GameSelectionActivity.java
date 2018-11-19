@@ -78,6 +78,7 @@ public class GameSelectionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(GameSelectionActivity.this, PongStartingActivity.class);
+                intent.putExtra("username", username);
                 startActivity(intent);
             }
         });

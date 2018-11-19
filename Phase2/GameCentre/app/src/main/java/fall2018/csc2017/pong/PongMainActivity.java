@@ -1,9 +1,16 @@
 package fall2018.csc2017.pong;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Display;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import fall2018.csc2017.slidingtiles.R;
 
@@ -13,6 +20,7 @@ public class PongMainActivity extends AppCompatActivity {
      * View of the game
      */
     PongSurfaceView pongView;
+    private Button inGameMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +35,43 @@ public class PongMainActivity extends AppCompatActivity {
 
         // Initialize pongView and set it as the view
         pongView = new PongSurfaceView(this, size.x, size.y);
-        setContentView(pongView);
 
+        //Create your frame layout
+        FrameLayout frameLayout = new FrameLayout(this);
+
+        //Adding PongView into frameLayout
+        frameLayout.addView(pongView);
+
+        //Creating button
+        inGameMenu = new Button(this);
+        inGameMenu.setText("SAVE");
+        inGameMenu.setBackgroundColor(Color.TRANSPARENT);
+        addInGameMenuButtonListener();
+        /// Declaring and initializing LayoutParams for the frameLayout
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.WRAP_CONTENT,
+                FrameLayout.LayoutParams.WRAP_CONTENT);
+
+        // Setting the location of the button
+        params.setMargins(0, 0, 0, 0);
+        params.gravity = Gravity.RIGHT;
+
+        //Adding inGameMenu to frameLayout
+        frameLayout.addView(inGameMenu, params);
+
+        setContentView(frameLayout);
+
+    }
+
+    private void addInGameMenuButtonListener() {
+        inGameMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PongGameController.paused = true;
+                Toast.makeText(PongMainActivity.this, "Paused and Saved!", Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 
     /**
@@ -47,5 +90,9 @@ public class PongMainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         pongView.pause();
+    }
+
+    public void promptGameOver(){
+        Toast.makeText(this, "Score: ", Toast.LENGTH_SHORT).show();
     }
 }
