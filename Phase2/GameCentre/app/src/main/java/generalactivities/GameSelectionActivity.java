@@ -9,8 +9,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-import fall2018.csc2017.battleship.BattleshipMainActivity;
-import fall2018.csc2017.pong.PongMainActivity;
+import fall2018.csc2017.battleship.ColdWarMainActivity;
 import fall2018.csc2017.pong.PongStartingActivity;
 import fall2018.csc2017.slidingtiles.R;
 import fall2018.csc2017.slidingtiles.SlidingTilesComplexityActivity;
@@ -67,7 +66,7 @@ public class GameSelectionActivity extends AppCompatActivity {
         battleShip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(GameSelectionActivity.this, BattleshipMainActivity.class);
+                Intent intent = new Intent(GameSelectionActivity.this, ColdWarMainActivity.class);
                 startActivity(intent);
             }
         });

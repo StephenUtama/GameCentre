@@ -139,9 +139,9 @@ public class PongGameController implements GameController {
             // sp.play(loseLifeID, 1, 1, 0, 0, 1);
 
             if(lives == 0){
-                PongMainActivity.
-                paused = true;
-                setupAndRestart();
+//                PongMainActivity.
+//                paused = true;
+//                setupAndRestart();
             }
         }
         // If ball hits top of the screen
