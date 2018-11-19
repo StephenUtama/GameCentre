@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-import fall2018.csc2017.coldwar.ColdWarMainActivity;
+import fall2018.csc2017.coldWar.ColdWarMainActivity;
 import fall2018.csc2017.pong.PongStartingActivity;
 import fall2018.csc2017.slidingtiles.R;
 import fall2018.csc2017.slidingtiles.SlidingTilesComplexityActivity;
