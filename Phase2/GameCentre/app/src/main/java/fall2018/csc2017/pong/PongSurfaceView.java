@@ -1,10 +1,17 @@
 package fall2018.csc2017.pong;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.widget.Toast;
+<<<<<<< Updated upstream
+=======
+
+import generalactivities.SettingActivity;
+>>>>>>> Stashed changes
 
 public class PongSurfaceView extends SurfaceView implements Runnable {
 
@@ -28,20 +35,25 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
      */
     PongGameController controller;
 
+    Context context;
+
     /**
      * Constructor for PongSurfaceView
      * @param context context of the PongMainActivity
      * @param screenWidth width of screen
      * @param screenHeight height of screen
      */
+<<<<<<< Updated upstream
     public PongSurfaceView(Context context, int screenWidth, int screenHeight, Object controller) {
 
+=======
+    public PongSurfaceView(Context context, int screenWidth, int screenHeight) {
+>>>>>>> Stashed changes
         super(context);
-
+        this.context = context;
         // Initialize the width and height of the screen.
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
-
         // Initialize the controller
         if (controller == null) {
             this.controller = new PongGameController(screenWidth, screenHeight, getHolder());
@@ -91,6 +103,10 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
             case MotionEvent.ACTION_DOWN:
 
                 controller.paused = false;
+                if (controller.lives == 0){
+                    Toast.makeText(this.context, "Game Over! Score: " + controller.score, Toast.LENGTH_SHORT).show();
+                    controller.setupAndRestart();
+                }
 
                 // Is the touch on the right or left?
                 if(motionEvent.getX() > screenWidth / 2){

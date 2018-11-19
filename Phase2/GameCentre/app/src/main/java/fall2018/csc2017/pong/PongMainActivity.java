@@ -1,5 +1,10 @@
 package fall2018.csc2017.pong;
 
+<<<<<<< Updated upstream
+=======
+import android.app.Activity;
+import android.content.Intent;
+>>>>>>> Stashed changes
 import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
@@ -35,6 +40,7 @@ public class PongMainActivity extends AppCompatActivity {
     public static final String SAVE_FILENAME = "master_save_file.ser";
     private User user;
     private PongGameController controller;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,6 +123,7 @@ public class PongMainActivity extends AppCompatActivity {
         });
     }
 
+
     /**
      * Activates when game is started/resumed.
      */
@@ -150,7 +157,4 @@ public class PongMainActivity extends AppCompatActivity {
         pongView.pause();
     }
 
-    public void promptGameOver(){
-        Toast.makeText(this, "Score: ", Toast.LENGTH_SHORT).show();
-    }
 }

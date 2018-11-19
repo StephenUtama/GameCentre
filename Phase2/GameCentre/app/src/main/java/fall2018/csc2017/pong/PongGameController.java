@@ -1,5 +1,6 @@
 package fall2018.csc2017.pong;
 
+import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -142,7 +143,7 @@ public class PongGameController implements GameController, Serializable {
 
             if(lives == 0){
                 paused = true;
-                setupAndRestart();
+                //setupAndRestart();
             }
         }
         // If ball hits top of the screen
@@ -203,4 +204,8 @@ public class PongGameController implements GameController, Serializable {
             lives = 3;
         }
     }
+
+
+
+
 }

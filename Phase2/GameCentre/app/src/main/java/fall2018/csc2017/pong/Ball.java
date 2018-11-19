@@ -26,6 +26,7 @@ public class Ball {
      */
     private float BallHeight;
 
+    private int screenHeight;
     /**
      * Constructor for Ball
      * @param screenX Width of screen
@@ -36,7 +37,7 @@ public class Ball {
         // Make the ball size relative to the screen resolution
         BallWidth = screenX / 100;
         BallHeight = BallWidth;
-
+        screenHeight = screenY;
         // Start the ball travelling straight up
         // at a quarter of the screen height per second
         YVelocity = screenY / 4;
@@ -130,5 +131,7 @@ public class Ball {
         rect.top = y / 10;
         rect.right = x / 2 + BallWidth;
         rect.bottom = y / 10 - BallHeight;
+        YVelocity = screenHeight / 4;
+        XVelocity = YVelocity;
     }
 }
