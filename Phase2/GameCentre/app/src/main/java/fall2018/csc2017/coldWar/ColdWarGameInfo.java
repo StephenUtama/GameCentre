@@ -9,6 +9,8 @@ public class ColdWarGameInfo extends GameInfo {
     int userReputation;
     int guestReputation;
 
+//    public ColdWarGameInfo
+
     @Override
     public int getScore() {
         return 0;
