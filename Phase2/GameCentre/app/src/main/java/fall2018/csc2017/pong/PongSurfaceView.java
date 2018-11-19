@@ -49,11 +49,11 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
         // Initialize the controller
         if (controller == null) {
             this.controller = new PongGameController(screenWidth, screenHeight, getHolder());
+            this.controller.setupAndRestart();
         }
         else {
             this.controller = (PongGameController) controller;
         }
-        this.controller.setupAndRestart();
 
     }
 
