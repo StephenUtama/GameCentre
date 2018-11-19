@@ -20,7 +20,7 @@ import fall2018.csc2017.slidingtiles.SlidingTilesComplexityActivity;
 public class GameSelectionActivity extends AppCompatActivity {
 
     private Button slidingTiles;
-    private Button battleShip;
+    private Button coldWar;
     private String username;
     private Button pong;
 
@@ -30,7 +30,8 @@ public class GameSelectionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game_selections);
         declarations();
         addSlidingTileButtonListener();
-        addBattleshipButtonListener();
+//        addBattleshipButtonListener();
+        addColdWarButtonListener();
         addPongGameButtonListener();
         SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("my_prefs", Context.MODE_PRIVATE);
         int bg = sharedPref.getInt("background_resources", android.R.color.white); // the second parameter will be fallback if the preference is not found
@@ -39,7 +40,7 @@ public class GameSelectionActivity extends AppCompatActivity {
 
     private void declarations() {
         slidingTiles = findViewById(R.id.slidingTileButton);
-        battleShip = findViewById(R.id.battleshipButton);
+        coldWar = findViewById(R.id.coldWarButton);
         pong = findViewById((R.id.pong_game));
         username = getIntent().getStringExtra("username"); // retrieve the current user from previous activity
     }
@@ -62,8 +63,8 @@ public class GameSelectionActivity extends AppCompatActivity {
     /**
      * Listener for the Battleship game.
      */
-    private void addBattleshipButtonListener() {
-        battleShip.setOnClickListener(new View.OnClickListener() {
+    private void addColdWarButtonListener() {
+        coldWar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(GameSelectionActivity.this, ColdWarMainActivity.class);

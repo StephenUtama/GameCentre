@@ -32,11 +32,11 @@
             />
 
         <Button
-            android:id="@+id/battleshipButton"
+            android:id="@+id/coldWarButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:text="BattleShip"/>
+            android:text="Cold War" />
 
         <Button
             android:id="@+id/pong_game"
