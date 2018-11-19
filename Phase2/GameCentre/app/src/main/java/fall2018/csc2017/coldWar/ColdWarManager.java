@@ -14,6 +14,7 @@ public class ColdWarManager extends Manager {
 
     @Override
     public void makeMove(Object move) {
+        // just to satisfy parent
 
     }
 }
