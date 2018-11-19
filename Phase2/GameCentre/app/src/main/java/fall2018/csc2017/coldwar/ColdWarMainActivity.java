@@ -25,8 +25,6 @@ public class ColdWarMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cold_war_main);
 
-        ColdWarGameInfo gameInfo = new ColdWarGameInfo();
-        imageIDs = gameInfo.getImageIDs();
         gridView = findViewById(R.id.coldWarGridView);
         gridView.setAdapter(new ImageAdapterGridView(this, imageIDs));
 
@@ -48,5 +46,3 @@ public class ColdWarMainActivity extends AppCompatActivity {
         });
     }
 }
-
-// test
