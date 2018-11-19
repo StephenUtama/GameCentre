@@ -6,6 +6,7 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.Log;
 import android.view.SurfaceHolder;
+import android.widget.Toast;
 
 import generalclasses.GameController;
 
@@ -138,6 +139,7 @@ public class PongGameController implements GameController {
             // sp.play(loseLifeID, 1, 1, 0, 0, 1);
 
             if(lives == 0){
+                PongMainActivity.
                 paused = true;
                 setupAndRestart();
             }

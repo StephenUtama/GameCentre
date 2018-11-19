@@ -44,7 +44,7 @@ public class PongMainActivity extends AppCompatActivity {
 
         //Creating button
         inGameMenu = new Button(this);
-        inGameMenu.setText("Menu");
+        inGameMenu.setText("SAVE");
         inGameMenu.setBackgroundColor(Color.TRANSPARENT);
         addInGameMenuButtonListener();
         /// Declaring and initializing LayoutParams for the frameLayout
@@ -60,8 +60,6 @@ public class PongMainActivity extends AppCompatActivity {
         frameLayout.addView(inGameMenu, params);
 
         setContentView(frameLayout);
-
-
 
     }
 
@@ -92,5 +90,9 @@ public class PongMainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         pongView.pause();
+    }
+
+    public void promptGameOver(){
+        Toast.makeText(this, "Score: ", Toast.LENGTH_SHORT).show();
     }
 }
