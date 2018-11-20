@@ -57,6 +57,7 @@ public class PongStartingActivity extends AppCompatActivity {
         addPongGameButtonListener();
         user = User.usernameToUser.get(username);
         addPongLoadButtonListener();
+        addPongScoreButtonListener();
     }
 
     private void declarations(){
@@ -80,18 +81,18 @@ public class PongStartingActivity extends AppCompatActivity {
         });
     }
 
-    /**
+
     private void addPongScoreButtonListener() {
         pongScore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PongStartingActivity.this, PongGameActivity.class);
-                //intent.putExtra("username", username);
+                Intent intent = new Intent(PongStartingActivity.this, PongScoreBoardActivity.class);
+                intent.putExtra("username", username);
+                intent.putExtra("user", user);
                 startActivity(intent);
             }
         });
     }
-    **/
 
     /**
      * Get all the save names
