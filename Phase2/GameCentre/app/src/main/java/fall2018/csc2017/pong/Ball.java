@@ -44,8 +44,14 @@ public class Ball implements Serializable {
         YVelocity = screenY / 4;
         XVelocity = YVelocity;
 
+
         // Initialize the rect which is the coordinates of the ball.
-        rect = new SerializableRectF();
+        RectF temp = new RectF();
+        rect = new SerializableRectF(temp);
+        rect.getRect().left = screenX / 2;
+        rect.getRect().top = screenY / 10;
+        rect.getRect().right = screenX / 2 + BallWidth;
+        rect.getRect().bottom = screenY / 10 - BallHeight;
 
     }
 
@@ -63,10 +69,10 @@ public class Ball implements Serializable {
      */
     public void update(long fps) {
         // Use fps to calculate so that it moves at consistent speed among all devices.
-        rect.left = rect.left + (XVelocity / fps);
-        rect.top = rect.top + (YVelocity / fps);
-        rect.right = rect.left + BallWidth;
-        rect.bottom = rect.top - BallHeight;
+        rect.getRect().left = rect.getRect().left + (XVelocity / fps);
+        rect.getRect().top = rect.getRect().top + (YVelocity / fps);
+        rect.getRect().right = rect.getRect().left + BallWidth;
+        rect.getRect().bottom = rect.getRect().top - BallHeight;
     }
 
     /**
@@ -109,8 +115,8 @@ public class Ball implements Serializable {
      * @param y coordinate
      */
     public void clearObstacleY(float y){
-        rect.bottom = y;
-        rect.top = y - BallHeight;
+        rect.getRect().bottom = y;
+        rect.getRect().top = y - BallHeight;
     }
 
     /**
@@ -118,8 +124,8 @@ public class Ball implements Serializable {
      * @param x coordinate
      */
     public void clearObstacleX(float x){
-        rect.left = x;
-        rect.right = x + BallWidth;
+        rect.getRect().left = x;
+        rect.getRect().right = x + BallWidth;
     }
 
     /**
@@ -128,10 +134,10 @@ public class Ball implements Serializable {
      * @param y coordinate
      */
     public void reset(int x, int y){
-        rect.left = x / 2;
-        rect.top = y / 10;
-        rect.right = x / 2 + BallWidth;
-        rect.bottom = y / 10 - BallHeight;
+        rect.getRect().left = x / 2;
+        rect.getRect().top = y / 10;
+        rect.getRect().right = x / 2 + BallWidth;
+        rect.getRect().bottom = y / 10 - BallHeight;
         YVelocity = screenHeight / 4;
         XVelocity = YVelocity;
     }
