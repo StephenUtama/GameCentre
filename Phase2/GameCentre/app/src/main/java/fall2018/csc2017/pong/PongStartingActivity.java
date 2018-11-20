@@ -83,7 +83,7 @@ public class PongStartingActivity extends AppCompatActivity {
      * @param saves      the hash map of all the existing saves
      * @return a string array of save names that have complexity complexity
      */
-    private String[] getSaveNames(HashMap<String, Object> saves) {
+    private String[] getSaveNames(HashMap<String, GameInfo> saves) {
         ArrayList<String> tempResult = new ArrayList<>();
         for (String saveName : saves.keySet()) {
             tempResult.add(saveName);
@@ -99,7 +99,7 @@ public class PongStartingActivity extends AppCompatActivity {
                 alert.setTitle("Select your save");
                 alert.setIcon(android.R.drawable.ic_dialog_alert);
 
-                final HashMap<String, Object> saves = user.getSavesForGame("Pong");
+                final HashMap<String, GameInfo> saves = user.getSavesForGame("Pong");
                 final String[] saveNames = getSaveNames(saves);
                 alert.setItems(saveNames, new DialogInterface.OnClickListener() {
                     @Override
@@ -121,7 +121,7 @@ public class PongStartingActivity extends AppCompatActivity {
      * @param i                              the index used to get the desired save in
      *                                       saveNamesWithCorrectComplexity.
      */
-    private void loadSaveAndBegin(HashMap<String, Object> saves,String[] saveNames ,int i) {
+    private void loadSaveAndBegin(HashMap<String, GameInfo> saves,String[] saveNames ,int i) {
         String saveName = saveNames[i];
 
         // get the corresponding save

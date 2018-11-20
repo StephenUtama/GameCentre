@@ -12,16 +12,11 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 
-import fall2018.csc2017.slidingtiles.SlidingTilesGameInfo;
 import generalclasses.User;
 
 public class PongMainActivity extends AppCompatActivity {
@@ -30,18 +25,35 @@ public class PongMainActivity extends AppCompatActivity {
      * View of the game
      */
     PongSurfaceView pongView;
+
+    /**
+     * Save Button
+     */
     private Button saveButton;
+
+    /**
+     * username of current user
+     */
     private String username;
-    public static final String SAVE_FILENAME = "master_save_file.ser";
+
+    /**
+     * User class of current user logged in
+     */
     private User user;
+
+    /**
+     * gameInfo for Pong
+     */
     private PongGameInfo gameInfo;
+
+    public static final String SAVE_FILENAME = "master_save_file.ser";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Get existing controller
+        // Get existing GameInfo (might be null)
         gameInfo = (PongGameInfo) getIntent().getSerializableExtra("saveToLoad");
 
         // Get the username
@@ -60,7 +72,7 @@ public class PongMainActivity extends AppCompatActivity {
         // Initialize pongView and set it as the view
         if (gameInfo == null) {
             gameInfo = new PongGameInfo(size.x, size.y, username);
-            pongView = new PongSurfaceView(this, size.x, size.y, gameInfo); // create new gameInfo
+            pongView = new PongSurfaceView(this, size.x, size.y, gameInfo);
         }
         else {
             pongView = new PongSurfaceView(this, size.x, size.y, gameInfo);

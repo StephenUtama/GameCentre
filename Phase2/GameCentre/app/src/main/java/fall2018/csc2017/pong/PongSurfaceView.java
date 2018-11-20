@@ -60,6 +60,10 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
         this.controller = new PongGameController(getHolder(), gameInfo);
     }
 
+    /**
+     * Returns gameInfo
+     * @return the gameInfo containing all the info about the game.
+     */
     public PongGameInfo getGameInfo() {
         return controller.gameInfo;
     }
