@@ -10,18 +10,22 @@ public class Ball implements Serializable {
      * Coordinates of the ball on the screen
      */
     private SerializableRectF rect;
+
     /**
      * Velocity in the X direction
      */
     private float XVelocity;
+
     /**
      * Velocity in the Y direction
      */
     private float YVelocity;
+
     /**
      * Width of Ball
      */
     private float BallWidth;
+
     /**
      * Height of Ball
      */
@@ -31,10 +35,12 @@ public class Ball implements Serializable {
      * Width of the screen
      */
     private int screenWidth;
+
     /**
      * Height of the screen
      */
     private int screenHeight;
+
     /**
      * Constructor for Ball
      * @param screenX Width of screen
@@ -65,7 +71,7 @@ public class Ball implements Serializable {
     }
 
     /**
-     * Returns the SerializableRectF
+     * Returns the RectF of the SerializableRectF
      * @return rect, the SerializableRectF containing Rect
      */
     public RectF getRectF() {

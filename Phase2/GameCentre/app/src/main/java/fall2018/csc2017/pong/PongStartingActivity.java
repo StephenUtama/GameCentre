@@ -29,11 +29,31 @@ import generalclasses.User;
 
 public class PongStartingActivity extends AppCompatActivity {
 
+    /**
+     * Button to start new game
+     */
     private Button pongGame;
+
+    /**
+     * Button to go to scoreboards
+     */
     private Button pongScore;
+
+    /**
+     * Button to load game
+     */
     private Button pongLoad;
+
+    /**
+     * current user's username.
+     */
     private String username;
+
+    /**
+     * User class of user.
+     */
     private User user;
+
     public static final String SAVE_FILENAME = "master_save_file.ser";
 
     @Override
@@ -53,6 +73,9 @@ public class PongStartingActivity extends AppCompatActivity {
         username = getIntent().getStringExtra("username");
     }
 
+    /**
+     * Onclick listener for PongGameButton
+     */
     private void addPongGameButtonListener() {
         pongGame.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,10 +101,10 @@ public class PongStartingActivity extends AppCompatActivity {
     **/
 
     /**
-     * Get all the save names that have a given complexity.
+     * Get all the save names
      *
      * @param saves      the hash map of all the existing saves
-     * @return a string array of save names that have complexity complexity
+     * @return a string array of save names
      */
     private String[] getSaveNames(HashMap<String, GameInfo> saves) {
         ArrayList<String> tempResult = new ArrayList<>();
@@ -91,6 +114,9 @@ public class PongStartingActivity extends AppCompatActivity {
         return tempResult.toArray(new String[tempResult.size()]);
     }
 
+    /**
+     * Onclick listener for PongLoadButton
+     */
     private void addPongLoadButtonListener() {
         pongLoad.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,8 +139,8 @@ public class PongStartingActivity extends AppCompatActivity {
     }
 
     /**
-     * Get the save that corresponds to index i in saveNamesWithCorrectComplexity, and load that
-     * save to begin GameActivity.
+     * Get the save that corresponds to index i in saveNames, and load that
+     * save to begin PongMainActivity.
      *
      * @param saves                          the hash map that details all the user's saves.
      * @param saveNames string list of all save names with correct complexity.

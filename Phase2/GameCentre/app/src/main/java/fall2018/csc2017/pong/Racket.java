@@ -98,20 +98,14 @@ public class Racket implements Serializable {
         } else if(this.rectMove == RIGHT){
             x = x + distance;
         }
-
         if (this.rect.getRectF().left < 0){ // this might be wrong. use this.x instead of this.rect
             this.x = 0;
-        }else if (this.rect.getRectF().right > screenWidth){
+        }
+        else if (this.rect.getRectF().right > screenWidth){
             this.x = this.screenWidth - this.length;
         }
-
         this.rect.getRectF().left = this.x;
         this.rect.getRectF().right = this.x + this.length;
     }
-
-
-
-
-
 }
 

@@ -152,7 +152,7 @@ public class PongGameController implements GameController, Serializable {
     }
 
     /**
-     * Start/Restart the game.
+     * Restart the game.
      */
     public void setupAndRestart(){
         // Put the ball back to the start

@@ -48,7 +48,6 @@ public class PongMainActivity extends AppCompatActivity {
 
     public static final String SAVE_FILENAME = "master_save_file.ser";
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
