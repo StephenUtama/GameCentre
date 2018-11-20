@@ -3,11 +3,9 @@ package fall2018.csc2017.pong;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Display;
 import android.view.View;
 import android.widget.Button;
 
@@ -18,12 +16,7 @@ import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import fall2018.csc2017.slidingtiles.GameActivity;
 import fall2018.csc2017.slidingtiles.R;
-import fall2018.csc2017.slidingtiles.SlidingTilesGameInfo;
-import fall2018.csc2017.slidingtiles.StartingActivity;
-import generalactivities.GameSelectionActivity;
-import generalactivities.MenuActivity;
 import generalclasses.GameInfo;
 import generalclasses.User;
 
@@ -80,7 +73,7 @@ public class PongStartingActivity extends AppCompatActivity {
         pongGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PongStartingActivity.this, PongMainActivity.class);
+                Intent intent = new Intent(PongStartingActivity.this, PongGameActivity.class);
                 intent.putExtra("username", username);
                 startActivity(intent);
             }
@@ -92,7 +85,7 @@ public class PongStartingActivity extends AppCompatActivity {
         pongScore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PongStartingActivity.this, PongMainActivity.class);
+                Intent intent = new Intent(PongStartingActivity.this, PongGameActivity.class);
                 //intent.putExtra("username", username);
                 startActivity(intent);
             }
@@ -140,7 +133,7 @@ public class PongStartingActivity extends AppCompatActivity {
 
     /**
      * Get the save that corresponds to index i in saveNames, and load that
-     * save to begin PongMainActivity.
+     * save to begin PongGameActivity.
      *
      * @param saves                          the hash map that details all the user's saves.
      * @param saveNames string list of all save names with correct complexity.
@@ -153,7 +146,7 @@ public class PongStartingActivity extends AppCompatActivity {
         // get the corresponding save
         PongGameInfo saveToLoad = (PongGameInfo) saves.get(saveName);
 
-        Intent intent = new Intent(PongStartingActivity.this, PongMainActivity.class);
+        Intent intent = new Intent(PongStartingActivity.this, PongGameActivity.class);
         intent.putExtra("saveToLoad", saveToLoad);
         intent.putExtra("username", username);
         startActivity(intent);

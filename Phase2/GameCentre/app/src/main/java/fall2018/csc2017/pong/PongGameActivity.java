@@ -19,7 +19,7 @@ import java.util.Date;
 
 import generalclasses.User;
 
-public class PongMainActivity extends AppCompatActivity {
+public class PongGameActivity extends AppCompatActivity {
 
     /**
      * View of the game
@@ -126,7 +126,7 @@ public class PongMainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 PongGameController.paused = true;
-                Toast.makeText(PongMainActivity.this, "Paused and Saved!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PongGameActivity.this, "Paused and Saved!", Toast.LENGTH_SHORT).show();
                 String currentTime = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new
                         Date());
                 user.addSave("Pong", currentTime, pongView.getGameInfo());

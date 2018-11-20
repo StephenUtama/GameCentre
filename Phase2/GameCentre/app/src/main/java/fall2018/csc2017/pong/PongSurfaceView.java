@@ -40,7 +40,7 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
 
     /**
      * Constructor for PongSurfaceView.
-     * @param context context of the PongMainActivity
+     * @param context context of the PongGameActivity
      * @param screenWidth width of screen
      * @param screenHeight height of screen
      * @param gameInfo the gameInfo for Pong
