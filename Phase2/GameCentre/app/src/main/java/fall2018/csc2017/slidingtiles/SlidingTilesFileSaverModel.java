@@ -10,8 +10,11 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
+import generalclasses.GameInfo;
 import generalclasses.GameScoreboards;
 import generalclasses.User;
 
@@ -24,6 +27,15 @@ public class SlidingTilesFileSaverModel {
 
     private Context context;
     private GameScoreboards scoreboards;
+    private User user;
+
+    public GameScoreboards getScoreboards() {
+        return scoreboards;
+    }
+
+    public User getUser() {
+        return user;
+    }
 
     public SlidingTilesFileSaverModel(Context context) {
         this.context = context;
@@ -90,7 +102,7 @@ public class SlidingTilesFileSaverModel {
         }
     }
 
-    private void loadScoreboards() {
+    public void loadScoreboards() {
         try {
             InputStream inputStream = context.openFileInput("SAVED_SCOREBOARDS");
             if (inputStream != null) {
@@ -131,5 +143,45 @@ public class SlidingTilesFileSaverModel {
      */
     private void makeToastSavedText() {
         Toast.makeText(context, "Game Saved", Toast.LENGTH_SHORT).show();
+    }
+
+    public void instantiateGameandBegin(String complexity) {
+        loadScoreboards();
+        if (scoreboards.getScoreboard(complexity) == null) { // if no one has won a game
+//            SlidingTileScoreboards newBoards = new SlidingTileScoreboards();
+            scoreboards.addScoreboard(complexity, new SlidingTilesScoreBoard());
+            saveScoreboards(scoreboards);
+            // in subsequent games, however, there is no need for this
+        }
+    }
+
+    public String[] getSaveNamesComplexity(String complexity, HashMap<String, GameInfo> saves) {
+        ArrayList<String> tempResult = new ArrayList<>();
+        for (String saveName : saves.keySet()) {
+            SlidingTilesGameInfo info = (SlidingTilesGameInfo) saves.get(saveName);
+            if (complexity.equals(info.getComplexity())) {
+                tempResult.add(saveName);
+            }
+        }
+        return tempResult.toArray(new String[tempResult.size()]);
+    }
+
+    public void startingResume(String username) {
+        try {
+            InputStream inputStream = context.openFileInput(SAVE_FILENAME);
+            if (inputStream != null) {
+                ObjectInputStream input = new ObjectInputStream(inputStream);
+                User.usernameToUser = (HashMap<String, User>) input.readObject();
+                user = User.usernameToUser.get(username);
+                inputStream.close();
+            }
+        } catch (FileNotFoundException e) {
+            Log.e("login activity", "File not found: " + e.toString());
+        } catch (IOException e) {
+            Log.e("login activity", "Can not read file: " + e.toString());
+        } catch (ClassNotFoundException e) {
+            Log.e("login activity", "File contained unexpected data type: "
+                    + e.toString());
+        }
     }
 }

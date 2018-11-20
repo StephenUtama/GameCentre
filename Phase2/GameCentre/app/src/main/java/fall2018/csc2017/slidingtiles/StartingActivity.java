@@ -44,6 +44,7 @@ public class StartingActivity extends AppCompatActivity {
     private String game = "Sliding Tiles";
     private String complexity;
     private GameScoreboards scoreboards;
+    private SlidingTilesFileSaverModel mSaver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,7 @@ public class StartingActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
+        mSaver = new SlidingTilesFileSaverModel(this);
         complexity = getIntent().getStringExtra("complexity");
         SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("my_prefs", Context.MODE_PRIVATE);
         int bg = sharedPref.getInt("background_resources", android.R.color.white); // the second parameter will be fallback if the preference is not found
@@ -101,28 +103,11 @@ public class StartingActivity extends AppCompatActivity {
         newGameInfo.setUserName(username);
 //        User.addScoreboard(game, complexity, new SlidingTilesScoreBoard());
 
-        loadScoreboards();
-        if (scoreboards.getScoreboard(complexity) == null) { // if no one has won a game
-//            SlidingTileScoreboards newBoards = new SlidingTileScoreboards();
-            scoreboards.addScoreboard(complexity, new SlidingTilesScoreBoard());
-            saveScoreboards(scoreboards);
-            // in subsequent games, however, there is no need for this
-        }
+        mSaver.instantiateGameandBegin(complexity);
 
         Intent intent = new Intent(StartingActivity.this, GameActivity.class);
         intent.putExtra("saveToLoad", newGameInfo);
         startActivity(intent);
-    }
-
-    private void saveScoreboards(GameScoreboards scoreboards) {
-        try {
-            ObjectOutputStream outputStream = new ObjectOutputStream(
-                    this.openFileOutput("SAVED_SCOREBOARDS", MODE_PRIVATE));
-            outputStream.writeObject(scoreboards);
-            outputStream.close();
-        } catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
     }
 
 
@@ -185,14 +170,8 @@ public class StartingActivity extends AppCompatActivity {
      * @return a string array of save names that have complexity complexity
      */
     private String[] getSaveNamesComplexity(String complexity, HashMap<String, GameInfo> saves) {
-        ArrayList<String> tempResult = new ArrayList<>();
-        for (String saveName : saves.keySet()) {
-            SlidingTilesGameInfo info = (SlidingTilesGameInfo) saves.get(saveName);
-            if (complexity.equals(info.getComplexity())) {
-                tempResult.add(saveName);
-            }
-        }
-        return tempResult.toArray(new String[tempResult.size()]);
+
+        return mSaver.getSaveNamesComplexity(complexity, saves);
     }
 
 
@@ -211,44 +190,30 @@ public class StartingActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         // load most updated copy of user
-        try {
-            InputStream inputStream = this.openFileInput(SAVE_FILENAME);
-            if (inputStream != null) {
-                ObjectInputStream input = new ObjectInputStream(inputStream);
-                User.usernameToUser = (HashMap<String, User>) input.readObject();
-                user = User.usernameToUser.get(username);
-                inputStream.close();
-            }
-        } catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
-        } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
-        } catch (ClassNotFoundException e) {
-            Log.e("login activity", "File contained unexpected data type: "
-                    + e.toString());
-        }
+        mSaver.startingResume(username);
+        user = mSaver.getUser();
         // also load the most recent copy of scores
-        loadScoreboards();
+        scoreboards = mSaver.getScoreboards();
 
     }
-
-    private void loadScoreboards() {
-        try {
-            InputStream inputStream = this.openFileInput("SAVED_SCOREBOARDS");
-            if (inputStream != null) {
-                ObjectInputStream input = new ObjectInputStream(inputStream);
-                scoreboards = (SlidingTileScoreboards) input.readObject();
-                inputStream.close();
-            }
-        } catch (FileNotFoundException e) {
-//            Log.e("login activity", "File not found: " + e.toString());
-            saveScoreboards(new SlidingTileScoreboards());
-        } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
-        } catch (ClassNotFoundException e) {
-            Log.e("login activity", "File contained unexpected data type: " + e.toString());
-        }
-    }
+//
+//    private void loadScoreboards() {
+//        try {
+//            InputStream inputStream = this.openFileInput("SAVED_SCOREBOARDS");
+//            if (inputStream != null) {
+//                ObjectInputStream input = new ObjectInputStream(inputStream);
+//                scoreboards = (SlidingTileScoreboards) input.readObject();
+//                inputStream.close();
+//            }
+//        } catch (FileNotFoundException e) {
+////            Log.e("login activity", "File not found: " + e.toString());
+//            saveScoreboards(new SlidingTileScoreboards());
+//        } catch (IOException e) {
+//            Log.e("login activity", "Can not read file: " + e.toString());
+//        } catch (ClassNotFoundException e) {
+//            Log.e("login activity", "File contained unexpected data type: " + e.toString());
+//        }
+//    }
 }
 
 //
