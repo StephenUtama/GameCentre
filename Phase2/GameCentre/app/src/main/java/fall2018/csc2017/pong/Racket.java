@@ -74,7 +74,7 @@ public class Racket implements Serializable {
     /**
      * Getter method for rectangle representation of the Racket
      */
-    public SerializableRectF getRect(){
+    public SerializableRectF getSerializableRectF(){
         return this.rect;
     }
 
@@ -98,14 +98,14 @@ public class Racket implements Serializable {
             x = x + distance;
         }
 
-        if (this.rect.getRect().left < 0){ // this might be wrong. use this.x instead of this.rect
+        if (this.rect.getRectF().left < 0){ // this might be wrong. use this.x instead of this.rect
             this.x = 0;
-        }else if (this.rect.getRect().right > screenWidth){
+        }else if (this.rect.getRectF().right > screenWidth){
             this.x = this.screenWidth - this.length;
         }
 
-        this.rect.getRect().left = this.x;
-        this.rect.getRect().right = this.x + this.length;
+        this.rect.getRectF().left = this.x;
+        this.rect.getRectF().right = this.x + this.length;
     }
 
 

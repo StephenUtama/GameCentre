@@ -16,7 +16,7 @@ public class SerializableRectF implements Serializable {
         mRect = rect;
     }
 
-    public RectF getRect() {
+    public RectF getRectF() {
         return mRect;
     }
 
