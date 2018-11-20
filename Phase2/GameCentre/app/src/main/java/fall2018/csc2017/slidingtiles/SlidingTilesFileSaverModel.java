@@ -102,22 +102,6 @@ public class SlidingTilesFileSaverModel {
         }
     }
 
-    public void loadScoreboards() {
-        try {
-            InputStream inputStream = context.openFileInput("SAVED_SCOREBOARDS");
-            if (inputStream != null) {
-                ObjectInputStream input = new ObjectInputStream(inputStream);
-                scoreboards = (SlidingTileScoreboards) input.readObject();
-                inputStream.close();
-            }
-        } catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
-        } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
-        } catch (ClassNotFoundException e) {
-            Log.e("login activity", "File contained unexpected data type: " + e.toString());
-        }
-    }
 
     public void saveScoreboards(GameScoreboards scoreboards) {
         try {
@@ -147,11 +131,30 @@ public class SlidingTilesFileSaverModel {
 
     public void instantiateGameandBegin(String complexity) {
         loadScoreboards();
+        if (scoreboards == null) {
+            scoreboards = new SlidingTileScoreboards();
+        }
         if (scoreboards.getScoreboard(complexity) == null) { // if no one has won a game
 //            SlidingTileScoreboards newBoards = new SlidingTileScoreboards();
             scoreboards.addScoreboard(complexity, new SlidingTilesScoreBoard());
             saveScoreboards(scoreboards);
             // in subsequent games, however, there is no need for this
+        }
+    }
+    public void loadScoreboards() {
+        try {
+            InputStream inputStream = context.openFileInput("SAVED_SCOREBOARDS");
+            if (inputStream != null) {
+                ObjectInputStream input = new ObjectInputStream(inputStream);
+                scoreboards = (SlidingTileScoreboards) input.readObject();
+                inputStream.close();
+            }
+        } catch (FileNotFoundException e) {
+            Log.e("login activity", "File not found: " + e.toString());
+        } catch (IOException e) {
+            Log.e("login activity", "Can not read file: " + e.toString());
+        } catch (ClassNotFoundException e) {
+            Log.e("login activity", "File contained unexpected data type: " + e.toString());
         }
     }
 
