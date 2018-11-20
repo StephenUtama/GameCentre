@@ -80,10 +80,10 @@ public class PongGameController implements GameController, Serializable {
         gameInfo.getBall().update(gameInfo.getFps());
 
         // If ball colliding with racket
-        if(RectF.intersects(gameInfo.getRacket().getSerializableRectF().getRectF(), gameInfo.getBall().getSerializableRectF().getRectF())) {
+        if(RectF.intersects(gameInfo.getRacket().getRectF(), gameInfo.getBall().getRectF())) {
             gameInfo.getBall().setRandomXVelocity();
             gameInfo.getBall().reverseYVelocity();
-            gameInfo.getBall().clearObstacleY(gameInfo.getRacket().getSerializableRectF().getRectF().top - 2);
+            gameInfo.getBall().clearObstacleY(gameInfo.getRacket().getRectF().top - 2);
 
             gameInfo.updateScore();
             gameInfo.getBall().increaseVelocity();
@@ -92,7 +92,7 @@ public class PongGameController implements GameController, Serializable {
         }
 
         // If ball hits bottom of the screen
-        if(gameInfo.getBall().getSerializableRectF().getRectF().bottom > gameInfo.getScreenHeight()){
+        if(gameInfo.getBall().getRectF().bottom > gameInfo.getScreenHeight()){
             gameInfo.getBall().reverseYVelocity();
             gameInfo.getBall().clearObstacleY(gameInfo.getScreenHeight() - 2);
 
@@ -106,7 +106,7 @@ public class PongGameController implements GameController, Serializable {
             }
         }
         // If ball hits top of the screen
-        if(gameInfo.getBall().getSerializableRectF().getRectF().top < 0){
+        if(gameInfo.getBall().getRectF().top < 0){
             gameInfo.getBall().reverseYVelocity();
             gameInfo.getBall().clearObstacleY(12);
 
@@ -114,7 +114,7 @@ public class PongGameController implements GameController, Serializable {
         }
 
         // If ball hits left of the screen
-        if(gameInfo.getBall().getSerializableRectF().getRectF().left < 0){
+        if(gameInfo.getBall().getRectF().left < 0){
             gameInfo.getBall().reverseXVelocity();
             gameInfo.getBall().clearObstacleX(2);
 
@@ -122,7 +122,7 @@ public class PongGameController implements GameController, Serializable {
         }
 
         // If ball hits right of the screen
-        if(gameInfo.getBall().getSerializableRectF().getRectF().right > gameInfo.getScreenWidth()){
+        if(gameInfo.getBall().getRectF().right > gameInfo.getScreenWidth()){
             gameInfo.getBall().reverseXVelocity();
             gameInfo.getBall().clearObstacleX(gameInfo.getScreenWidth() - 22);
 
@@ -141,8 +141,8 @@ public class PongGameController implements GameController, Serializable {
             this.canvas = this.surfaceHolder.lockCanvas();
             this.canvas.drawColor(Color.argb(255, 120, 197, 87));
             this.paint.setColor(Color.argb(255, 255, 255, 255));
-            this.canvas.drawRect(gameInfo.getRacket().getSerializableRectF().getRectF(), this.paint);
-            this.canvas.drawRect(gameInfo.getBall().getSerializableRectF().getRectF(), this.paint);
+            this.canvas.drawRect(gameInfo.getRacket().getRectF(), this.paint);
+            this.canvas.drawRect(gameInfo.getBall().getRectF(), this.paint);
             this.paint.setColor(Color.argb(255, 255, 255, 255));
             this.paint.setTextSize(40);
             this.canvas.drawText("Score: " + gameInfo.getScore() + "  Lives: " + gameInfo.getLives(),

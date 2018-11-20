@@ -1,14 +1,10 @@
 package fall2018.csc2017.pong;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.widget.Toast;
-
-import generalactivities.SettingActivity;
 
 public class PongSurfaceView extends SurfaceView implements Runnable {
 
@@ -37,6 +33,9 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
      */
     PongGameInfo gameInfo;
 
+    /**
+     * The current context
+     */
     Context context;
 
     /**
@@ -44,25 +43,25 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
      * @param context context of the PongMainActivity
      * @param screenWidth width of screen
      * @param screenHeight height of screen
+     * @param gameInfo the gameInfo for Pong
      */
     public PongSurfaceView(Context context, int screenWidth, int screenHeight, PongGameInfo gameInfo) {
         super(context);
         this.context = context;
+
         // Initialize the width and height of the screen.
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
+
         // Initialize the gameInfo
         this.gameInfo = gameInfo;
+
         //Initialize the controller
         this.controller = new PongGameController(getHolder(), gameInfo);
     }
 
     public PongGameInfo getGameInfo() {
         return controller.gameInfo;
-    }
-
-    public PongGameController getController(){
-        return controller;
     }
 
     @Override

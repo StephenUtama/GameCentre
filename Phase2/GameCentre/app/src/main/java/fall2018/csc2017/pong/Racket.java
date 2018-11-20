@@ -74,8 +74,9 @@ public class Racket implements Serializable {
     /**
      * Getter method for rectangle representation of the Racket
      */
-    public SerializableRectF getSerializableRectF(){
-        return this.rect;
+    public RectF getRectF(){
+
+        return this.rect.getRectF();
     }
 
     /**
