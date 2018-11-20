@@ -91,8 +91,6 @@ public class PongStartingActivity extends AppCompatActivity {
         return tempResult.toArray(new String[tempResult.size()]);
     }
 
-
-
     private void addPongLoadButtonListener() {
         pongLoad.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,7 +125,7 @@ public class PongStartingActivity extends AppCompatActivity {
         String saveName = saveNames[i];
 
         // get the corresponding save
-        PongGameController saveToLoad = (PongGameController) saves.get(saveName);
+        PongGameInfo saveToLoad = (PongGameInfo) saves.get(saveName);
 
         Intent intent = new Intent(PongStartingActivity.this, PongMainActivity.class);
         intent.putExtra("saveToLoad", saveToLoad);

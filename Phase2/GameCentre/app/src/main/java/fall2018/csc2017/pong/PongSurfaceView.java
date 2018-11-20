@@ -32,35 +32,29 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
      */
     PongGameController controller;
 
+    /**
+     * GameInfo for the game
+     */
+    PongGameInfo gameInfo;
+
     Context context;
 
     /**
-     * Constructor for PongSurfaceView when controller exists
+     * Constructor for PongSurfaceView.
      * @param context context of the PongMainActivity
      * @param screenWidth width of screen
      * @param screenHeight height of screen
      */
-    public PongSurfaceView(Context context, int screenWidth, int screenHeight, Object controller) {
+    public PongSurfaceView(Context context, int screenWidth, int screenHeight, PongGameInfo gameInfo) {
         super(context);
         this.context = context;
         // Initialize the width and height of the screen.
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
-        // Initialize the controller
-        this.controller = (PongGameController) controller;
-        this.controller.setupAndRestart();
-
-    }
-
-    public PongSurfaceView(Context context, int screenWidth, int screenHeight) {
-        super(context);
-        this.context = context;
-        // Initialize the width and height of the screen.
-        this.screenWidth = screenWidth;
-        this.screenHeight = screenHeight;
-        // Initialize the controller
-        this.controller = new PongGameController(screenWidth, screenHeight, getHolder());
-
+        // Initialize the gameInfo
+        this.gameInfo = gameInfo;
+        //Initialize the controller
+        this.controller = new PongGameController(getHolder(), gameInfo);
     }
 
     public PongGameController getController(){
@@ -101,17 +95,17 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
             case MotionEvent.ACTION_DOWN:
 
                 controller.paused = false;
-                if (controller.lives == 0){
-                    Toast.makeText(this.context, "Game Over! Score: " + controller.score, Toast.LENGTH_SHORT).show();
+                if (controller.gameInfo.getLives() == 0){
+                    Toast.makeText(this.context, "Game Over! Score: " + controller.gameInfo.getScore(), Toast.LENGTH_SHORT).show();
                     controller.setupAndRestart();
                 }
 
                 // Is the touch on the right or left?
                 if(motionEvent.getX() > screenWidth / 2){
-                    controller.racket.setMovementState(controller.racket.RIGHT);
+                    controller.gameInfo.getRacket().setMovementState(controller.gameInfo.getRacket().RIGHT);
                 }
                 else{
-                    controller.racket.setMovementState(controller.racket.LEFT);
+                    controller.gameInfo.getRacket().setMovementState(controller.gameInfo.getRacket().LEFT);
                 }
 
                 break;
@@ -119,7 +113,7 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
             // Player has removed finger from screen
             case MotionEvent.ACTION_UP:
 
-                controller.racket.setMovementState(controller.racket.STOPPED);
+                controller.gameInfo.getRacket().setMovementState(controller.gameInfo.getRacket().STOPPED);
                 break;
         }
         return true;
@@ -129,7 +123,7 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
      * When the game is paused, change 'playing' into false so the loop stops
      */
     public void pause(){
-        controller.playing = false;
+        controller.playing = false; // Note
         try {
             thread.join();
         } catch (InterruptedException e){

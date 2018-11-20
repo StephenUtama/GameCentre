@@ -9,7 +9,7 @@ public class Ball implements Serializable {
     /**
      * Coordinates of the ball on the screen
      */
-    private RectF rect;
+    private SerializableRectF rect;
     /**
      * Velocity in the X direction
      */
@@ -45,7 +45,7 @@ public class Ball implements Serializable {
         XVelocity = YVelocity;
 
         // Initialize the rect which is the coordinates of the ball.
-        rect = new RectF();
+        rect = new SerializableRectF();
 
     }
 
@@ -53,7 +53,7 @@ public class Ball implements Serializable {
      * Returns the rect
      * @return rect, the position of the ball.
      */
-    public RectF getRect() {
+    public SerializableRectF getRect() {
         return rect;
     }
 

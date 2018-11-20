@@ -12,7 +12,7 @@ public class Racket implements Serializable {
     /**
      * Four points that represents rectangle (the racket)
      */
-    private RectF rect;
+    private SerializableRectF rect;
 
     /**
      * length of the rectangle
@@ -65,7 +65,7 @@ public class Racket implements Serializable {
         this.y = screenHeight - 150;
 
 
-        this.rect = new RectF( this.x, this.y, this.x + this.length, this.y + this.height);
+        this.rect = new SerializableRectF(this.x, this.y, this.x + this.length, this.y + this.height);
 
         this.rectSpeed = screenWidth;
     }
@@ -73,7 +73,7 @@ public class Racket implements Serializable {
     /**
      * Getter method for rectangle representation of the Racket
      */
-    public RectF getRect(){
+    public SerializableRectF getRect(){
         return this.rect;
     }
 

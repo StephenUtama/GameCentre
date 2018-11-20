@@ -20,24 +20,9 @@ import generalclasses.GameController;
 public class PongGameController implements GameController, Serializable {
 
     /**
-     * Size of vertical screen in pixels.
+     * PongGameInfo
      */
-    int screenWidth;
-
-    /**
-     * Size of horizontal screen in pixels.
-     */
-    int screenHeight;
-
-    /**
-     * The player's racket.
-     */
-    Racket racket;
-
-    /**
-     * The ball.
-     */
-    Ball ball;
+    PongGameInfo gameInfo;
 
     /**
      * A SurfaceHolder allows us to draw.
@@ -66,16 +51,6 @@ public class PongGameController implements GameController, Serializable {
     Paint paint;
 
     /**
-     * The player's score.
-     */
-    int score = 0;
-
-    /**
-     * How many lives the player has.
-     */
-    int lives = 3;
-
-    /**
      * The game's fps.
      */
     long fps;
@@ -90,25 +65,16 @@ public class PongGameController implements GameController, Serializable {
 
     /**
      * Initializes PongGameController
-     * @param screenWidth Width of the phone screen in pixels
-     * @param screenHeight Height of the phone screen in pixels
-     * @param ourHolder The holder for our SurfaceView.
      */
-    public PongGameController(int screenWidth, int screenHeight, SurfaceHolder ourHolder) {
-
-        // Set the screen width and height
-        this.screenWidth = screenWidth;
-        this.screenHeight = screenHeight;
+    public PongGameController(SurfaceHolder ourHolder, PongGameInfo gameInfo) {
 
         // Initialize surfaceHolder and paint objects
         this.surfaceHolder = ourHolder;
         paint = new Paint();
 
-        // A new racket
-        racket = new Racket(screenWidth, screenHeight);
+        // Initialize a PongGameInfo
+        this.gameInfo = gameInfo;
 
-        // Create a ball
-        ball = new Ball(screenWidth, screenHeight);
     }
 
     /**
@@ -117,55 +83,55 @@ public class PongGameController implements GameController, Serializable {
     public void update() {
 
         // Move the racket if required
-        racket.update(fps);
-        ball.update(fps);
+        gameInfo.getRacket().update(fps);
+        gameInfo.getBall().update(fps);
 
         // If ball colliding with racket
-        if(RectF.intersects(racket.getRect(), ball.getRect())) {
-            ball.setRandomXVelocity();
-            ball.reverseYVelocity();
-            ball.clearObstacleY(racket.getRect().top - 2);
+        if(RectF.intersects(gameInfo.getRacket().getRect(), gameInfo.getBall().getRect())) {
+            gameInfo.getBall().setRandomXVelocity();
+            gameInfo.getBall().reverseYVelocity();
+            gameInfo.getBall().clearObstacleY(gameInfo.getRacket().getRect().top - 2);
 
-            score++;
-            ball.increaseVelocity();
+            gameInfo.updateScore();
+            gameInfo.getBall().increaseVelocity();
 
             // sp.play(beep1ID, 1, 1, 0, 0, 1);
         }
 
         // If ball hits bottom of the screen
-        if(ball.getRect().bottom > screenHeight){
-            ball.reverseYVelocity();
-            ball.clearObstacleY(screenHeight - 2);
+        if(gameInfo.getBall().getRect().bottom > gameInfo.getScreenHeight()){
+            gameInfo.getBall().reverseYVelocity();
+            gameInfo.getBall().clearObstacleY(gameInfo.getScreenHeight() - 2);
 
             // Lose a life
-            lives--;
+            gameInfo.updateLife();
             // sp.play(loseLifeID, 1, 1, 0, 0, 1);
 
-            if(lives == 0){
+            if(gameInfo.getLives() == 0){
                 paused = true;
-                //setupAndRestart();
+                setupAndRestart();
             }
         }
         // If ball hits top of the screen
-        if(ball.getRect().top < 0){
-            ball.reverseYVelocity();
-            ball.clearObstacleY(12);
+        if(gameInfo.getBall().getRect().top < 0){
+            gameInfo.getBall().reverseYVelocity();
+            gameInfo.getBall().clearObstacleY(12);
 
             // sp.play(beep2ID, 1, 1, 0, 0, 1);
         }
 
         // If ball hits left of the screen
-        if(ball.getRect().left < 0){
-            ball.reverseXVelocity();
-            ball.clearObstacleX(2);
+        if(gameInfo.getBall().getRect().left < 0){
+            gameInfo.getBall().reverseXVelocity();
+            gameInfo.getBall().clearObstacleX(2);
 
             // sp.play(beep3ID, 1, 1, 0, 0, 1);
         }
 
         // If ball hits right of the screen
-        if(ball.getRect().right > screenWidth){
-            ball.reverseXVelocity();
-            ball.clearObstacleX(screenWidth - 22);
+        if(gameInfo.getBall().getRect().right > gameInfo.getScreenWidth()){
+            gameInfo.getBall().reverseXVelocity();
+            gameInfo.getBall().clearObstacleX(gameInfo.getScreenWidth() - 22);
 
             // sp.play(beep3ID, 1, 1, 0, 0, 1);
         }
@@ -182,11 +148,11 @@ public class PongGameController implements GameController, Serializable {
             this.canvas = this.surfaceHolder.lockCanvas();
             this.canvas.drawColor(Color.argb(255, 120, 197, 87));
             this.paint.setColor(Color.argb(255, 255, 255, 255));
-            this.canvas.drawRect(racket.getRect(), this.paint);
-            this.canvas.drawRect(this.ball.getRect(), this.paint);
+            this.canvas.drawRect(gameInfo.getRacket().getRect(), this.paint);
+            this.canvas.drawRect(gameInfo.getBall().getRect(), this.paint);
             this.paint.setColor(Color.argb(255, 255, 255, 255));
             this.paint.setTextSize(40);
-            this.canvas.drawText("Score: " + this.score + "  Lives: " + this.lives,
+            this.canvas.drawText("Score: " + gameInfo.getScore() + "  Lives: " + gameInfo.getLives(),
                     10,50, this.paint);
             this.surfaceHolder.unlockCanvasAndPost(this.canvas);
         }
@@ -197,11 +163,11 @@ public class PongGameController implements GameController, Serializable {
      */
     public void setupAndRestart(){
         // Put the ball back to the start
-        ball.reset(screenWidth, screenHeight);
+        gameInfo.getBall().reset(gameInfo.getScreenWidth(), gameInfo.getScreenHeight());
         // if game over reset scores and lives
-        if(lives == 0) {
-            score = 0;
-            lives = 3;
+        if(gameInfo.getLives() == 0) {
+            gameInfo.setScore(0);
+            gameInfo.setLives(3);
         }
     }
 }

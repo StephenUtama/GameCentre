@@ -34,7 +34,7 @@ public class PongMainActivity extends AppCompatActivity {
     private String username;
     public static final String SAVE_FILENAME = "master_save_file.ser";
     private User user;
-    private PongGameController controller;
+    private PongGameInfo gameInfo;
 
 
     @Override
@@ -42,7 +42,7 @@ public class PongMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         // Get existing controller
-        controller = (PongGameController) getIntent().getSerializableExtra("saveToLoad");
+        gameInfo = (PongGameInfo) getIntent().getSerializableExtra("saveToLoad");
 
         // Get the username
         username = getIntent().getStringExtra("username");
@@ -58,12 +58,13 @@ public class PongMainActivity extends AppCompatActivity {
         display.getSize(size);
 
         // Initialize pongView and set it as the view
-        if (pongView == null){
-            pongView = new PongSurfaceView(this, size.x, size.y);
+        if (gameInfo == null) {
+            pongView = new PongSurfaceView(this, size.x, size.y, new PongGameInfo(size.x, size.y, username)); // create new gameInfo
         }
         else {
-            pongView = new PongSurfaceView(this, size.x, size.y, controller);
+            pongView = new PongSurfaceView(this, size.x, size.y, gameInfo);
         }
+
         //Create your frame layout
         FrameLayout frameLayout = new FrameLayout(this);
 
@@ -116,7 +117,7 @@ public class PongMainActivity extends AppCompatActivity {
                 Toast.makeText(PongMainActivity.this, "Paused and Saved!", Toast.LENGTH_SHORT).show();
                 String currentTime = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new
                         Date());
-                user.addSave("Pong", currentTime, pongView.getController());
+                user.addSave("Pong", currentTime, gameInfo);
                 saveToFile(SAVE_FILENAME);
             }
         });
