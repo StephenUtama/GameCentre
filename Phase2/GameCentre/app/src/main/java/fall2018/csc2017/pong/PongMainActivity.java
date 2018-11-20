@@ -58,8 +58,12 @@ public class PongMainActivity extends AppCompatActivity {
         display.getSize(size);
 
         // Initialize pongView and set it as the view
-        pongView = new PongSurfaceView(this, size.x, size.y, controller);
-
+        if (pongView == null){
+            pongView = new PongSurfaceView(this, size.x, size.y);
+        }
+        else {
+            pongView = new PongSurfaceView(this, size.x, size.y, controller);
+        }
         //Create your frame layout
         FrameLayout frameLayout = new FrameLayout(this);
 
@@ -126,21 +130,6 @@ public class PongMainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         pongView.resume();
-        try {
-            InputStream inputStream = this.openFileInput(SAVE_FILENAME);
-            if (inputStream != null) {
-                ObjectInputStream input = new ObjectInputStream(inputStream);
-                User.usernameToUser = (HashMap<String, User>) input.readObject();
-                inputStream.close();
-            }
-        } catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
-        } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
-        } catch (ClassNotFoundException e) {
-            Log.e("login activity", "File contained unexpected data type: "
-                    + e.toString());
-        }
     }
 
     /**

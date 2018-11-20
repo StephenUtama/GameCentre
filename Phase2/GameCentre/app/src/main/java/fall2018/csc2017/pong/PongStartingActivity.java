@@ -6,10 +6,15 @@ import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.widget.Button;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -29,6 +34,7 @@ public class PongStartingActivity extends AppCompatActivity {
     private Button pongLoad;
     private String username;
     private User user;
+    public static final String SAVE_FILENAME = "master_save_file.ser";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,9 +97,6 @@ public class PongStartingActivity extends AppCompatActivity {
         pongLoad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PongStartingActivity.this, PongMainActivity.class);
-                intent.putExtra("username", username);
-                startActivity(intent);
                 AlertDialog.Builder alert = new AlertDialog.Builder(PongStartingActivity.this);
                 alert.setTitle("Select your save");
                 alert.setIcon(android.R.drawable.ic_dialog_alert);
@@ -126,10 +129,35 @@ public class PongStartingActivity extends AppCompatActivity {
         // get the corresponding save
         PongGameController saveToLoad = (PongGameController) saves.get(saveName);
 
-        // start the game with the correct GameInfo
         Intent intent = new Intent(PongStartingActivity.this, PongMainActivity.class);
         intent.putExtra("saveToLoad", saveToLoad);
+        intent.putExtra("username", username);
         startActivity(intent);
+    }
+
+    /**
+     * Read the temporary board from disk.
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // load most updated copy of user
+        try {
+            InputStream inputStream = this.openFileInput(SAVE_FILENAME);
+            if (inputStream != null) {
+                ObjectInputStream input = new ObjectInputStream(inputStream);
+                User.usernameToUser = (HashMap<String, User>) input.readObject();
+                user = User.usernameToUser.get(username);
+                inputStream.close();
+            }
+        } catch (FileNotFoundException e) {
+            Log.e("login activity", "File not found: " + e.toString());
+        } catch (IOException e) {
+            Log.e("login activity", "Can not read file: " + e.toString());
+        } catch (ClassNotFoundException e) {
+            Log.e("login activity", "File contained unexpected data type: "
+                    + e.toString());
+        }
     }
 
     // TODO

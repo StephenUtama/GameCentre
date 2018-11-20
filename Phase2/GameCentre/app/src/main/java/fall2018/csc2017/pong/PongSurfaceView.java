@@ -35,7 +35,7 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
     Context context;
 
     /**
-     * Constructor for PongSurfaceView
+     * Constructor for PongSurfaceView when controller exists
      * @param context context of the PongMainActivity
      * @param screenWidth width of screen
      * @param screenHeight height of screen
@@ -47,13 +47,19 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
         // Initialize the controller
-        if (controller == null) {
-            this.controller = new PongGameController(screenWidth, screenHeight, getHolder());
-        }
-        else {
-            this.controller = (PongGameController) controller;
-        }
+        this.controller = (PongGameController) controller;
         this.controller.setupAndRestart();
+
+    }
+
+    public PongSurfaceView(Context context, int screenWidth, int screenHeight) {
+        super(context);
+        this.context = context;
+        // Initialize the width and height of the screen.
+        this.screenWidth = screenWidth;
+        this.screenHeight = screenHeight;
+        // Initialize the controller
+        this.controller = new PongGameController(screenWidth, screenHeight, getHolder());
 
     }
 

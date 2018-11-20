@@ -204,8 +204,4 @@ public class PongGameController implements GameController, Serializable {
             lives = 3;
         }
     }
-
-
-
-
 }
