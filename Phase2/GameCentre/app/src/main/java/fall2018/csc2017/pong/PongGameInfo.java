@@ -81,11 +81,11 @@ public class PongGameInfo extends GameInfo implements Serializable {
 
     @Override
     public void updateScore() {
-        score += 1;
+        score ++;
     }
 
     public void updateLife(){
-        lives -= 1;
+        lives --;
     }
 
     @Override
