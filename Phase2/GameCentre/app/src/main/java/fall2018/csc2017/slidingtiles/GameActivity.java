@@ -2,29 +2,17 @@ package fall2018.csc2017.slidingtiles;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
-import android.widget.Toast;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 
 import generalclasses.GameScoreboards;
-import generalclasses.ScoreBoard;
 import generalclasses.User;
 
 import static fall2018.csc2017.slidingtiles.StartingActivity.SAVE_FILENAME;
@@ -152,62 +140,63 @@ public class GameActivity extends AppCompatActivity implements Observer {
 
 
     private void updateAndSaveScoreboardIfGameOver() {
-        if (slidingTilesManager.isOver()) {
-            // Getting the info needed to display on scoreboard
-            String username = slidingTilesManager.getInfo().getUserName();
-            int score = slidingTilesManager.getInfo().getScore();
-            String complexity = slidingTilesManager.getInfo().getComplexity();
-            String game = slidingTilesManager.getInfo().getGame();
-
-            // assume we have loaded scoreboards and have the correct scoreboard
-            loadScoreboards();
-            SlidingTilesScoreBoard scoreboard = (SlidingTilesScoreBoard) scoreboards.getScoreboard(complexity);
-//            if (scoreboard == null) {
-//                scoreboard = new Sli
-//            }
+        mSaver.updateAndSaveScoreboardIfGameOver(slidingTilesManager);
+//        if (slidingTilesManager.isOver()) {
+//            // Getting the info needed to display on scoreboard
+//            String username = slidingTilesManager.getInfo().getUserName();
+//            int score = slidingTilesManager.getInfo().getScore();
+//            String complexity = slidingTilesManager.getInfo().getComplexity();
+//            String game = slidingTilesManager.getInfo().getGame();
 //
-            // Adding the score to the scoreboard
-            if (scoreboard.getScoreMap().containsKey(username)) {
-                // if user already has a score
-                scoreboard.addScore(username, score);
-            } else { // if user doesn't have a score
-                scoreboard.addUserAndScore(username, score);
-            }
-            // save scoreboard
-            scoreboards.addScoreboard(complexity, scoreboard);
-            saveScoreboards(scoreboards);
-        }
+//            // assume we have loaded scoreboards and have the correct scoreboard
+//            loadScoreboards();
+//            SlidingTilesScoreBoard scoreboard = (SlidingTilesScoreBoard) scoreboards.getScoreboard(complexity);
+////            if (scoreboard == null) {
+////                scoreboard = new Sli
+////            }
+////
+//            // Adding the score to the scoreboard
+//            if (scoreboard.getScoreMap().containsKey(username)) {
+//                // if user already has a score
+//                scoreboard.addScore(username, score);
+//            } else { // if user doesn't have a score
+//                scoreboard.addUserAndScore(username, score);
+//            }
+//            // save scoreboard
+//            scoreboards.addScoreboard(complexity, scoreboard);
+//            saveScoreboards(scoreboards);
+//        }
     }
 
-    private void saveScoreboards(GameScoreboards scoreboards) {
-        try {
-            ObjectOutputStream outputStream = new ObjectOutputStream(
-                    this.openFileOutput("SAVED_SCOREBOARDS", MODE_PRIVATE));
-            outputStream.writeObject(scoreboards);
-            outputStream.close();
-        } catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
-    }
+//    private void saveScoreboards(GameScoreboards scoreboards) {
+//        try {
+//            ObjectOutputStream outputStream = new ObjectOutputStream(
+//                    this.openFileOutput("SAVED_SCOREBOARDS", MODE_PRIVATE));
+//            outputStream.writeObject(scoreboards);
+//            outputStream.close();
+//        } catch (IOException e) {
+//            Log.e("Exception", "File write failed: " + e.toString());
+//        }
+//    }
 
-
-
-    private void loadScoreboards() {
-        try {
-            InputStream inputStream = this.openFileInput("SAVED_SCOREBOARDS");
-            if (inputStream != null) {
-                ObjectInputStream input = new ObjectInputStream(inputStream);
-                scoreboards = (SlidingTileScoreboards) input.readObject();
-                inputStream.close();
-            }
-        } catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
-        } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
-        } catch (ClassNotFoundException e) {
-            Log.e("login activity", "File contained unexpected data type: " + e.toString());
-        }
-    }
+//
+//
+//    private void loadScoreboards() {
+//        try {
+//            InputStream inputStream = this.openFileInput("SAVED_SCOREBOARDS");
+//            if (inputStream != null) {
+//                ObjectInputStream input = new ObjectInputStream(inputStream);
+//                scoreboards = (SlidingTileScoreboards) input.readObject();
+//                inputStream.close();
+//            }
+//        } catch (FileNotFoundException e) {
+//            Log.e("login activity", "File not found: " + e.toString());
+//        } catch (IOException e) {
+//            Log.e("login activity", "Can not read file: " + e.toString());
+//        } catch (ClassNotFoundException e) {
+//            Log.e("login activity", "File contained unexpected data type: " + e.toString());
+//        }
+//    }
 
 
     /**
