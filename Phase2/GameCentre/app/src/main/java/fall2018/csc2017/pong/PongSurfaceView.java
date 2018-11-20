@@ -58,7 +58,7 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
     }
 
     public PongGameInfo getGameInfo() {
-        return gameInfo;
+        return controller.gameInfo;
     }
 
     public PongGameController getController(){
@@ -85,7 +85,7 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
 
             // updating fps
             if (timeThisFrame >= 1) { // so it doesn't divide by 0
-                controller.fps = 1000 / timeThisFrame;
+                controller.gameInfo.setFps(1000 / timeThisFrame);
             }
         }
     }

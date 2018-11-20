@@ -35,6 +35,11 @@ public class PongGameInfo extends GameInfo implements Serializable {
      */
     int lives;
 
+    /**
+     * The game's fps.
+     */
+    long fps;
+
     public int getScreenWidth() {
         return screenWidth;
     }
@@ -51,6 +56,16 @@ public class PongGameInfo extends GameInfo implements Serializable {
         this.lives = 3;
         this.racket = new Racket(screenWidth, screenHeight);
         this.ball = new Ball(screenWidth, screenHeight);
+
+    }
+
+    public void setFps(long fps) {
+        this.fps = fps;
+    }
+
+    public long getFps() {
+
+        return fps;
     }
 
     public int getLives() {
@@ -75,7 +90,7 @@ public class PongGameInfo extends GameInfo implements Serializable {
 
     @Override
     public int getScore() {
-        return 0;
+        return score;
 
     }
 
@@ -100,6 +115,6 @@ public class PongGameInfo extends GameInfo implements Serializable {
 
     @Override
     public String getGame() {
-        return null;
+        return "Pong";
     }
 }

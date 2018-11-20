@@ -50,10 +50,6 @@ public class PongGameController implements GameController, Serializable {
      */
     Paint paint;
 
-    /**
-     * The game's fps.
-     */
-    long fps;
 
 //     Sound FX
 //    SoundPool sp;
@@ -83,8 +79,8 @@ public class PongGameController implements GameController, Serializable {
     public void update() {
 
         // Move the racket if required
-        gameInfo.getRacket().update(fps);
-        gameInfo.getBall().update(fps);
+        gameInfo.getRacket().update(gameInfo.getFps());
+        gameInfo.getBall().update(gameInfo.getFps());
 
         // If ball colliding with racket
         if(RectF.intersects(gameInfo.getRacket().getRect(), gameInfo.getBall().getRect())) {

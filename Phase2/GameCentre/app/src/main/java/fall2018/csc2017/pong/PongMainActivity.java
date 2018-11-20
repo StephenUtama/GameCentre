@@ -59,7 +59,8 @@ public class PongMainActivity extends AppCompatActivity {
 
         // Initialize pongView and set it as the view
         if (gameInfo == null) {
-            pongView = new PongSurfaceView(this, size.x, size.y, new PongGameInfo(size.x, size.y, username)); // create new gameInfo
+            gameInfo = new PongGameInfo(size.x, size.y, username);
+            pongView = new PongSurfaceView(this, size.x, size.y, gameInfo); // create new gameInfo
         }
         else {
             pongView = new PongSurfaceView(this, size.x, size.y, gameInfo);
