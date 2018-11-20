@@ -117,7 +117,7 @@ public class PongMainActivity extends AppCompatActivity {
                 Toast.makeText(PongMainActivity.this, "Paused and Saved!", Toast.LENGTH_SHORT).show();
                 String currentTime = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new
                         Date());
-                user.addSave("Pong", currentTime, gameInfo);
+                user.addSave("Pong", currentTime, pongView.getGameInfo());
                 saveToFile(SAVE_FILENAME);
             }
         });
