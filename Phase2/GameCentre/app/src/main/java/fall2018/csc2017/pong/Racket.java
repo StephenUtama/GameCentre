@@ -2,11 +2,13 @@ package fall2018.csc2017.pong;
 
 import android.graphics.RectF;
 
+import java.io.Serializable;
+
 /**
  * Racket (bar on the bottom) class of Pong game
  * cited from: http://androidgameprogramming.com/programming-a-pong-game-part-3/
  */
-public class Racket {
+public class Racket implements Serializable {
     /**
      * Four points that represents rectangle (the racket)
      */
@@ -61,6 +63,7 @@ public class Racket {
 
         this.x = screenWidth/2;
         this.y = screenHeight - 150;
+
 
         this.rect = new RectF( this.x, this.y, this.x + this.length, this.y + this.height);
 

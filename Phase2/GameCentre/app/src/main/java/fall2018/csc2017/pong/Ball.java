@@ -1,9 +1,10 @@
 package fall2018.csc2017.pong;
 import android.graphics.RectF; // https://developer.android.com/reference/android/graphics/RectF
 
+import java.io.Serializable;
 import java.util.Random;
 
-public class Ball {
+public class Ball implements Serializable {
 
     /**
      * Coordinates of the ball on the screen
