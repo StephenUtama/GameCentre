@@ -1,6 +1,5 @@
 package fall2018.csc2017.slidingtiles;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,8 +10,6 @@ import android.widget.Button;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
-
-import generalclasses.GameScoreboards;
 import generalclasses.User;
 
 import static fall2018.csc2017.slidingtiles.StartingActivity.SAVE_FILENAME;
@@ -37,14 +34,6 @@ public class GameActivity extends AppCompatActivity implements Observer {
      */
     public static Bitmap[] backgrounds;
 
-    /**
-     * Constants for swiping directions. Should be an enum, probably.
-     */
-    public static final int UP = 1;
-    public static final int DOWN = 2;
-    public static final int LEFT = 3;
-    public static final int RIGHT = 4;
-
     // Grid View and calculated column height and width based on device size
     private GestureDetectGridView gridView;
     private static int columnWidth, columnHeight;
@@ -56,8 +45,6 @@ public class GameActivity extends AppCompatActivity implements Observer {
     protected static SlidingTilesGameInfo gameInfo;
 
     private User user;
-
-    private GameScoreboards scoreboards;
 
     private GameActivityController mController;
     private SlidingTilesFileSaverModel mSaver;
