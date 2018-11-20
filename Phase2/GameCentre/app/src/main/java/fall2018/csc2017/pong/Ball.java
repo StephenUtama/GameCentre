@@ -10,42 +10,57 @@ public class Ball implements Serializable {
      * Coordinates of the ball on the screen
      */
     private SerializableRectF rect;
+
     /**
      * Velocity in the X direction
      */
     private float XVelocity;
+
     /**
      * Velocity in the Y direction
      */
     private float YVelocity;
+
     /**
      * Width of Ball
      */
     private float BallWidth;
+
     /**
      * Height of Ball
      */
     private float BallHeight;
 
+    /**
+     * Width of the screen
+     */
+    private int screenWidth;
+
+    /**
+     * Height of the screen
+     */
     private int screenHeight;
+
     /**
      * Constructor for Ball
      * @param screenX Width of screen
      * @param screenY Height of screen
      */
     public Ball(int screenX, int screenY) {
+        screenWidth = screenX;
+        screenHeight = screenY;
 
         // Make the ball size relative to the screen resolution
         BallWidth = screenX / 100;
         BallHeight = BallWidth;
-        screenHeight = screenY;
+
         // Start the ball travelling straight up
         // at a quarter of the screen height per second
         YVelocity = screenY / 4;
         XVelocity = YVelocity;
 
 
-        // Initialize the rect which is the coordinates of the ball.
+        // Initialize a SerializableRectF and set it's starting coordinates.
         RectF temp = new RectF();
         rect = new SerializableRectF(temp);
         rect.getRectF().left = screenX / 2;
@@ -56,11 +71,11 @@ public class Ball implements Serializable {
     }
 
     /**
-     * Returns the rect
-     * @return rect, the position of the ball.
+     * Returns the RectF of the SerializableRectF
+     * @return rect, the SerializableRectF containing Rect
      */
-    public SerializableRectF getSerializableRectF() {
-        return rect;
+    public RectF getRectF() {
+        return rect.getRectF();
     }
 
     /**

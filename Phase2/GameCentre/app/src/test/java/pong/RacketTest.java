@@ -22,11 +22,11 @@ public class RacketTest {
     public void testUpdate(){
         testRacket.setMovementState(1); // moving left
         testRacket.update(10);
-        assertEquals(true,432 == testRacket.getSerializableRectF().left);
-        assertEquals(true, 567 == testRacket.getSerializableRectF().right);
+        assertEquals(true,432 == testRacket.getRectF().left);
+        assertEquals(true, 567 == testRacket.getRectF().right);
         testRacket.update(1); // this should make the x coordinate negative
-        assertEquals(true, 0 == testRacket.getSerializableRectF().left); // but updates prevents
-        assertEquals(true, 135 == testRacket.getSerializableRectF().right);
+        assertEquals(true, 0 == testRacket.getRectF().left); // but updates prevents
+        assertEquals(true, 135 == testRacket.getRectF().right);
     }
 
 

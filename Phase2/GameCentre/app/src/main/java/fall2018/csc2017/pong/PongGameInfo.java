@@ -15,6 +15,7 @@ public class PongGameInfo extends GameInfo implements Serializable {
      * height of screen in pixels
      */
     int screenHeight;
+
     /**
      * The player's racket.
      */
@@ -40,6 +41,20 @@ public class PongGameInfo extends GameInfo implements Serializable {
      */
     long fps;
 
+    public PongGameInfo(int screenWidth, int screenHeight, String username) {
+        setUserName(username);
+        this.screenWidth = screenWidth;
+        this.screenHeight = screenHeight;
+
+        // The default score values.
+        this.score = 0;
+        this.lives = 3;
+
+        // Initializing new Racket and Ball.
+        this.racket = new Racket(screenWidth, screenHeight);
+        this.ball = new Ball(screenWidth, screenHeight);
+    }
+
     public int getScreenWidth() {
         return screenWidth;
     }
@@ -48,25 +63,11 @@ public class PongGameInfo extends GameInfo implements Serializable {
         return screenHeight;
     }
 
-    public PongGameInfo(int screenWidth, int screenHeight, String username) {
-        setUserName(username);
-        this.screenWidth = screenWidth;
-        this.screenHeight = screenHeight;
-        this.score = 0;
-        this.lives = 3;
-        this.racket = new Racket(screenWidth, screenHeight);
-        this.ball = new Ball(screenWidth, screenHeight);
-
-    }
-
     public void setFps(long fps) {
         this.fps = fps;
     }
 
-    public long getFps() {
-
-        return fps;
-    }
+    public long getFps() { return fps; }
 
     public int getLives() {
         return lives;
@@ -89,10 +90,7 @@ public class PongGameInfo extends GameInfo implements Serializable {
     }
 
     @Override
-    public int getScore() {
-        return score;
-
-    }
+    public int getScore() { return score; }
 
     @Override
     public void updateScore() {
