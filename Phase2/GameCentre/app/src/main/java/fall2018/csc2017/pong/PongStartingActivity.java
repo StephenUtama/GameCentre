@@ -25,6 +25,7 @@ import fall2018.csc2017.slidingtiles.StartingActivity;
 import generalactivities.GameSelectionActivity;
 import generalactivities.MenuActivity;
 import generalclasses.GameInfo;
+import generalclasses.GameScoreboards;
 import generalclasses.User;
 
 public class PongStartingActivity extends AppCompatActivity {
@@ -35,6 +36,8 @@ public class PongStartingActivity extends AppCompatActivity {
     private String username;
     private User user;
     public static final String SAVE_FILENAME = "master_save_file.ser";
+    public static boolean playSaving = false;
+    //GameScoreboards scoreboards = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,7 @@ public class PongStartingActivity extends AppCompatActivity {
         addPongGameButtonListener();
         user = User.usernameToUser.get(username);
         addPongLoadButtonListener();
+        addPongScoreButtonListener();
     }
 
     private void declarations(){
@@ -64,23 +68,22 @@ public class PongStartingActivity extends AppCompatActivity {
         });
     }
 
-    /**
     private void addPongScoreButtonListener() {
         pongScore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PongStartingActivity.this, PongMainActivity.class);
-                //intent.putExtra("username", username);
+                Intent intent = new Intent(PongStartingActivity.this, PongScoreBoardActivity.class);
+                intent.putExtra("username", username);
+                intent.putExtra("user", user);
                 startActivity(intent);
             }
         });
     }
-    **/
 
     /**
      * Get all the save names that have a given complexity.
      *
-     * @param saves      the hash map of all the existing saves
+     * @param saves  the hash map of all the existing saves
      * @return a string array of save names that have complexity complexity
      */
     private String[] getSaveNames(HashMap<String, Object> saves) {
@@ -130,6 +133,7 @@ public class PongStartingActivity extends AppCompatActivity {
         Intent intent = new Intent(PongStartingActivity.this, PongMainActivity.class);
         intent.putExtra("saveToLoad", saveToLoad);
         intent.putExtra("username", username);
+        playSaving = true;
         startActivity(intent);
     }
 
@@ -160,12 +164,12 @@ public class PongStartingActivity extends AppCompatActivity {
 
     // TODO
     /**
-     * 1. Pause button and resume from there
+     * 1. Pause button and resume from there /Done
      * 2. Once the game is over, prompt the user with text field
-     * 3. Save the game when it is over
-     * 4. Add the save button to the paused menu
-     * 5. Save that game state into a file when save is clicked
-     * 6. Connect scoreboard to saved file and user
+     * 3. Save the game when it is over /Doing
+     * 4. Add the save button to the paused menu /Done
+     * 5. Save that game state into a file when save is clicked /Done
+     * 6. Connect scoreboard to saved file and user /Doing
      * 7. Add extra functions to pong game (eg. sound and power up items)
      */
 }

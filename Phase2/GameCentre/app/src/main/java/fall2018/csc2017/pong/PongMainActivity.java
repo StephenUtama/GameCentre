@@ -21,7 +21,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
+import fall2018.csc2017.slidingtiles.SlidingTileScoreboards;
 import fall2018.csc2017.slidingtiles.SlidingTilesGameInfo;
+import fall2018.csc2017.slidingtiles.SlidingTilesScoreBoard;
+import generalclasses.GameScoreboards;
 import generalclasses.User;
 
 public class PongMainActivity extends AppCompatActivity {
@@ -35,6 +38,7 @@ public class PongMainActivity extends AppCompatActivity {
     public static final String SAVE_FILENAME = "master_save_file.ser";
     private User user;
     private PongGameInfo gameInfo;
+    private GameScoreboards scoreboards;
 
 
     @Override
@@ -94,6 +98,46 @@ public class PongMainActivity extends AppCompatActivity {
 
     }
 
+    private void updateAndSaveScoreboardIfGameOver() {
+        if (gameInfo.lives == 0) {
+            // Getting the info needed to display on scoreboard
+            String username = gameInfo.getUserName();
+            int score = gameInfo.getScore();
+            String game = gameInfo.getGame();
+            // assume we have loaded scoreboards and have the correct scoreboard
+            loadScoreboards();
+            PongScoreBoard scoreboard = (PongScoreBoard) scoreboards.getScoreboard("Pong");
+
+            // Adding the score to the scoreboard
+            if (scoreboard.getScoreMap().containsKey(username)) {
+                // if user already has a score
+                scoreboard.addScore(username, score);
+            } else { // if user doesn't have a score
+                scoreboard.addUserAndScore(username, score);
+            }
+            // save scoreboard
+            scoreboards.addScoreboard(game, scoreboard);
+            saveScoreboards(scoreboards);
+        }
+    }
+
+    private void loadScoreboards() {
+        try {
+            InputStream inputStream = this.openFileInput("SAVED_SCOREBOARDS");
+            if (inputStream != null) {
+                ObjectInputStream input = new ObjectInputStream(inputStream);
+                scoreboards = (GameScoreboards) input.readObject();
+                inputStream.close();
+            }
+        } catch (FileNotFoundException e) {
+            Log.e("login activity", "File not found: " + e.toString());
+        } catch (IOException e) {
+            Log.e("login activity", "Can not read file: " + e.toString());
+        } catch (ClassNotFoundException e) {
+            Log.e("login activity", "File contained unexpected data type: " + e.toString());
+        }
+    }
+
     /**
      * Save the current hash map with each user's saves to fileName.
      *
@@ -122,6 +166,17 @@ public class PongMainActivity extends AppCompatActivity {
                 saveToFile(SAVE_FILENAME);
             }
         });
+    }
+
+    private void saveScoreboards(GameScoreboards scoreboards) {
+        try {
+            ObjectOutputStream outputStream = new ObjectOutputStream(
+                    this.openFileOutput("SAVED_SCOREBOARDS", MODE_PRIVATE));
+            outputStream.writeObject(scoreboards);
+            outputStream.close();
+        } catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
     }
 
 

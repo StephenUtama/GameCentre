@@ -8,7 +8,19 @@ import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.widget.Toast;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import fall2018.csc2017.slidingtiles.SlidingTileScoreboards;
 import generalactivities.SettingActivity;
+import generalclasses.User;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class PongSurfaceView extends SurfaceView implements Runnable {
 
@@ -26,11 +38,12 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
      * Size of horizontal screen in pixels.
      */
     int screenHeight;
-
     /**
      * Controller for this view
      */
     PongGameController controller;
+
+    public static final String SAVE_FILENAME = "master_save_file.ser";
 
     /**
      * GameInfo for the game
@@ -38,6 +51,9 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
     PongGameInfo gameInfo;
 
     Context context;
+    User user;
+
+    PongScoreBoard scoreboards;
 
     /**
      * Constructor for PongSurfaceView.
@@ -55,6 +71,7 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
         this.gameInfo = gameInfo;
         //Initialize the controller
         this.controller = new PongGameController(getHolder(), gameInfo);
+        user = User.usernameToUser.get(gameInfo.getUserName());
     }
 
     public PongGameInfo getGameInfo() {
@@ -143,4 +160,7 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
         thread = new Thread(this);
         thread.start();
     }
+
+
+
 }

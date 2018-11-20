@@ -7,14 +7,14 @@ public abstract class GameScoreboards implements Serializable{
 //    String game;
     private HashMap<String, ScoreBoard> scoreboardsForGame = new HashMap<>();
 
-    public void addScoreboard(String difficulty, ScoreBoard scoreBoard) {
-        scoreboardsForGame.put(difficulty, scoreBoard);
+    public void addScoreboard(String gameName, ScoreBoard scoreBoard) {
+        scoreboardsForGame.put(gameName, scoreBoard);
     }
 
-    public ScoreBoard getScoreboard(String complexity) {
-        if (!scoreboardsForGame.keySet().contains(complexity)) {
-            scoreboardsForGame.put(complexity, null);
+    public ScoreBoard getScoreboard(String gameName) {
+        if (!scoreboardsForGame.keySet().contains(gameName)) {
+            scoreboardsForGame.put(gameName, null);
         }
-        return scoreboardsForGame.get(complexity);
+        return scoreboardsForGame.get(gameName);
     }
 }
