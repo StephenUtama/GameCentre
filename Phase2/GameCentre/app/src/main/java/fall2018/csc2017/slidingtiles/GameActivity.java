@@ -66,12 +66,17 @@ public class GameActivity extends AppCompatActivity implements Observer {
      */
     public static boolean image_game = false;
     protected static SlidingTilesGameInfo gameInfo;
+
     private User user;
 
     private GameScoreboards scoreboards;
 
     private GameActivityController mController;
+    private SlidingTilesFileSaverModel mSaver;
 
+    public User getUser() {
+        return user;
+    }
     /**
      * Set up the background image for each button based on the master list
      * of positions, and then call the adapter to set the view.
@@ -87,6 +92,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
         super.onCreate(savedInstanceState);
 
         mController = new GameActivityController(this);
+        mSaver = new SlidingTilesFileSaverModel(this);
         gameInfo = (SlidingTilesGameInfo) getIntent().getSerializableExtra("saveToLoad");
         // make manager, then set game info
         slidingTilesManager = new SlidingTilesManager();
@@ -133,89 +139,17 @@ public class GameActivity extends AppCompatActivity implements Observer {
         Board board = slidingTilesManager.getBoard();
         tileButtons = mController.createTileButtons(image_game, board);
 
-//        if (image_game){ // If the complexity is image, creates buttons differently
-//            int num;
-//            for (int row = 0; row != Board.NUM_ROWS; row++) {
-//                for (int col = 0; col != Board.NUM_COLS; col++) {
-//                    num = board.getTile(row,col).getId()-1;
-//                    helperCreatingButton(num, row, col, context);
-//
-//                }
-//            }
-//        } else {
-//            for (int row = 0; row != Board.NUM_ROWS; row++) {
-//                for (int col = 0; col != Board.NUM_COLS; col++) {
-//                    Button tmp = new Button(context);
-//                    tmp.setBackgroundResource(board.getTile(row, col).getBackground());
-//                    this.tileButtons.add(tmp);
-//                }
-//            }
-//        }
-
     }
-//
-//    /**
-//     * Helper function for creating a button when complexity is image
-//     * @param num id of the tile
-//     * @param row row of the creating tile
-//     * @param col col of the creating tile
-//     * @param context context of the activity
-//     */
-//    public void helperCreatingButton(int num, int row, int col, Context context) {
-//        Board board = slidingTilesManager.getBoard();
-//        Button tmp = new Button(context);
-//        if (num != 24) {
-//            BitmapDrawable bmp = new BitmapDrawable(backgrounds[num]);
-//            tmp.setBackground(bmp);
-//            this.tileButtons.add(tmp);
-//        } else {
-//            tmp.setBackgroundResource(board.getTile(row, col).getBackground());
-//            this.tileButtons.add(tmp);
-//        }
-//    }
     /**
      * Update the backgrounds on the buttons to match the tiles.
      */
     private void updateTileButtons() {
         Board board = slidingTilesManager.getBoard();
         mController.updateTileButtons(tileButtons, image_game, board);
-//        if (image_game) { // If the complexity is image, updates buttons differently
-//            int next = 0;
-//            for (Button b : tileButtons) {
-//                helperUpdate(b, next);
-//                next++;
-//            }
-////        } else {
-//            int nextPos = 0;
-//            for (Button b : tileButtons) {
-//                int row = nextPos / Board.NUM_ROWS;
-//                int col = nextPos % Board.NUM_COLS;
-//                b.setBackgroundResource(board.getTile(row, col).getBackground());
-//                nextPos++;
-//            }
-//        }
         autosave();
         updateAndSaveScoreboardIfGameOver();
     }
 
-
-//    /**
-//     * Helper function for updating the background of the tile when complexity is image
-//     * @param b current button that is being updated
-//     * @param next the position of the tile that is being updated
-//     */
-//    public void helperUpdate(Button b, int next){
-//        Board board = slidingTilesManager.getBoard();
-//        int row = next / Board.NUM_ROWS;
-//        int col = next % Board.NUM_COLS;
-//        int num = board.getTile(row, col).getId() - 1;
-//        if(num != 24){
-//            BitmapDrawable bmp = new BitmapDrawable(backgrounds[num]);
-//            b.setBackground(bmp);
-//        }else{
-//            b.setBackgroundResource(board.getTile(row, col).getBackground());
-//        }
-//    }
 
     private void updateAndSaveScoreboardIfGameOver() {
         if (slidingTilesManager.isOver()) {
@@ -282,7 +216,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
     private void autosave() {
         String game = slidingTilesManager.getInfo().getGame();
         user.addSave(game, "Autosave", gameInfo);
-        saveToFile(SAVE_FILENAME);
+        mSaver.saveToFile(SAVE_FILENAME);
     }
 
     @Override
@@ -290,21 +224,6 @@ public class GameActivity extends AppCompatActivity implements Observer {
         super.onPause();
     }
 
-    /**
-     * Save the current hash map with each user's saves to fileName.
-     *
-     * @param fileName the name of the file
-     */
-    public void saveToFile(String fileName) {
-        try {
-            ObjectOutputStream outputStream = new ObjectOutputStream(
-                    this.openFileOutput(fileName, MODE_PRIVATE));
-            outputStream.writeObject(User.usernameToUser);
-            outputStream.close();
-        } catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
-    }
 
     @Override
     public void update(Observable o, Object arg) {
@@ -339,34 +258,10 @@ public class GameActivity extends AppCompatActivity implements Observer {
             public void onClick(View v) {
                 // look at the current game info from GameActivity
                 SlidingTilesGameInfo gameInfo = GameActivity.gameInfo;
-                if (gameInfo.getScore() == 0) {
-                    makeToastNothingToSave(); // if the player hasn't played yet
-                } else {
-                    // get the current time
-                    String currentTime = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new
-                            Date());
-                    user.addSave(gameInfo.getGame(), currentTime, gameInfo);
-                    saveToFile(SAVE_FILENAME);
-                    makeToastSavedText();
-                }
+                mSaver.saveButtonListener(gameInfo, getUser());
             }
         });
     }
-
-    /**
-     * Display that there was nothing to save.
-     */
-    private void makeToastNothingToSave() {
-        Toast.makeText(this, "Nothing to Save", Toast.LENGTH_SHORT).show();
-    }
-
-    /**
-     * Display that a game was saved successfully.
-     */
-    private void makeToastSavedText() {
-        Toast.makeText(this, "Game Saved", Toast.LENGTH_SHORT).show();
-    }
-
 
 }
 

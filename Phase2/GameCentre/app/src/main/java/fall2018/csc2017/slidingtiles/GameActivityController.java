@@ -18,6 +18,7 @@ public class GameActivityController {
     public GameActivityController(Context context) {
         this.context = context;
     }
+
     public ArrayList<Button> createTileButtons(boolean image_game, Board board) {
         tileButtons = new ArrayList<>();
 
