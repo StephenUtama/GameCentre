@@ -17,6 +17,9 @@ import generalclasses.User;
 
 import static fall2018.csc2017.slidingtiles.StartingActivity.SAVE_FILENAME;
 
+/**
+ * The Model for Sliding Tiles.
+ */
 public class SlidingTilesFileSaverModel {
 
     private Context context;

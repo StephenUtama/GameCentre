@@ -6,6 +6,9 @@ import android.widget.Button;
 
 import java.util.ArrayList;
 
+/**
+ * Controller for GameActivity
+ */
 public class GameActivityController {
     Context context;
 
@@ -94,6 +97,13 @@ public class GameActivityController {
             b.setBackground(bmp);
         }else{
             b.setBackgroundResource(board.getTile(row, col).getBackground());
+        }
+    }
+
+    public void undoBtn(int numPreviousMoves, SlidingTilesManager slidingTilesManager) {
+        if ((numPreviousMoves) != 0) { // check whether any moves were made
+            int previousMove = slidingTilesManager.returnPreviousMove();
+            slidingTilesManager.makeMove(previousMove);
         }
     }
 }

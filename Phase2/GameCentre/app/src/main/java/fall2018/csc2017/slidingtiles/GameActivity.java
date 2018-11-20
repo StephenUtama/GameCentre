@@ -18,7 +18,7 @@ import generalclasses.User;
 import static fall2018.csc2017.slidingtiles.StartingActivity.SAVE_FILENAME;
 
 /**
- * The game activity.
+ * The game activity, also the View.
  */
 public class GameActivity extends AppCompatActivity implements Observer {
 
@@ -89,7 +89,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
         // determine current user
         user = User.usernameToUser.get(gameInfo.getUserName());
 
-        createTileButtons(this);
+        createTileButtons();
         setContentView(R.layout.activity_main);
         addUndoButtonListener();
         addSaveButtonListener();
@@ -120,10 +120,8 @@ public class GameActivity extends AppCompatActivity implements Observer {
 
     /**
      * Create the buttons for displaying the tiles.
-     *
-     * @param context the context
      */
-    private void createTileButtons(Context context) {
+    private void createTileButtons() {
         Board board = slidingTilesManager.getBoard();
         tileButtons = mController.createTileButtons(image_game, board);
 
@@ -141,62 +139,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
 
     private void updateAndSaveScoreboardIfGameOver() {
         mSaver.updateAndSaveScoreboardIfGameOver(slidingTilesManager);
-//        if (slidingTilesManager.isOver()) {
-//            // Getting the info needed to display on scoreboard
-//            String username = slidingTilesManager.getInfo().getUserName();
-//            int score = slidingTilesManager.getInfo().getScore();
-//            String complexity = slidingTilesManager.getInfo().getComplexity();
-//            String game = slidingTilesManager.getInfo().getGame();
-//
-//            // assume we have loaded scoreboards and have the correct scoreboard
-//            loadScoreboards();
-//            SlidingTilesScoreBoard scoreboard = (SlidingTilesScoreBoard) scoreboards.getScoreboard(complexity);
-////            if (scoreboard == null) {
-////                scoreboard = new Sli
-////            }
-////
-//            // Adding the score to the scoreboard
-//            if (scoreboard.getScoreMap().containsKey(username)) {
-//                // if user already has a score
-//                scoreboard.addScore(username, score);
-//            } else { // if user doesn't have a score
-//                scoreboard.addUserAndScore(username, score);
-//            }
-//            // save scoreboard
-//            scoreboards.addScoreboard(complexity, scoreboard);
-//            saveScoreboards(scoreboards);
-//        }
     }
-
-//    private void saveScoreboards(GameScoreboards scoreboards) {
-//        try {
-//            ObjectOutputStream outputStream = new ObjectOutputStream(
-//                    this.openFileOutput("SAVED_SCOREBOARDS", MODE_PRIVATE));
-//            outputStream.writeObject(scoreboards);
-//            outputStream.close();
-//        } catch (IOException e) {
-//            Log.e("Exception", "File write failed: " + e.toString());
-//        }
-//    }
-
-//
-//
-//    private void loadScoreboards() {
-//        try {
-//            InputStream inputStream = this.openFileInput("SAVED_SCOREBOARDS");
-//            if (inputStream != null) {
-//                ObjectInputStream input = new ObjectInputStream(inputStream);
-//                scoreboards = (SlidingTileScoreboards) input.readObject();
-//                inputStream.close();
-//            }
-//        } catch (FileNotFoundException e) {
-//            Log.e("login activity", "File not found: " + e.toString());
-//        } catch (IOException e) {
-//            Log.e("login activity", "Can not read file: " + e.toString());
-//        } catch (ClassNotFoundException e) {
-//            Log.e("login activity", "File contained unexpected data type: " + e.toString());
-//        }
-//    }
 
 
     /**
@@ -228,11 +171,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
             @Override
             public void onClick(View v) {
                 int numPreviousMoves = gameInfo.previousMovesList.size(); // get number of moves made
-
-                if ((numPreviousMoves) != 0) { // check whether any moves were made
-                    int previousMove = slidingTilesManager.returnPreviousMove();
-                    slidingTilesManager.makeMove(previousMove);
-                }
+                mController.undoBtn(numPreviousMoves, slidingTilesManager);
             }
         });
     }
