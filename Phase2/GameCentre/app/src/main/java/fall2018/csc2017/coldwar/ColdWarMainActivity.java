@@ -35,12 +35,12 @@ public class ColdWarMainActivity extends AppCompatActivity {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
                 if (selectedPosition == -1){
                     int selectedPosition = position;
                 }
                 else {
                     int positionToMove = position;
+                    // manager.makeMove(selectedPosition, positionToMove);
                 }
 
                 Toast.makeText(ColdWarMainActivity.this, "Position is " +

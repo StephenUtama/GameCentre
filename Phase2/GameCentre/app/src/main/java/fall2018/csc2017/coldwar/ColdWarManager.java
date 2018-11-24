@@ -17,4 +17,11 @@ public class ColdWarManager extends Manager {
         // just to satisfy parent
 
     }
+
+    /** Move the agent at selectedPosition to positionToMove
+     * @param selectedPosition The position of the agent to move
+     * @param positionToMove The position of where we want the given agent to move to
+     */
+    public void makeMove(int selectedPosition, int positionToMove) {
+    }
 }
