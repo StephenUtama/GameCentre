@@ -26,7 +26,7 @@ public class ColdWarMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cold_war_main);
         ColdWarGameInfo coldWarGameInfo = new ColdWarGameInfo();
         List<Tile> board = coldWarGameInfo.getBoard();
-        imageIDs = ColdWarManager.getImageIDs(board);
+        imageIDs = ColdWarManager.getImageIDs(coldWarGameInfo);
 
         gridView = findViewById(R.id.coldWarGridView);
         gridView.setAdapter(new ImageAdapterGridView(this, imageIDs));

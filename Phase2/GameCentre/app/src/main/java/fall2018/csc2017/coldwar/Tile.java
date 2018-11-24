@@ -17,10 +17,10 @@ class Tile {
         this.agent = agent;
     }
 
-    public int getPicture() {
-        if (this.agent == null) {
-            return R.drawable.cold_war_blank_tile;
-        }
-        return agent.getPicture();
-    }
+//    public int getPicture() {
+//        if (this.agent == null) {
+//            return R.drawable.cold_war_blank_tile;
+//        }
+//        return agent.getPicture();
+//    }
 }
