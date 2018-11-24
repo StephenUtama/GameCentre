@@ -25,7 +25,15 @@ public class ColdWarGameInfo extends GameInfo {
     /**
      * The current player.
      */
-    private boolean isP1Turn;
+    private String currentPlayer = "player1";
+
+    public String getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public void setCurrentPlayer(String currentPlayer) {
+        this.currentPlayer = currentPlayer;
+    }
 
     public List<Tile> getBoard(){
         return this.board;
