@@ -10,17 +10,42 @@ public class ColdWarGameInfo extends GameInfo {
     /**
      * A list of tiles to represent the current state of the game board.
      */
-    List<Tile> board;
+    private List<Tile> board;
 
     /**
      * The "International Reputation" of the signed in user. Used by the lose condition.
      */
-    int userReputation;
+    private int userReputation;
 
     /**
      * The "International Reputation" of the guest user. Used by the lose condition.
      */
-    int guestReputation;
+    private int guestReputation;
+
+    /**
+     * The current player.
+     */
+    private boolean isP1Turn;
+
+    public List<Tile> getBoard(){
+        return this.board;
+    }
+
+    public int getUserReputation(){
+        return this.userReputation;
+    }
+
+    public int getGuestReputation(){
+        return this.guestReputation;
+    }
+
+    public void setUserReputation(int userReputation) {
+        this.userReputation = userReputation;
+    }
+
+    public void setGuestReputation(int guestReputation){
+        this.guestReputation = guestReputation;
+    }
 
     public ColdWarGameInfo() {
         board = new ArrayList<>();
@@ -42,15 +67,19 @@ public class ColdWarGameInfo extends GameInfo {
      */
     private void setUpTestBoard() {
         setUpBlankBoard();
-        Spy spy1 = new Spy();
-        board.get(3).agent = spy1;
+        Spy spy = new Spy();
+        board.get(3).setAgent(spy);
     }
 
     /**
-     * Get a list of the image IDs based on the occupant of each tile on the board.
+     * Get a list of the image IDs based on the occupant of each tile on the board, based on the
+     * the current player.
+     *
+     * Display image if the current player owns the piece.
+     *
      * @return a list of integers corresponding to the correct image IDs.
      */
-    public List<Integer> getImageIDs() {
+     List<Integer> getImageIDs() {
         List<Integer> IDs = new ArrayList<>();
 
         for (int i = 0; i < board.size(); i++) {

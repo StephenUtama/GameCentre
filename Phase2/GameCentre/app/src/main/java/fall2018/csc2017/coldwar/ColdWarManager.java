@@ -1,4 +1,7 @@
 package fall2018.csc2017.coldwar;
+import java.util.ArrayList;
+import java.util.List;
+
 import generalclasses.Manager;
 
 public class ColdWarManager extends Manager {
@@ -18,10 +21,13 @@ public class ColdWarManager extends Manager {
 
     }
 
-    /** Move the agent at selectedPosition to positionToMove
-     * @param selectedPosition The position of the agent to move
-     * @param positionToMove The position of where we want the given agent to move to
-     */
-    public void makeMove(int selectedPosition, int positionToMove) {
+    static List<Integer> getImageIDs(List<Tile> board){
+        List<Integer> IDs = new ArrayList<>();
+
+        for (int i = 0; i < board.size(); i++) {
+            IDs.add(board.get(i).getPicture());
+        }
+
+        return IDs;
     }
 }
