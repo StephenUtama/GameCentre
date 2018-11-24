@@ -38,8 +38,10 @@
         <activity android:name="generalactivities.SettingActivity" />
         <activity android:name="fall2018.csc2017.pong.PongGameActivity" />
         <activity android:name="fall2018.csc2017.pong.PongStartingActivity" />
-        <activity android:name="fall2018.csc2017.coldwar.ColdWarMainActivity"/>
-        <activity android:name="fall2018.csc2017.pong.PongScoreBoardActivity"></activity>
+        <activity android:name="fall2018.csc2017.coldwar.ColdWarMainActivity" />
+        <activity android:name="fall2018.csc2017.pong.PongScoreBoardActivity" />
+        <activity android:name="fall2018.csc2017.coldwar.UserPiecesSelectionActivity" />
+        <activity android:name="fall2018.csc2017.coldwar.GuestPiecesSelectionActivity"></activity>
     </application>
 
 </manifest>

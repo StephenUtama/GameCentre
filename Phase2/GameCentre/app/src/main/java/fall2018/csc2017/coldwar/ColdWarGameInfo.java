@@ -74,6 +74,7 @@ public class ColdWarGameInfo extends GameInfo {
         board.get(5).setAgent(new SUBase());
         board.get(30).setAgent(new USBase());
         board.get(35).setAgent(new USBase());
+        board.get(2).setAgent(new Diplomat());
     }
 
     /**
