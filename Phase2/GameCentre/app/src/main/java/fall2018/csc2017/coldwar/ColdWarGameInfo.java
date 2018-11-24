@@ -69,6 +69,11 @@ public class ColdWarGameInfo extends GameInfo {
         setUpBlankBoard();
         Spy spy = new Spy();
         board.get(3).setAgent(spy);
+
+        board.get(0).setAgent(new SUBase());
+        board.get(5).setAgent(new SUBase());
+        board.get(30).setAgent(new USBase());
+        board.get(35).setAgent(new USBase());
     }
 
     /**
