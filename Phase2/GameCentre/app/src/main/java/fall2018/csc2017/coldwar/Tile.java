@@ -3,7 +3,11 @@ package fall2018.csc2017.coldwar;
 import fall2018.csc2017.slidingtiles.R;
 
 public class Tile {
-    Agent agent;
+    private Agent agent;
+
+    public void setAgent(Agent agent) {
+        this.agent = agent;
+    }
 
     public Tile(Agent agent){
         this.agent = agent;
