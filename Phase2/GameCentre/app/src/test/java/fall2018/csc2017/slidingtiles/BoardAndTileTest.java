@@ -22,11 +22,15 @@ public class BoardAndTileTest {
      * @return a set of tiles that are in order
      */
     private List<Tile> makeTiles() {
+        Board.NUM_COLS = 4;
+        Board.NUM_ROWS = 4;
         List<Tile> tiles = new ArrayList<>();
-        final int numTiles = Board.NUM_ROWS * Board.NUM_COLS;
+        // Add the tiles from 1 to the NUM_ROWS * NOM_COLS-1
+        final int numTiles = Board.NUM_ROWS * Board.NUM_COLS - 1;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-            tiles.add(new Tile(tileNum + 1, tileNum));
+            tiles.add(new Tile(tileNum));
         }
+        tiles.add(new Tile(24)); //add blank tile
 
         return tiles;
     }
@@ -37,7 +41,7 @@ public class BoardAndTileTest {
      */
     private void setUpCorrect() {
         List<Tile> tiles = makeTiles();
-        SlidingTilesGameInfo gameInfo = new SlidingTilesGameInfo();
+        SlidingTilesGameInfo gameInfo = new SlidingTilesGameInfo(tiles);
         slidingTilesManager = new SlidingTilesManager();
         slidingTilesManager.setInfo(gameInfo);
     }
@@ -56,6 +60,7 @@ public class BoardAndTileTest {
     @Test
     public void testIsSolved() {
         setUpCorrect();
+        assertEquals(true, slidingTilesManager.getBoard().getTile(3,2).getId() < slidingTilesManager.getBoard().getTile(3,3).getId());
         assertEquals(true, slidingTilesManager.isOver());
         swapFirstTwoTiles();
         assertEquals(false, slidingTilesManager.isOver());
@@ -82,9 +87,9 @@ public class BoardAndTileTest {
     public void testSwapLastTwo() {
         setUpCorrect();
         assertEquals(15, slidingTilesManager.getBoard().getTile(3, 2).getId());
-        assertEquals(16, slidingTilesManager.getBoard().getTile(3, 3).getId());
+        assertEquals(25, slidingTilesManager.getBoard().getTile(3, 3).getId());
         slidingTilesManager.getBoard().swapTiles(3, 3, 3, 2);
-        assertEquals(16, slidingTilesManager.getBoard().getTile(3, 2).getId());
+        assertEquals(25, slidingTilesManager.getBoard().getTile(3, 2).getId());
         assertEquals(15, slidingTilesManager.getBoard().getTile(3, 3).getId());
     }
 

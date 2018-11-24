@@ -6,6 +6,7 @@ import java.util.List;
 
 import generalclasses.GameInfo;
 
+//https://www.cs.bham.ac.uk/~mdr/teaching/modules04/java2/TilesSolvability.html
 public class SlidingTilesGameInfo extends GameInfo {
 
     /**
@@ -47,6 +48,10 @@ public class SlidingTilesGameInfo extends GameInfo {
         this.board = new Board(tiles);
 
     }
+    public SlidingTilesGameInfo(List<Tile> tiles) {
+        this.board = new Board(tiles);
+    }
+
 
     boolean check_solvable(List<Tile> tiles) {
         int blankrow = 0;
