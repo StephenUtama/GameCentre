@@ -1,14 +1,10 @@
 package fall2018.csc2017.pong;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.widget.Toast;
-
-import generalactivities.SettingActivity;
 
 public class PongSurfaceView extends SurfaceView implements Runnable {
 
@@ -32,33 +28,44 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
      */
     PongGameController controller;
 
+    /**
+     * GameInfo for the game
+     */
+    PongGameInfo gameInfo;
+
+    /**
+     * The current context
+     */
     Context context;
 
     /**
-     * Constructor for PongSurfaceView
-     * @param context context of the PongMainActivity
+     * Constructor for PongSurfaceView.
+     * @param context context of the PongGameActivity
      * @param screenWidth width of screen
      * @param screenHeight height of screen
+     * @param gameInfo the gameInfo for Pong
      */
-    public PongSurfaceView(Context context, int screenWidth, int screenHeight, Object controller) {
+    public PongSurfaceView(Context context, int screenWidth, int screenHeight, PongGameInfo gameInfo) {
         super(context);
         this.context = context;
+
         // Initialize the width and height of the screen.
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
-        // Initialize the controller
-        if (controller == null) {
-            this.controller = new PongGameController(screenWidth, screenHeight, getHolder());
-        }
-        else {
-            this.controller = (PongGameController) controller;
-        }
-        this.controller.setupAndRestart();
 
+        // Initialize the gameInfo
+        this.gameInfo = gameInfo;
+
+        //Initialize the controller
+        this.controller = new PongGameController(getHolder(), gameInfo);
     }
 
-    public PongGameController getController(){
-        return controller;
+    /**
+     * Returns gameInfo
+     * @return the gameInfo containing all the info about the game.
+     */
+    public PongGameInfo getGameInfo() {
+        return controller.gameInfo;
     }
 
     @Override
@@ -81,7 +88,7 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
 
             // updating fps
             if (timeThisFrame >= 1) { // so it doesn't divide by 0
-                controller.fps = 1000 / timeThisFrame;
+                controller.gameInfo.setFps(1000 / timeThisFrame);
             }
         }
     }
@@ -95,17 +102,17 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
             case MotionEvent.ACTION_DOWN:
 
                 controller.paused = false;
-                if (controller.lives == 0){
-                    Toast.makeText(this.context, "Game Over! Score: " + controller.score, Toast.LENGTH_SHORT).show();
+                if (controller.gameInfo.getLives() == 0){
+                    Toast.makeText(this.context, "Game Over! Score: " + controller.gameInfo.getScore(), Toast.LENGTH_SHORT).show();
                     controller.setupAndRestart();
                 }
 
                 // Is the touch on the right or left?
                 if(motionEvent.getX() > screenWidth / 2){
-                    controller.racket.setMovementState(controller.racket.RIGHT);
+                    controller.gameInfo.getRacket().setMovementState(controller.gameInfo.getRacket().RIGHT);
                 }
                 else{
-                    controller.racket.setMovementState(controller.racket.LEFT);
+                    controller.gameInfo.getRacket().setMovementState(controller.gameInfo.getRacket().LEFT);
                 }
 
                 break;
@@ -113,7 +120,7 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
             // Player has removed finger from screen
             case MotionEvent.ACTION_UP:
 
-                controller.racket.setMovementState(controller.racket.STOPPED);
+                controller.gameInfo.getRacket().setMovementState(controller.gameInfo.getRacket().STOPPED);
                 break;
         }
         return true;
@@ -123,7 +130,7 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
      * When the game is paused, change 'playing' into false so the loop stops
      */
     public void pause(){
-        controller.playing = false;
+        controller.playing = false; // Note
         try {
             thread.join();
         } catch (InterruptedException e){

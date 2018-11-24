@@ -2,15 +2,17 @@ package fall2018.csc2017.pong;
 
 import android.graphics.RectF;
 
+import java.io.Serializable;
+
 /**
  * Racket (bar on the bottom) class of Pong game
  * cited from: http://androidgameprogramming.com/programming-a-pong-game-part-3/
  */
-public class Racket {
+public class Racket implements Serializable {
     /**
      * Four points that represents rectangle (the racket)
      */
-    private RectF rect;
+    private SerializableRectF rect;
 
     /**
      * length of the rectangle
@@ -62,7 +64,9 @@ public class Racket {
         this.x = screenWidth/2;
         this.y = screenHeight - 150;
 
-        this.rect = new RectF( this.x, this.y, this.x + this.length, this.y + this.height);
+
+        RectF temp = new RectF( this.x, this.y, this.x + this.length, this.y + this.height);
+        this.rect = new SerializableRectF(temp);
 
         this.rectSpeed = screenWidth;
     }
@@ -70,8 +74,9 @@ public class Racket {
     /**
      * Getter method for rectangle representation of the Racket
      */
-    public RectF getRect(){
-        return this.rect;
+    public RectF getRectF(){
+
+        return this.rect.getRectF();
     }
 
     /**
@@ -93,20 +98,14 @@ public class Racket {
         } else if(this.rectMove == RIGHT){
             x = x + distance;
         }
-
-        if (this.rect.left < 0){ // this might be wrong. use this.x instead of this.rect
+        if (this.rect.getRectF().left < 0){ // this might be wrong. use this.x instead of this.rect
             this.x = 0;
-        }else if (this.rect.right > screenWidth){
+        }
+        else if (this.rect.getRectF().right > screenWidth){
             this.x = this.screenWidth - this.length;
         }
-
-        this.rect.left = this.x;
-        this.rect.right = this.x + this.length;
+        this.rect.getRectF().left = this.x;
+        this.rect.getRectF().right = this.x + this.length;
     }
-
-
-
-
-
 }
 

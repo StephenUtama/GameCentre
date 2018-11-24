@@ -12,37 +12,48 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 
-import fall2018.csc2017.slidingtiles.SlidingTilesGameInfo;
 import generalclasses.User;
 
-public class PongMainActivity extends AppCompatActivity {
+public class PongGameActivity extends AppCompatActivity {
 
     /**
      * View of the game
      */
     PongSurfaceView pongView;
-    private Button saveButton;
-    private String username;
-    public static final String SAVE_FILENAME = "master_save_file.ser";
-    private User user;
-    private PongGameController controller;
 
+    /**
+     * Save Button
+     */
+    private Button saveButton;
+
+    /**
+     * username of current user
+     */
+    private String username;
+
+    /**
+     * User class of current user logged in
+     */
+    private User user;
+
+    /**
+     * gameInfo for Pong
+     */
+    private PongGameInfo gameInfo;
+
+    public static final String SAVE_FILENAME = "master_save_file.ser";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Get existing controller
-        controller = (PongGameController) getIntent().getSerializableExtra("saveToLoad");
+        // Get existing GameInfo (might be null)
+        gameInfo = (PongGameInfo) getIntent().getSerializableExtra("saveToLoad");
 
         // Get the username
         username = getIntent().getStringExtra("username");
@@ -58,7 +69,13 @@ public class PongMainActivity extends AppCompatActivity {
         display.getSize(size);
 
         // Initialize pongView and set it as the view
-        pongView = new PongSurfaceView(this, size.x, size.y, controller);
+        if (gameInfo == null) {
+            gameInfo = new PongGameInfo(size.x, size.y, username);
+            pongView = new PongSurfaceView(this, size.x, size.y, gameInfo);
+        }
+        else {
+            pongView = new PongSurfaceView(this, size.x, size.y, gameInfo);
+        }
 
         //Create your frame layout
         FrameLayout frameLayout = new FrameLayout(this);
@@ -109,10 +126,10 @@ public class PongMainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 PongGameController.paused = true;
-                Toast.makeText(PongMainActivity.this, "Paused and Saved!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PongGameActivity.this, "Paused and Saved!", Toast.LENGTH_SHORT).show();
                 String currentTime = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new
                         Date());
-                user.addSave("Pong", currentTime, pongView.getController());
+                user.addSave("Pong", currentTime, pongView.getGameInfo());
                 saveToFile(SAVE_FILENAME);
             }
         });
@@ -126,21 +143,6 @@ public class PongMainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         pongView.resume();
-        try {
-            InputStream inputStream = this.openFileInput(SAVE_FILENAME);
-            if (inputStream != null) {
-                ObjectInputStream input = new ObjectInputStream(inputStream);
-                User.usernameToUser = (HashMap<String, User>) input.readObject();
-                inputStream.close();
-            }
-        } catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
-        } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
-        } catch (ClassNotFoundException e) {
-            Log.e("login activity", "File contained unexpected data type: "
-                    + e.toString());
-        }
     }
 
     /**

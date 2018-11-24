@@ -5,5 +5,8 @@ import java.io.Serializable;
 import generalclasses.GameScoreboards;
 
 public class SlidingTileScoreboards extends GameScoreboards implements Serializable{
-    String game = "Sliding Tiles";
+    public String game;
+    SlidingTileScoreboards() {
+        this.game = "Sliding Tiles";
+    }
 }

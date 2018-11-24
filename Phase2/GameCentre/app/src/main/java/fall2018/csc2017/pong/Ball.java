@@ -1,59 +1,81 @@
 package fall2018.csc2017.pong;
 import android.graphics.RectF; // https://developer.android.com/reference/android/graphics/RectF
 
+import java.io.Serializable;
 import java.util.Random;
 
-public class Ball {
+public class Ball implements Serializable {
 
     /**
      * Coordinates of the ball on the screen
      */
-    private RectF rect;
+    private SerializableRectF rect;
+
     /**
      * Velocity in the X direction
      */
     private float XVelocity;
+
     /**
      * Velocity in the Y direction
      */
     private float YVelocity;
+
     /**
      * Width of Ball
      */
     private float BallWidth;
+
     /**
      * Height of Ball
      */
     private float BallHeight;
 
+    /**
+     * Width of the screen
+     */
+    private int screenWidth;
+
+    /**
+     * Height of the screen
+     */
     private int screenHeight;
+
     /**
      * Constructor for Ball
      * @param screenX Width of screen
      * @param screenY Height of screen
      */
     public Ball(int screenX, int screenY) {
+        screenWidth = screenX;
+        screenHeight = screenY;
 
         // Make the ball size relative to the screen resolution
         BallWidth = screenX / 100;
         BallHeight = BallWidth;
-        screenHeight = screenY;
+
         // Start the ball travelling straight up
         // at a quarter of the screen height per second
         YVelocity = screenY / 4;
         XVelocity = YVelocity;
 
-        // Initialize the rect which is the coordinates of the ball.
-        rect = new RectF();
+
+        // Initialize a SerializableRectF and set it's starting coordinates.
+        RectF temp = new RectF();
+        rect = new SerializableRectF(temp);
+        rect.getRectF().left = screenX / 2;
+        rect.getRectF().top = screenY / 10;
+        rect.getRectF().right = screenX / 2 + BallWidth;
+        rect.getRectF().bottom = screenY / 10 - BallHeight;
 
     }
 
     /**
-     * Returns the rect
-     * @return rect, the position of the ball.
+     * Returns the RectF of the SerializableRectF
+     * @return rect, the SerializableRectF containing Rect
      */
-    public RectF getRect() {
-        return rect;
+    public RectF getRectF() {
+        return rect.getRectF();
     }
 
     /**
@@ -62,10 +84,10 @@ public class Ball {
      */
     public void update(long fps) {
         // Use fps to calculate so that it moves at consistent speed among all devices.
-        rect.left = rect.left + (XVelocity / fps);
-        rect.top = rect.top + (YVelocity / fps);
-        rect.right = rect.left + BallWidth;
-        rect.bottom = rect.top - BallHeight;
+        rect.getRectF().left = rect.getRectF().left + (XVelocity / fps);
+        rect.getRectF().top = rect.getRectF().top + (YVelocity / fps);
+        rect.getRectF().right = rect.getRectF().left + BallWidth;
+        rect.getRectF().bottom = rect.getRectF().top - BallHeight;
     }
 
     /**
@@ -108,8 +130,8 @@ public class Ball {
      * @param y coordinate
      */
     public void clearObstacleY(float y){
-        rect.bottom = y;
-        rect.top = y - BallHeight;
+        rect.getRectF().bottom = y;
+        rect.getRectF().top = y - BallHeight;
     }
 
     /**
@@ -117,8 +139,8 @@ public class Ball {
      * @param x coordinate
      */
     public void clearObstacleX(float x){
-        rect.left = x;
-        rect.right = x + BallWidth;
+        rect.getRectF().left = x;
+        rect.getRectF().right = x + BallWidth;
     }
 
     /**
@@ -127,10 +149,10 @@ public class Ball {
      * @param y coordinate
      */
     public void reset(int x, int y){
-        rect.left = x / 2;
-        rect.top = y / 10;
-        rect.right = x / 2 + BallWidth;
-        rect.bottom = y / 10 - BallHeight;
+        rect.getRectF().left = x / 2;
+        rect.getRectF().top = y / 10;
+        rect.getRectF().right = x / 2 + BallWidth;
+        rect.getRectF().bottom = y / 10 - BallHeight;
         YVelocity = screenHeight / 4;
         XVelocity = YVelocity;
     }

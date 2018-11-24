@@ -45,14 +45,14 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
         }
     }
 
-    /**
-     * Return the number of tiles on the board.
-     *
-     * @return the number of tiles on the board
-     */
-    int numTiles() {
-        return Board.NUM_COLS * Board.NUM_ROWS;
-    }
+//    /**
+//     * Return the number of tiles on the board.
+//     *
+//     * @return the number of tiles on the board
+//     */
+//    int numTiles() {
+//        return Board.NUM_COLS * Board.NUM_ROWS;
+//    }
 
     /**
      * Return the tile at (row, col)
@@ -87,14 +87,6 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
         return "Board{" +
                 "tiles=" + Arrays.toString(tiles) +
                 '}';
-    }
-
-    public static void setNumRows(int numRows) {
-        NUM_ROWS = numRows;
-    }
-
-    public static void setNumCols(int numCols) {
-        NUM_COLS = numCols;
     }
 
     @Override
