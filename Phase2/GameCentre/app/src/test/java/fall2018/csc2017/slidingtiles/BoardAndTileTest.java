@@ -35,7 +35,6 @@ public class BoardAndTileTest {
         return tiles;
     }
 
-    // TODO: gotta fix this
     /**
      * Make a solved Board.
      */
@@ -53,7 +52,6 @@ public class BoardAndTileTest {
         slidingTilesManager.getBoard().swapTiles(0, 0, 0, 1);
     }
 
-    // TODO: gotta fix this too
     /**
      * Test whether swapping two tiles makes a solved board unsolved.
      */
@@ -66,7 +64,6 @@ public class BoardAndTileTest {
         assertEquals(false, slidingTilesManager.isOver());
     }
 
-    //TODO: you'll see the red squigglies when you uncomment the following code
     /**
      * Test whether swapping the first two tiles works.
      */
@@ -102,6 +99,14 @@ public class BoardAndTileTest {
         assertEquals(true, slidingTilesManager.isValidMove(11));
         assertEquals(true, slidingTilesManager.isValidMove(14));
         assertEquals(false, slidingTilesManager.isValidMove(10));
+    }
+
+    @Test
+    public void testTileBackground() {
+        setUpCorrect();
+        Tile default_tile = new Tile(26);
+        assertEquals(R.drawable.tile_25, slidingTilesManager.getBoard().getTile(3,3).getBackground());
+        assertEquals(R.drawable.tile_25, default_tile.getBackground());
     }
 }
 
