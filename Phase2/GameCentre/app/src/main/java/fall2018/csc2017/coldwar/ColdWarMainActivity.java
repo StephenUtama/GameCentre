@@ -17,14 +17,14 @@ public class ColdWarMainActivity extends AppCompatActivity {
 
     List<Integer> imageIDs;
 
-    int selectedPosition = -1;
+    int selectedPosition = -1; // this is "unselected" by default
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cold_war_main);
-        ColdWarGameInfo coldWarGameInfo = new ColdWarGameInfo();
+        final ColdWarGameInfo coldWarGameInfo = new ColdWarGameInfo();
         List<Tile> board = coldWarGameInfo.getBoard();
         imageIDs = ColdWarManager.getImageIDs(coldWarGameInfo);
 
@@ -36,12 +36,15 @@ public class ColdWarMainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (selectedPosition == -1){
-                    int selectedPosition = position;
+                    selectedPosition = position;
                 }
                 else {
-                    int positionToMove = position;
-                    // manager.makeMove(selectedPosition, positionToMove);
+                    ColdWarManager.makeMove(coldWarGameInfo, selectedPosition, position);
+                    selectedPosition = -1; // this indicates that selectedPosition is reset to "unselected"
                 }
+                imageIDs = ColdWarManager.getImageIDs(coldWarGameInfo);
+
+                gridView.setAdapter(new ImageAdapterGridView(getBaseContext(), imageIDs));
 
                 Toast.makeText(ColdWarMainActivity.this, "Position is " +
                         position, Toast.LENGTH_SHORT).show();
