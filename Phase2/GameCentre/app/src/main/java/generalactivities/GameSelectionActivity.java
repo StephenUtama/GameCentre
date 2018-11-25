@@ -62,7 +62,7 @@ public class GameSelectionActivity extends AppCompatActivity {
     }
 
     /**
-     * Listener for the Battleship game.
+     * Listener for the Cold War game.
      */
     private void addColdWarButtonListener() {
         coldWar.setOnClickListener(new View.OnClickListener() {
