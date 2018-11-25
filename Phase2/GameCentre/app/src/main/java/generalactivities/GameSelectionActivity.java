@@ -10,6 +10,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import fall2018.csc2017.coldwar.ColdWarMainActivity;
+import fall2018.csc2017.coldwar.ColdWarMenu;
 import fall2018.csc2017.coldwar.UserPiecesSelectionActivity;
 import fall2018.csc2017.pong.PongStartingActivity;
 import fall2018.csc2017.slidingtiles.R;
@@ -70,7 +71,7 @@ public class GameSelectionActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // for testing purposes
 //                Intent intent = new Intent(GameSelectionActivity.this, ColdWarMainActivity.class);
-                Intent intent = new Intent(GameSelectionActivity.this, UserPiecesSelectionActivity.class);
+                Intent intent = new Intent(GameSelectionActivity.this, ColdWarMenu.class);
                 startActivity(intent);
             }
         });
