@@ -20,6 +20,8 @@ public class ColdWarMainActivity extends AppCompatActivity {
 
     int selectedPosition = -1; // this is "unselected" by default
 
+    ColdWarGameInfo coldWarGameInfo;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,9 +29,10 @@ public class ColdWarMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cold_war_main);
 
         Intent intent = getIntent();
-        final ColdWarGameInfo coldWarGameInfo = (ColdWarGameInfo) intent.getSerializableExtra("gameInfo");
+        coldWarGameInfo = (ColdWarGameInfo) intent.getSerializableExtra("gameInfo");
         List<Tile> board = coldWarGameInfo.getBoard();
         imageIDs = ColdWarManager.getImageIDs(coldWarGameInfo);
+
 
         gridView = findViewById(R.id.coldWarGridView);
         gridView.setAdapter(new ImageAdapterGridView(this, imageIDs));
@@ -53,5 +56,17 @@ public class ColdWarMainActivity extends AppCompatActivity {
                         position, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void endMoveButtonClicked(View view) {
+        ColdWarManager.endTurn(coldWarGameInfo);
+        imageIDs = ColdWarManager.getImageIDs(coldWarGameInfo);
+        gridView.setAdapter(new ImageAdapterGridView(getBaseContext(), imageIDs));
+    }
+
+    public void begiMoveButtonClicked(View view) {
+        ColdWarManager.beginTurn(coldWarGameInfo);
+        imageIDs = ColdWarManager.getImageIDs(coldWarGameInfo);
+        gridView.setAdapter(new ImageAdapterGridView(getBaseContext(), imageIDs));
     }
 }
