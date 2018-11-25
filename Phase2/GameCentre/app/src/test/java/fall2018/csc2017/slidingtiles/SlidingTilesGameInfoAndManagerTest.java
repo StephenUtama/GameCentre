@@ -68,6 +68,8 @@ public class SlidingTilesGameInfoAndManagerTest {
         setUpCorrect();
         slidingTilesManager.makeMove(14);
         assertEquals(true, slidingTilesManager.getBoard().getTile(3,3).getId() == 15);
+        slidingTilesManager.makeMove(12);
+        assertEquals(false, slidingTilesManager.getBoard().getTile(3,2).getId() == 13);
     }
 
 //    @Test
