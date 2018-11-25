@@ -34,11 +34,25 @@ This segment may be subject to change and adjustment.
 * User interface
 * Game difficulty setting interface + logic
 * BONUS: implement feature to change background for tiles
+* Implemented Pong Game
+* Implemented Save and Load for Pong Game
+* Implemented ScoreBoard for Pong Game
+* Created Unit Tests for Pong Game
 
 #### Kevin Lie
 * Scoreboard interface
 * Scoreboard class logic
 * Game difficulty setting interface + logic
+* Implemented Pong Game
+* Implemented Save and Load for Pong Game
+* Implemented ScoreBoard for Pong Game
+* Created Unit Tests for Pong Game
+
+#### Stephen Utama
+* Made Sliding Tiles always solvable
+* Implemented Save for Pong Game
+* Implemented ScoreBoard for Pong Game
+* Created Unit Tests for Sliding Tiles
 
 ## Contact Information
 
