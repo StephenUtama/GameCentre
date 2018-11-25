@@ -98,12 +98,6 @@ public class PongGameController implements GameController, Serializable {
             // Lose a life
             gameInfo.updateLife();
             // sp.play(loseLifeID, 1, 1, 0, 0, 1);
-            if(isOver()){
-                paused = true;
-                playing = false;
-                PongGameActivity.pongSaver.updateAndSaveScoreboardIfGameOver(this);
-            }
-
         }
         // If ball hits top of the screen
         if(gameInfo.getBall().getRectF().top < 0){
@@ -127,6 +121,11 @@ public class PongGameController implements GameController, Serializable {
             gameInfo.getBall().clearObstacleX(gameInfo.getScreenWidth() - 22);
 
             // sp.play(beep3ID, 1, 1, 0, 0, 1);
+        }
+        if(isOver()){
+            paused = true;
+            playing = false;
+            PongGameActivity.pongSaver.updateAndSaveScoreboardIfGameOver(this);
         }
     }
 
