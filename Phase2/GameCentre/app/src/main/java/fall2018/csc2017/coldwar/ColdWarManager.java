@@ -2,18 +2,20 @@ package fall2018.csc2017.coldwar;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import fall2018.csc2017.slidingtiles.R;
 
 public class ColdWarManager {
 
     /**
      * Determines whether the game in its current state is over.
+     *
      * @return whether the game is over.
      */
     public static boolean isOver(ColdWarGameInfo info) {
         return (info.getPlayer1Reputation().equals(0) | info.getPlayer2Reputation().equals(0) |
-        info.isBaseInfiltrated | info.getPlayer1NumSpies().equals(0) |
-        info.getPlayer2NumSpies().equals(0));
+                info.isBaseInfiltrated | info.getPlayer1NumSpies().equals(0) |
+                info.getPlayer2NumSpies().equals(0));
     }
 
     /**
@@ -21,7 +23,7 @@ public class ColdWarManager {
      * board.
      *
      * @param from one of the positions to be compared
-     * @param to the other position to be compared
+     * @param to   the other position to be compared
      * @return whether they are neighbouring orthogonally
      */
     public static boolean isNeighbouring(Integer from, Integer to) {
@@ -54,9 +56,10 @@ public class ColdWarManager {
     /**
      * Takes in an Integer move and relevant information about the state of the current game and
      * decide whether move is valid.
+     *
      * @param info The information about the current state of the game
      * @param from position to move from
-     * @param to position to move to
+     * @param to   position to move to
      * @return whether the move is valid
      */
     public static boolean isValidMove(ColdWarGameInfo info, Integer from, Integer to) {
@@ -65,43 +68,49 @@ public class ColdWarManager {
         Agent fromOccupant = board.get(from).getAgent();
         Agent toOccupant = board.get(to).getAgent();
 
+
+        // check if from is a real Agent
+        if (fromOccupant == null) {
+            return false;
+        }
+
         // check if from and to are neighbouring
         if (!isNeighbouring(from, to)) {
             return false;
         }
 
-        // check if from is a valid piece and owned by current player
-        if (fromOccupant == null | !fromOccupant.getOwner().equals(info.getCurrentPlayer())) {
+        // check if from is owned by current player
+        if (!fromOccupant.getOwner().equals(info.getCurrentPlayer())) {
             return false;
         }
 
         // check if diplomat is trying to steal information from base (this is not allowed)
-        if (fromOccupant.getClass().getName().equals("Diplomat") &&
-                (toOccupant.getClass().getName().equals("SUBase") |
-                        toOccupant.getClass().getName().equals("USBase"))) {
+        if (fromOccupant instanceof Diplomat &&
+                ((toOccupant instanceof SUBase |
+                        toOccupant instanceof USBase))) {
             return false;
         }
 
         // check if to is owned by the other player
-        return (! (toOccupant != null && toOccupant.getOwner().equals(info.getCurrentPlayer())));
+        return (!(toOccupant != null && toOccupant.getOwner().equals(info.getCurrentPlayer())));
     }
 
     /**
      * Perform action on receiver based on performer
-     * @param info information about the current state of the game
-     * @param receiver the Agent receiving the action
      *
-     * Precondition: performer and receiver are not null and performance is legal.
+     * @param info     information about the current state of the game
+     * @param receiver the Agent receiving the action
+     *                 <p>
+     *                 Precondition: performer and receiver are not null and performance is legal.
      */
-    private static void performAction(ColdWarGameInfo info, Agent receiver){
+    private static void performAction(ColdWarGameInfo info, Agent receiver) {
         String currentPlayer = info.getCurrentPlayer();
 
         // performing player loses reputation if action is performed on an enemy diplomat
         if (receiver.getClass().getName().equals("Diplomat")) {
-            if (currentPlayer.equals(ColdWarGameInfo.PLAYER2)){
+            if (currentPlayer.equals(ColdWarGameInfo.PLAYER2)) {
                 info.setPlayer2Reputation(info.getPlayer2Reputation() - 1);
-            }
-            else {
+            } else {
                 info.setPlayer1Reputation(info.getPlayer1Reputation() - 1);
             }
         }
@@ -110,22 +119,23 @@ public class ColdWarManager {
         else if (receiver.getClass().getName().equals("Spy")) {
             if (currentPlayer.equals(ColdWarGameInfo.PLAYER2)) {
                 info.setPlayer1NumSpies(info.getPlayer1NumSpies() - 1);
-            }
-            else {
+            } else {
                 info.setPlayer2NumSpies(info.getPlayer2NumSpies() - 1);
             }
         }
 
         // update variable isBaseInfiltrated in info if a base has been infiltrated (by a spy)
-        else if (receiver.getClass().getName().equals("USBase") | receiver.getClass().getName().equals("SUBase")){
+        else if (receiver.getClass().getName().equals("USBase") | receiver.getClass().getName().equals("SUBase")) {
             info.isBaseInfiltrated = true;
         }
     }
 
-    /** Move the agent at selectedPosition to positionToMove
-     * @param info Information about the current state of the game
+    /**
+     * Move the agent at selectedPosition to positionToMove
+     *
+     * @param info             Information about the current state of the game
      * @param selectedPosition The position of the agent to move
-     * @param positionToMove The position of where we want the given agent to move to
+     * @param positionToMove   The position of where we want the given agent to move to
      */
     public static void makeMove(ColdWarGameInfo info, int selectedPosition, int positionToMove) {
         List<Tile> board = info.getBoard();
@@ -133,21 +143,20 @@ public class ColdWarManager {
         Agent fromOccupant = board.get(selectedPosition).getAgent();
         Agent toOccupant = board.get(positionToMove).getAgent();
 
-        if (isValidMove(info, selectedPosition, positionToMove)){
+        if (isValidMove(info, selectedPosition, positionToMove)) {
 
             // move to positionToMove
             board.get(positionToMove).setAgent(fromOccupant);
             board.get(selectedPosition).setAgent(null);
 
             // perform action on occupant at positionToMove if possible
-            if (toOccupant != null){
+            if (toOccupant != null) {
                 performAction(info, toOccupant);
             }
 
-            if (currentPlayer.equals(ColdWarGameInfo.PLAYER1)){
+            if (currentPlayer.equals(ColdWarGameInfo.PLAYER1)) {
                 info.setCurrentPlayer(ColdWarGameInfo.PLAYER2);
-            }
-            else {
+            } else {
                 info.setCurrentPlayer(ColdWarGameInfo.PLAYER1);
             }
         }
@@ -155,11 +164,12 @@ public class ColdWarManager {
 
     /**
      * Return a list of imageIDs essential for displaying a visual represtation of board.
+     *
      * @param coldWarGameInfo Information used to generate imageIDs list.
      * @return A list of integers corresponding to imageIDs in the drawables folder based on the
-     *         information in coldWarGameInfo's board.
+     * information in coldWarGameInfo's board.
      */
-    static List<Integer> getImageIDs(ColdWarGameInfo coldWarGameInfo){
+    static List<Integer> getImageIDs(ColdWarGameInfo coldWarGameInfo) {
         List<Integer> IDs = new ArrayList<>();
         List<Tile> board = coldWarGameInfo.getBoard();
 
@@ -172,8 +182,7 @@ public class ColdWarManager {
 //            }
             else if (board.get(i).getAgent().getOwner().equals(coldWarGameInfo.getCurrentPlayer())) {
                 IDs.add(board.get(i).getAgent().getPicture());
-            }
-            else {
+            } else {
                 IDs.add(R.drawable.unknown);
             }
         }
