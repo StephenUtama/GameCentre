@@ -19,6 +19,10 @@ public class ColdWarManager {
     /**
      * Takes in an Integer from and Integer to and decide if they are neighbouring each other on the
      * board.
+     *
+     * @param from one of the positions to be compared
+     * @param to the other position to be compared
+     * @return whether they are neighbouring orthogonally
      */
     public boolean isNeighbouring(Integer from, Integer to) {
         List<Integer> neighbours = new ArrayList<>();
@@ -141,6 +145,12 @@ public class ColdWarManager {
         }
     }
 
+    /**
+     * Return a list of imageIDs essential for displaying a visual represtation of board.
+     * @param coldWarGameInfo Information used to generate imageIDs list.
+     * @return A list of integers corresponding to imageIDs in the drawables folder based on the
+     *         information in coldWarGameInfo's board.
+     */
     static List<Integer> getImageIDs(ColdWarGameInfo coldWarGameInfo){
         List<Integer> IDs = new ArrayList<>();
         List<Tile> board = coldWarGameInfo.getBoard();
