@@ -172,6 +172,7 @@ public class PongGameController implements GameController, Serializable {
         }
     }
 
+
     public boolean isOver(){
         return gameInfo.lives == 0;
     }

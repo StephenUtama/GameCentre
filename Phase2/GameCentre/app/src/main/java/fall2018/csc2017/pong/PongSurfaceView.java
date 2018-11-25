@@ -38,6 +38,8 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
      */
     Context context;
 
+    boolean paused;
+
     /**
      * Constructor for PongSurfaceView.
      * @param context context of the PongGameActivity
@@ -70,7 +72,8 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
 
     @Override
     public void run() {
-        while (!controller.isOver()) {
+        paused = false;
+        while (!controller.isOver() && !paused) {
 
             // Capture the current time in milliseconds in startFrameTime
             long startFrameTime = System.currentTimeMillis();

@@ -157,6 +157,7 @@ public class PongGameActivity extends AppCompatActivity {
      */
     @Override
     protected void onPause() {
+        pongView.paused = true;
         super.onPause();
         pongView.pause();
     }
