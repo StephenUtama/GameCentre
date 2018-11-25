@@ -80,4 +80,5 @@ public class SlidingTilesGameInfoAndManagerTest {
 //        ret[1] = 3;
 //        assertEquals(15, SlidingTilesManager.convertCoordinateToPosition(ret));
 //    }
+    //
 }

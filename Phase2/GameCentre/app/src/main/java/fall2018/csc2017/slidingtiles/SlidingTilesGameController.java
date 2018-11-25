@@ -18,7 +18,7 @@ class SlidingTilesGameController implements GameController {
         this.slidingTilesManager = slidingTilesManager;
     }
 
-    void processTapMovement(Context context, int position, boolean display) {
+    void processTapMovement(Context context, int position) {
         if (slidingTilesManager.isValidMove(position)) {
 
             // save the previous move into previousMovesList

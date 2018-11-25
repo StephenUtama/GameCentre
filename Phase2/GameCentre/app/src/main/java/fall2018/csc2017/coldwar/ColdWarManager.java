@@ -68,9 +68,13 @@ public class ColdWarManager {
         Agent fromOccupant = board.get(from).getAgent();
         Agent toOccupant = board.get(to).getAgent();
 
-
-        // check if from is a real Agent
+        // check if from is a not null
         if (fromOccupant == null) {
+            return false;
+        }
+
+        // check if from piece can move
+        if (! fromOccupant.isCanMove()){
             return false;
         }
 
@@ -100,14 +104,14 @@ public class ColdWarManager {
      *
      * @param info     information about the current state of the game
      * @param receiver the Agent receiving the action
-     *                 <p>
-     *                 Precondition: performer and receiver are not null and performance is legal.
+     *
+     * Precondition: performer and receiver are not null and performance is legal.
      */
     private static void performAction(ColdWarGameInfo info, Agent receiver) {
         String currentPlayer = info.getCurrentPlayer();
 
         // performing player loses reputation if action is performed on an enemy diplomat
-        if (receiver.getClass().getName().equals("Diplomat")) {
+        if (receiver instanceof Diplomat) {
             if (currentPlayer.equals(ColdWarGameInfo.PLAYER2)) {
                 info.setPlayer2Reputation(info.getPlayer2Reputation() - 1);
             } else {
@@ -115,8 +119,8 @@ public class ColdWarManager {
             }
         }
 
-        // update the number of spies if spies have been performed on
-        else if (receiver.getClass().getName().equals("Spy")) {
+        // update the number of spies if a spy has been performed on
+        else if (receiver instanceof Spy) {
             if (currentPlayer.equals(ColdWarGameInfo.PLAYER2)) {
                 info.setPlayer1NumSpies(info.getPlayer1NumSpies() - 1);
             } else {
@@ -139,7 +143,6 @@ public class ColdWarManager {
      */
     public static void makeMove(ColdWarGameInfo info, int selectedPosition, int positionToMove) {
         List<Tile> board = info.getBoard();
-        String currentPlayer = info.getCurrentPlayer();
         Agent fromOccupant = board.get(selectedPosition).getAgent();
         Agent toOccupant = board.get(positionToMove).getAgent();
 
@@ -154,16 +157,13 @@ public class ColdWarManager {
                 performAction(info, toOccupant);
             }
 
-            if (currentPlayer.equals(ColdWarGameInfo.PLAYER1)) {
-                info.setCurrentPlayer(ColdWarGameInfo.PLAYER2);
-            } else {
-                info.setCurrentPlayer(ColdWarGameInfo.PLAYER1);
-            }
+            // set all pieces to be unmovable
+            toggleMovability(info);
         }
     }
 
     /**
-     * Return a list of imageIDs essential for displaying a visual represtation of board.
+     * Return a list of imageIDs essential for displaying a visual representation of board.
      *
      * @param coldWarGameInfo Information used to generate imageIDs list.
      * @return A list of integers corresponding to imageIDs in the drawables folder based on the
@@ -174,19 +174,83 @@ public class ColdWarManager {
         List<Tile> board = coldWarGameInfo.getBoard();
 
         for (int i = 0; i < board.size(); i++) {
-            if (board.get(i).getAgent() == null) {
+            Agent occupant = board.get(i).getAgent();
+            if (occupant == null) {
                 IDs.add(R.drawable.cold_war_blank_tile);
             }
-//            else if (board.get(i).getAgent().getOwner() == null){
-//                IDs.add(board.get(i).getAgent().getPicture());
-//            }
-            else if (board.get(i).getAgent().getOwner().equals(coldWarGameInfo.getCurrentPlayer())) {
-                IDs.add(board.get(i).getAgent().getPicture());
+            else if (occupant.getOwner().equals(coldWarGameInfo.getCurrentPlayer())
+                    && occupant.isVisible()) {
+                IDs.add(occupant.getPicture());
             } else {
                 IDs.add(R.drawable.unknown);
             }
         }
 
         return IDs;
+    }
+
+    /**
+     * Makes all pieces in info movable and makes visibility anonymous for all. Switch current player
+     * to other player.
+     * @param info The game info of the current game
+     */
+    static void endTurn(ColdWarGameInfo info) {
+        String currentPlayer = info.getCurrentPlayer();
+
+        toggleMovability(info);
+        toggleVisibility(info);
+
+        if (currentPlayer.equals(ColdWarGameInfo.PLAYER1)) {
+            info.setCurrentPlayer(ColdWarGameInfo.PLAYER2);
+        } else {
+            info.setCurrentPlayer(ColdWarGameInfo.PLAYER1);
+        }
+    }
+
+    /**
+     * Makes visibility visible if piece is owned by current player.
+     * @param info The game info of the current game
+     */
+    static void beginTurn(ColdWarGameInfo info) {
+        toggleVisibility(info);
+    }
+
+    /**
+     * Makes all pieces in info that are owned by the current player visible if invisible and vice
+     * versa.
+     * @param info The game info of the current game
+     */
+    static void toggleVisibility(ColdWarGameInfo info) {
+        List<Tile> board = info.getBoard();
+        for (int i = 0; i < board.size(); i++){
+            Agent occupant = board.get(i).getAgent();
+            if (! (occupant == null)){
+                if (occupant.isVisible()){
+                    occupant.setVisible(false);
+                }
+                else {
+                    occupant.setVisible(true);
+                }
+            }
+        }
+    }
+
+    /**
+     * Makes all playable Agent pieces in info unmovable if movable and vice versa.
+     * @param info The game info of the current game
+     */
+    static void toggleMovability(ColdWarGameInfo info) {
+        List<Tile> board = info.getBoard();
+        for (int i = 0; i < board.size(); i++) {
+            Agent occupant = board.get(i).getAgent();
+            if (occupant instanceof Spy | occupant instanceof Diplomat){
+                if (occupant.isCanMove()) {
+                    occupant.setCanMove(false);
+                }
+                else {
+                    occupant.setCanMove(true);
+                }
+            }
+        }
     }
 }

@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+//View Class
 /**
  * Downloading screen of background image
  */

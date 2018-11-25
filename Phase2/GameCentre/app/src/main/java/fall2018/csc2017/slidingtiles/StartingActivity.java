@@ -25,6 +25,7 @@ import generalclasses.GameScoreboards;
 import generalclasses.ScoreBoard;
 import generalclasses.User;
 
+//View Class
 /**
  * The initial activity for the sliding puzzle tile game.
  */
@@ -196,24 +197,6 @@ public class StartingActivity extends AppCompatActivity {
         scoreboards = mSaver.getScoreboards();
 
     }
-//
-//    private void loadScoreboards() {
-//        try {
-//            InputStream inputStream = this.openFileInput("SAVED_SCOREBOARDS");
-//            if (inputStream != null) {
-//                ObjectInputStream input = new ObjectInputStream(inputStream);
-//                scoreboards = (SlidingTileScoreboards) input.readObject();
-//                inputStream.close();
-//            }
-//        } catch (FileNotFoundException e) {
-////            Log.e("login activity", "File not found: " + e.toString());
-//            saveScoreboards(new SlidingTileScoreboards());
-//        } catch (IOException e) {
-//            Log.e("login activity", "Can not read file: " + e.toString());
-//        } catch (ClassNotFoundException e) {
-//            Log.e("login activity", "File contained unexpected data type: " + e.toString());
-//        }
-//    }
 }
 
 //
