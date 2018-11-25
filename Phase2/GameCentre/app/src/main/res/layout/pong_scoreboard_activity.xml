@@ -27,7 +27,7 @@
         android:text="Score" />
 
     <TextView
-        android:id="@+id/user0"
+        android:id="@+id/User0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/userHeader"
@@ -37,87 +37,87 @@
         android:text="N/A" />
 
     <TextView
-        android:id="@+id/user1"
+        android:id="@+id/User1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/user0"
-        android:layout_alignStart="@+id/user0"
+        android:layout_below="@+id/User0"
+        android:layout_alignStart="@+id/User0"
         android:layout_marginStart="0dp"
         android:layout_marginTop="30dp"
         android:text="N/A" />
 
     <TextView
-        android:id="@+id/user2"
+        android:id="@+id/User2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/user1"
-        android:layout_alignStart="@+id/user0"
+        android:layout_below="@+id/User1"
+        android:layout_alignStart="@+id/User0"
         android:layout_marginStart="0dp"
         android:layout_marginTop="30dp"
         android:text="N/A" />
 
     <TextView
-        android:id="@+id/user3"
+        android:id="@+id/User3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/user2"
-        android:layout_alignStart="@+id/user0"
+        android:layout_below="@+id/User2"
+        android:layout_alignStart="@+id/User0"
         android:layout_marginStart="0dp"
         android:layout_marginTop="30dp"
         android:text="N/A" />
 
     <TextView
-        android:id="@+id/user4"
+        android:id="@+id/User4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/user3"
-        android:layout_alignStart="@+id/user0"
+        android:layout_below="@+id/User3"
+        android:layout_alignStart="@+id/User0"
         android:layout_marginStart="0dp"
         android:layout_marginTop="30dp"
         android:text="N/A" />
 
     <TextView
-        android:id="@+id/user5"
+        android:id="@+id/User5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/user4"
-        android:layout_alignStart="@+id/user0"
+        android:layout_below="@+id/User4"
+        android:layout_alignStart="@+id/User0"
         android:layout_marginStart="0dp"
         android:layout_marginTop="30dp"
         android:text="N/A" />
 
     <TextView
-        android:id="@+id/user6"
+        android:id="@+id/User6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/user5"
-        android:layout_alignStart="@+id/user0"
+        android:layout_below="@+id/User5"
+        android:layout_alignStart="@+id/User0"
         android:layout_marginStart="0dp"
         android:layout_marginTop="30dp"
         android:text="N/A" />
 
     <TextView
-        android:id="@+id/user7"
+        android:id="@+id/User7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/user6"
-        android:layout_alignStart="@+id/user0"
+        android:layout_below="@+id/User6"
+        android:layout_alignStart="@+id/User0"
         android:layout_marginStart="0dp"
         android:layout_marginTop="30dp"
         android:text="N/A" />
 
     <TextView
-        android:id="@+id/user8"
+        android:id="@+id/User8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/user7"
-        android:layout_alignStart="@+id/user0"
+        android:layout_below="@+id/User7"
+        android:layout_alignStart="@+id/User0"
         android:layout_marginStart="0dp"
         android:layout_marginTop="30dp"
         android:text="N/A" />
 
     <TextView
-        android:id="@+id/score0"
+        android:id="@+id/Score0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/userHeader"
@@ -127,68 +127,68 @@
         android:text="N/A" />
 
     <TextView
-        android:id="@+id/score1"
+        android:id="@+id/Score1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/score0"
-        android:layout_alignTop="@+id/user1"
+        android:layout_alignStart="@+id/Score0"
+        android:layout_alignTop="@+id/User1"
         android:layout_marginTop="-1dp"
         android:text="N/A" />
 
     <TextView
-        android:id="@+id/score2"
+        android:id="@+id/Score2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/score0"
-        android:layout_alignTop="@+id/user2"
+        android:layout_alignStart="@+id/Score0"
+        android:layout_alignTop="@+id/User2"
         android:text="N/A" />
 
     <TextView
-        android:id="@+id/score3"
+        android:id="@+id/Score3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/score0"
-        android:layout_alignTop="@+id/user3"
+        android:layout_alignStart="@+id/Score0"
+        android:layout_alignTop="@+id/User3"
         android:text="N/A" />
 
     <TextView
-        android:id="@+id/score4"
+        android:id="@+id/Score4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/score0"
-        android:layout_alignTop="@+id/user4"
+        android:layout_alignStart="@+id/Score0"
+        android:layout_alignTop="@+id/User4"
         android:text="N/A" />
 
     <TextView
-        android:id="@+id/score5"
+        android:id="@+id/Score5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/score0"
-        android:layout_alignTop="@+id/user5"
+        android:layout_alignStart="@+id/Score0"
+        android:layout_alignTop="@+id/User5"
         android:text="N/A" />
 
     <TextView
-        android:id="@+id/score6"
+        android:id="@+id/Score6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/score0"
-        android:layout_alignTop="@+id/user6"
+        android:layout_alignStart="@+id/Score0"
+        android:layout_alignTop="@+id/User6"
         android:text="N/A" />
 
     <TextView
-        android:id="@+id/score7"
+        android:id="@+id/Score7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/score0"
-        android:layout_alignTop="@+id/user7"
+        android:layout_alignStart="@+id/Score0"
+        android:layout_alignTop="@+id/User7"
         android:text="N/A" />
 
     <TextView
-        android:id="@+id/score8"
+        android:id="@+id/Score8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/score0"
-        android:layout_alignTop="@+id/user8"
+        android:layout_alignStart="@+id/Score0"
+        android:layout_alignTop="@+id/User8"
         android:text="N/A" />
 
     <Button
@@ -213,7 +213,7 @@
         android:id="@+id/pong_display"
         android:layout_width="60dp"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/localButton"
+        android:layout_alignBottom="@+id/pong_localButton"
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:text="Please Choose" />

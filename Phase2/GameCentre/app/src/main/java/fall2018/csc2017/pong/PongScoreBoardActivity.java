@@ -173,12 +173,12 @@ public class PongScoreBoardActivity extends AppCompatActivity {
      * @param scoreText the text you want to replace scorei with.
      */
     public void setTextValues(int i, String userText, String scoreText) {
-        TextView currentUserText = findViewById(getResources().getIdentifier("user" + i,
+        TextView currentUserText = findViewById(getResources().getIdentifier("User" + i,
                 "id",
                 this.getPackageName()));
         currentUserText.setText(userText);
 
-        TextView currentScoreText = findViewById(getResources().getIdentifier("score" + i,
+        TextView currentScoreText = findViewById(getResources().getIdentifier("Score" + i,
                 "id",
                 this.getPackageName()));
         currentScoreText.setText(scoreText);
