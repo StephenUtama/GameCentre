@@ -60,7 +60,7 @@ public class ColdWarGameInfo extends GameInfo {
     /**
      * The current player.
      */
-    private String currentPlayer = "player1";
+    private String currentPlayer = PLAYER1;
 
     public String getCurrentPlayer() {
         return currentPlayer;

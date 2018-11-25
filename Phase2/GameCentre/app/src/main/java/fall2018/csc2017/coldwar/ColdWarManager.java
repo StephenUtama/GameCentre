@@ -10,7 +10,7 @@ public class ColdWarManager {
      * Determines whether the game in its current state is over.
      * @return whether the game is over.
      */
-    public boolean isOver(ColdWarGameInfo info) {
+    public static boolean isOver(ColdWarGameInfo info) {
         return (info.getPlayer1Reputation().equals(0) | info.getPlayer2Reputation().equals(0) |
         info.isBaseInfiltrated | info.getPlayer1NumSpies().equals(0) |
         info.getPlayer2NumSpies().equals(0));
@@ -24,7 +24,7 @@ public class ColdWarManager {
      * @param to the other position to be compared
      * @return whether they are neighbouring orthogonally
      */
-    public boolean isNeighbouring(Integer from, Integer to) {
+    public static boolean isNeighbouring(Integer from, Integer to) {
         List<Integer> neighbours = new ArrayList<>();
 
         // Add the left neighbour to neighbours, if there is one.
@@ -59,7 +59,7 @@ public class ColdWarManager {
      * @param to position to move to
      * @return whether the move is valid
      */
-    public boolean isValidMove(ColdWarGameInfo info, Integer from, Integer to) {
+    public static boolean isValidMove(ColdWarGameInfo info, Integer from, Integer to) {
 
         List<Tile> board = info.getBoard();
         Agent fromOccupant = board.get(from).getAgent();
@@ -93,7 +93,7 @@ public class ColdWarManager {
      *
      * Precondition: performer and receiver are not null and performance is legal.
      */
-    private void performAction(ColdWarGameInfo info, Agent receiver){
+    private static void performAction(ColdWarGameInfo info, Agent receiver){
         String currentPlayer = info.getCurrentPlayer();
 
         // performing player loses reputation if action is performed on an enemy diplomat
@@ -127,8 +127,9 @@ public class ColdWarManager {
      * @param selectedPosition The position of the agent to move
      * @param positionToMove The position of where we want the given agent to move to
      */
-    public void makeMove(ColdWarGameInfo info, int selectedPosition, int positionToMove) {
+    public static void makeMove(ColdWarGameInfo info, int selectedPosition, int positionToMove) {
         List<Tile> board = info.getBoard();
+        String currentPlayer = info.getCurrentPlayer();
         Agent fromOccupant = board.get(selectedPosition).getAgent();
         Agent toOccupant = board.get(positionToMove).getAgent();
 
@@ -141,6 +142,13 @@ public class ColdWarManager {
             // perform action on occupant at positionToMove if possible
             if (toOccupant != null){
                 performAction(info, toOccupant);
+            }
+
+            if (currentPlayer.equals(ColdWarGameInfo.PLAYER1)){
+                info.setCurrentPlayer(ColdWarGameInfo.PLAYER2);
+            }
+            else {
+                info.setCurrentPlayer(ColdWarGameInfo.PLAYER1);
             }
         }
     }
@@ -159,9 +167,9 @@ public class ColdWarManager {
             if (board.get(i).getAgent() == null) {
                 IDs.add(R.drawable.cold_war_blank_tile);
             }
-            else if (board.get(i).getAgent().getOwner() == null){
-                IDs.add(board.get(i).getAgent().getPicture());
-            }
+//            else if (board.get(i).getAgent().getOwner() == null){
+//                IDs.add(board.get(i).getAgent().getPicture());
+//            }
             else if (board.get(i).getAgent().getOwner().equals(coldWarGameInfo.getCurrentPlayer())) {
                 IDs.add(board.get(i).getAgent().getPicture());
             }
