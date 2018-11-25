@@ -7,6 +7,11 @@ import generalclasses.GameInfo;
 
 public class ColdWarGameInfo extends GameInfo {
 
+    /**
+     * Used to determine whether the game is over.
+     */
+    boolean isBaseInfiltrated = false;
+
     public static String PLAYER1 = "p1";
     public static String PLAYER2 = "p2";
 
@@ -16,14 +21,41 @@ public class ColdWarGameInfo extends GameInfo {
     private List<Tile> board;
 
     /**
-     * The "International Reputation" of the signed in user. Used by the lose condition.
+     * The "International Reputation" of the signed in user. Used by the win/lose condition.
      */
-    private int userReputation;
+    private Integer Player1Reputation;
 
     /**
-     * The "International Reputation" of the guest user. Used by the lose condition.
+     * The "International Reputation" of the guest user. Used by the win/lose condition.
      */
-    private int guestReputation;
+    private Integer Player2Reputation;
+
+    /**
+     * The number of spies of the signed in user. Used by the win/lose condition.
+     */
+    private Integer Player1NumSpies;
+
+    /**
+     * The number of spies of the guest user. Used by the win/los condition.
+     */
+    private Integer Player2NumSpies;
+
+    public Integer getPlayer1NumSpies() {
+        return Player1NumSpies;
+    }
+
+    public void setPlayer1NumSpies(Integer player1NumSpies) {
+        Player1NumSpies = player1NumSpies;
+    }
+
+    public Integer getPlayer2NumSpies() {
+        return Player2NumSpies;
+    }
+
+    public void setPlayer2NumSpies(Integer player2NumSpies) {
+        Player2NumSpies = player2NumSpies;
+    }
+
 
     /**
      * The current player.
@@ -42,20 +74,20 @@ public class ColdWarGameInfo extends GameInfo {
         return this.board;
     }
 
-    public int getUserReputation(){
-        return this.userReputation;
+    public Integer getPlayer1Reputation(){
+        return this.Player1Reputation;
     }
 
-    public int getGuestReputation(){
-        return this.guestReputation;
+    public Integer getPlayer2Reputation(){
+        return this.Player2Reputation;
     }
 
-    public void setUserReputation(int userReputation) {
-        this.userReputation = userReputation;
+    public void setPlayer1Reputation(int player1Reputation) {
+        this.Player1Reputation = player1Reputation;
     }
 
-    public void setGuestReputation(int guestReputation){
-        this.guestReputation = guestReputation;
+    public void setPlayer2Reputation(int player2Reputation){
+        this.Player2Reputation = player2Reputation;
     }
 
     public ColdWarGameInfo() {
