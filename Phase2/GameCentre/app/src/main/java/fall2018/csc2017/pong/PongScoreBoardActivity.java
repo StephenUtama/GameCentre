@@ -145,6 +145,10 @@ public class PongScoreBoardActivity extends AppCompatActivity {
     protected void displayLocalRankings(String username) {
         ArrayList<Integer> localScores = scores.get(username);
         Collections.sort(localScores, Collections.reverseOrder());
+        if (localScores.size() >= 9){
+            // if >= 9 then you only want the 9 scores.
+            localScores = new ArrayList(localScores.subList(0, 9));
+        }
         int i = 0;
 
         // Setting the text values for all the user's scores
