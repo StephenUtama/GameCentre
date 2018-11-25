@@ -111,7 +111,7 @@ public class ColdWarManager {
         String currentPlayer = info.getCurrentPlayer();
 
         // performing player loses reputation if action is performed on an enemy diplomat
-        if (receiver.getClass().getName().equals("Diplomat")) {
+        if (receiver instanceof Diplomat) {
             if (currentPlayer.equals(ColdWarGameInfo.PLAYER2)) {
                 info.setPlayer2Reputation(info.getPlayer2Reputation() - 1);
             } else {
@@ -119,8 +119,8 @@ public class ColdWarManager {
             }
         }
 
-        // update the number of spies if spies have been performed on
-        else if (receiver.getClass().getName().equals("Spy")) {
+        // update the number of spies if a spy has been performed on
+        else if (receiver instanceof Spy) {
             if (currentPlayer.equals(ColdWarGameInfo.PLAYER2)) {
                 info.setPlayer1NumSpies(info.getPlayer1NumSpies() - 1);
             } else {
@@ -152,13 +152,13 @@ public class ColdWarManager {
             board.get(positionToMove).setAgent(fromOccupant);
             board.get(selectedPosition).setAgent(null);
 
-            // set all pieces to be unmovable
-            toggleMovability(info);
-
             // perform action on occupant at positionToMove if possible
             if (toOccupant != null) {
                 performAction(info, toOccupant);
             }
+
+            // set all pieces to be unmovable
+            toggleMovability(info);
         }
     }
 
