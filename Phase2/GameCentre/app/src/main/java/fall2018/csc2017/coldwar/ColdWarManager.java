@@ -22,6 +22,13 @@ public class ColdWarManager extends Manager {
 
     }
 
+    /** Move the agent at selectedPosition to positionToMove
+     * @param selectedPosition The position of the agent to move
+     * @param positionToMove The position of where we want the given agent to move to
+     */
+    public void makeMove(int selectedPosition, int positionToMove) {
+    }
+
     static List<Integer> getImageIDs(ColdWarGameInfo coldWarGameInfo){
         List<Integer> IDs = new ArrayList<>();
         List<Tile> board = coldWarGameInfo.getBoard();
