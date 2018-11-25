@@ -1,6 +1,8 @@
 package fall2018.csc2017.coldwar;
 
-public abstract class Agent {
+import java.io.Serializable;
+
+public abstract class Agent implements Serializable {
 
     private String owner;
 

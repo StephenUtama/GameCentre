@@ -73,10 +73,7 @@ public class PongGameController implements GameController, Serializable {
      * Updates the rect of the ball and racket (Make move pretty much)
      */
     public void update() {
-        if(isOver()){
-            paused = true;
-            setupAndRestart();
-        }
+
         // Move the racket if required
         gameInfo.getRacket().update(gameInfo.getFps());
         gameInfo.getBall().update(gameInfo.getFps());
@@ -101,6 +98,9 @@ public class PongGameController implements GameController, Serializable {
             // Lose a life
             gameInfo.updateLife();
             // sp.play(loseLifeID, 1, 1, 0, 0, 1);
+            if(isOver()){
+                paused = true;
+            }
 
         }
         // If ball hits top of the screen

@@ -94,6 +94,7 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
 
         if (controller.isOver()){
             PongGameActivity.pongSaver.updateAndSaveScoreboardIfGameOver(this.controller);
+            controller.setupAndRestart();
         }
 
     }

@@ -1,8 +1,10 @@
 package fall2018.csc2017.coldwar;
 
+import java.io.Serializable;
+
 import fall2018.csc2017.slidingtiles.R;
 
-class Tile {
+class Tile implements Serializable {
     private Agent agent;
 
     void setAgent(Agent agent) {
