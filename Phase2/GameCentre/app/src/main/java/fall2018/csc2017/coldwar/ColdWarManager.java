@@ -24,10 +24,17 @@ public class ColdWarManager extends Manager {
 
     static List<Integer> getImageIDs(ColdWarGameInfo coldWarGameInfo){
         List<Integer> IDs = new ArrayList<>();
+        List<Tile> board = coldWarGameInfo.getBoard();
 
-        for (int i = 0; i < coldWarGameInfo.getBoard().size(); i++) {
-            if (coldWarGameInfo.getBoard().get(i).getAgent().getOwner().equals(coldWarGameInfo.getCurrentPlayer())) {
-                IDs.add(coldWarGameInfo.getBoard().get(i).getPicture());
+        for (int i = 0; i < board.size(); i++) {
+            if (board.get(i).getAgent() == null) {
+                IDs.add(R.drawable.cold_war_blank_tile);
+            }
+            else if (board.get(i).getAgent().getOwner() == null){
+                IDs.add(board.get(i).getAgent().getPicture());
+            }
+            else if (board.get(i).getAgent().getOwner().equals(coldWarGameInfo.getCurrentPlayer())) {
+                IDs.add(board.get(i).getAgent().getPicture());
             }
             else {
                 IDs.add(R.drawable.unknown);

@@ -85,23 +85,23 @@ public class ColdWarGameInfo extends GameInfo {
         board.get(2).setAgent(new Diplomat());
     }
 
-    /**
-     * Get a list of the image IDs based on the occupant of each tile on the board, based on the
-     * the current player.
-     *
-     * Display image if the current player owns the piece.
-     *
-     * @return a list of integers corresponding to the correct image IDs.
-     */
-     List<Integer> getImageIDs() {
-        List<Integer> IDs = new ArrayList<>();
-
-        for (int i = 0; i < board.size(); i++) {
-            IDs.add(board.get(i).getPicture());
-        }
-
-        return IDs;
-    }
+//    /**
+//     * Get a list of the image IDs based on the occupant of each tile on the board, based on the
+//     * the current player.
+//     *
+//     * Display image if the current player owns the piece.
+//     *
+//     * @return a list of integers corresponding to the correct image IDs.
+//     */
+//     List<Integer> getImageIDs() {
+//        List<Integer> IDs = new ArrayList<>();
+//
+//        for (int i = 0; i < board.size(); i++) {
+//            IDs.add(board.get(i).getPicture());
+//        }
+//
+//        return IDs;
+//    }
 
     @Override
     public int getScore() {
