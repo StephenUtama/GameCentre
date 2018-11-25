@@ -8,11 +8,12 @@ public class ColdWarManager {
 
     /**
      * Determines whether the game in its current state is over.
-     * @return wheher the game is over.
+     * @return whether the game is over.
      */
     public boolean isOver(ColdWarGameInfo info) {
         return (info.getPlayer1Reputation().equals(0) | info.getPlayer2Reputation().equals(0) |
-        info.isBaseInfiltrated);
+        info.isBaseInfiltrated | info.getPlayer1NumSpies().equals(0) |
+        info.getPlayer2NumSpies().equals(0));
     }
 
     /**
@@ -84,14 +85,14 @@ public class ColdWarManager {
     /**
      * Perform action on receiver based on performer
      * @param info information about the current state of the game
-     * @param performer the Agent performing the action
      * @param receiver the Agent receiving the action
      *
      * Precondition: performer and receiver are not null and performance is legal.
      */
-    private void performAction(ColdWarGameInfo info, Agent performer, Agent receiver){
+    private void performAction(ColdWarGameInfo info, Agent receiver){
         String currentPlayer = info.getCurrentPlayer();
 
+        // performing player loses reputation if action is performed on an enemy diplomat
         if (receiver.getClass().getName().equals("Diplomat")) {
             if (currentPlayer.equals(ColdWarGameInfo.PLAYER2)){
                 info.setPlayer2Reputation(info.getPlayer2Reputation() - 1);
@@ -101,6 +102,17 @@ public class ColdWarManager {
             }
         }
 
+        // update the number of spies if spies have been performed on
+        else if (receiver.getClass().getName().equals("Spy")) {
+            if (currentPlayer.equals(ColdWarGameInfo.PLAYER2)) {
+                info.setPlayer1NumSpies(info.getPlayer1NumSpies() - 1);
+            }
+            else {
+                info.setPlayer2NumSpies(info.getPlayer2NumSpies() - 1);
+            }
+        }
+
+        // update variable isBaseInfiltrated in info if a base has been infiltrated (by a spy)
         else if (receiver.getClass().getName().equals("USBase") | receiver.getClass().getName().equals("SUBase")){
             info.isBaseInfiltrated = true;
         }
@@ -124,7 +136,7 @@ public class ColdWarManager {
 
             // perform action on occupant at positionToMove if possible
             if (toOccupant != null){
-                performAction(info, fromOccupant, toOccupant);
+                performAction(info, toOccupant);
             }
         }
     }

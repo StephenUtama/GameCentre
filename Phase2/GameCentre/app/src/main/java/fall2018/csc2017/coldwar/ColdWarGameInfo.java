@@ -21,14 +21,41 @@ public class ColdWarGameInfo extends GameInfo {
     private List<Tile> board;
 
     /**
-     * The "International Reputation" of the signed in user. Used by the lose condition.
+     * The "International Reputation" of the signed in user. Used by the win/lose condition.
      */
     private Integer Player1Reputation;
 
     /**
-     * The "International Reputation" of the guest user. Used by the lose condition.
+     * The "International Reputation" of the guest user. Used by the win/lose condition.
      */
     private Integer Player2Reputation;
+
+    /**
+     * The number of spies of the signed in user. Used by the win/lose condition.
+     */
+    private Integer Player1NumSpies;
+
+    /**
+     * The number of spies of the guest user. Used by the win/los condition.
+     */
+    private Integer Player2NumSpies;
+
+    public Integer getPlayer1NumSpies() {
+        return Player1NumSpies;
+    }
+
+    public void setPlayer1NumSpies(Integer player1NumSpies) {
+        Player1NumSpies = player1NumSpies;
+    }
+
+    public Integer getPlayer2NumSpies() {
+        return Player2NumSpies;
+    }
+
+    public void setPlayer2NumSpies(Integer player2NumSpies) {
+        Player2NumSpies = player2NumSpies;
+    }
+
 
     /**
      * The current player.
