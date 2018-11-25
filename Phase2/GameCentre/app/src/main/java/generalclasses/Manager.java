@@ -19,7 +19,7 @@ public abstract class Manager {
      *
      * @return whether move is valid.
      */
-    public abstract boolean isValidMove(Object move);
+//    public abstract boolean isValidMove(Object move);
 
 
     /**
@@ -27,5 +27,5 @@ public abstract class Manager {
      * <p>
      * Precondition: isValidMove(move) returns true.
      */
-    public abstract void makeMove(Object move);
+//    public abstract void makeMove(Object move);
 }

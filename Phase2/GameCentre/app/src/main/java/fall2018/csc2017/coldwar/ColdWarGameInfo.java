@@ -7,6 +7,9 @@ import generalclasses.GameInfo;
 
 public class ColdWarGameInfo extends GameInfo {
 
+    public static String PLAYER1 = "p1";
+    public static String PLAYER2 = "p2";
+
     /**
      * A list of tiles to represent the current state of the game board.
      */
@@ -75,14 +78,14 @@ public class ColdWarGameInfo extends GameInfo {
      */
     private void setUpTestBoard() {
         setUpBlankBoard();
-        Spy spy = new Spy("player2");
+        Spy spy = new Spy(PLAYER2);
         board.get(3).setAgent(spy);
 
-        board.get(0).setAgent(new SUBase());
-        board.get(5).setAgent(new SUBase());
-        board.get(30).setAgent(new USBase());
-        board.get(35).setAgent(new USBase());
-        board.get(2).setAgent(new Diplomat("player1"));
+        board.get(0).setAgent(new SUBase(PLAYER2));
+        board.get(5).setAgent(new SUBase(PLAYER2));
+        board.get(30).setAgent(new USBase(PLAYER1));
+        board.get(35).setAgent(new USBase(PLAYER1));
+        board.get(2).setAgent(new Diplomat(PLAYER1));
     }
 
     @Override
