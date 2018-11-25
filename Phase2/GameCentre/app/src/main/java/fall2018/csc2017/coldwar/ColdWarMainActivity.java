@@ -69,4 +69,6 @@ public class ColdWarMainActivity extends AppCompatActivity {
         imageIDs = ColdWarManager.getImageIDs(coldWarGameInfo);
         gridView.setAdapter(new ImageAdapterGridView(getBaseContext(), imageIDs));
     }
+
+
 }
