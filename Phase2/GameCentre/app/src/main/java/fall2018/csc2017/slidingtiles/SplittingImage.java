@@ -9,7 +9,7 @@ import android.view.Display;
 
 import java.util.ArrayList;
 
-public class SplitingImage {
+public class SplittingImage {
     //image = DownloadingImage.download();
     private static Bitmap image;
 
