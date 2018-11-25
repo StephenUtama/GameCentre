@@ -95,34 +95,39 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
 
     @Override
     public boolean onTouchEvent(MotionEvent motionEvent) {
+        if (controller.isOver()){
 
-        switch (motionEvent.getAction() & MotionEvent.ACTION_MASK) {
+            controller.setupAndRestart();
+        }else{
+            switch (motionEvent.getAction() & MotionEvent.ACTION_MASK) {
 
-            // Player has touched the screen
-            case MotionEvent.ACTION_DOWN:
+                // Player has touched the screen
+                case MotionEvent.ACTION_DOWN:
 
-                controller.paused = false;
-                if (controller.gameInfo.getLives() == 0){
-                    Toast.makeText(this.context, "Game Over! Score: " + controller.gameInfo.getScore(), Toast.LENGTH_SHORT).show();
-                    controller.setupAndRestart();
-                }
+                    controller.paused = false;
+                    if (controller.gameInfo.getLives() == 0){
+                        Toast.makeText(this.context, "Game Over! Score: " + controller.gameInfo.getScore(), Toast.LENGTH_SHORT).show();
+                        controller.setupAndRestart();
+                    }
 
-                // Is the touch on the right or left?
-                if(motionEvent.getX() > screenWidth / 2){
-                    controller.gameInfo.getRacket().setMovementState(controller.gameInfo.getRacket().RIGHT);
-                }
-                else{
-                    controller.gameInfo.getRacket().setMovementState(controller.gameInfo.getRacket().LEFT);
-                }
+                    // Is the touch on the right or left?
+                    if(motionEvent.getX() > screenWidth / 2){
+                        controller.gameInfo.getRacket().setMovementState(controller.gameInfo.getRacket().RIGHT);
+                    }
+                    else{
+                        controller.gameInfo.getRacket().setMovementState(controller.gameInfo.getRacket().LEFT);
+                    }
 
-                break;
+                    break;
 
-            // Player has removed finger from screen
-            case MotionEvent.ACTION_UP:
+                // Player has removed finger from screen
+                case MotionEvent.ACTION_UP:
 
-                controller.gameInfo.getRacket().setMovementState(controller.gameInfo.getRacket().STOPPED);
-                break;
+                    controller.gameInfo.getRacket().setMovementState(controller.gameInfo.getRacket().STOPPED);
+                    break;
+            }
         }
+
         return true;
     }
 

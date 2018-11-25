@@ -58,7 +58,7 @@ public class SlidingTilesScoreBoardActivity extends AppCompatActivity {
 
 //        scores = User.getScoreBoard("Sliding Tiles", complexity).getScoreMap();
 //        scores = scoreboards.
-        // load the scoreboards from save file
+        // load the scoreboards from save file//
         loadScoreboards();
         final SlidingTilesScoreBoard scoreboard = (SlidingTilesScoreBoard) scoreboards.getScoreboard(complexity);
         if (scoreboard != null) {

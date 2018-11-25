@@ -36,6 +36,8 @@ public class PongGameActivity extends AppCompatActivity {
      */
     private String username;
 
+    private PongGameController controller;
+
     /**
      * User class of current user logged in
      */
@@ -76,6 +78,7 @@ public class PongGameActivity extends AppCompatActivity {
         else {
             pongView = new PongSurfaceView(this, size.x, size.y, gameInfo);
         }
+        this.controller = new PongGameController(pongView.getHolder(), gameInfo);
 
         //Create your frame layout
         FrameLayout frameLayout = new FrameLayout(this);
@@ -101,9 +104,9 @@ public class PongGameActivity extends AppCompatActivity {
         //Adding saveButton to frameLayout
         frameLayout.addView(saveButton, params);
         setContentView(frameLayout);
-
-
     }
+
+
 
     /**
      * Save the current hash map with each user's saves to fileName.
