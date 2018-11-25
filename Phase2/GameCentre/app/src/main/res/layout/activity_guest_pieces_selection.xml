@@ -8,7 +8,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Guest, please position your pieces"
+        android:text="Guest user, please position your pieces"
         android:layout_centerHorizontal="true"
         android:layout_margin="8dp"
         android:id="@+id/informUser"
@@ -30,12 +30,14 @@
 
             <Button
                 android:id="@+id/spy1"
+                android:enabled="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Spy 1" />
 
             <Button
                 android:id="@+id/spy2"
+                android:enabled="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/spy1"
@@ -43,6 +45,7 @@
 
             <Button
                 android:id="@+id/spy3"
+                android:enabled="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/spy2"
@@ -50,6 +53,7 @@
 
             <Button
                 android:id="@+id/spy4"
+                android:enabled="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/spy3"
@@ -168,6 +172,7 @@
 
 
     <Button
+        android:id="@+id/submitP2"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:layout_width="wrap_content"
