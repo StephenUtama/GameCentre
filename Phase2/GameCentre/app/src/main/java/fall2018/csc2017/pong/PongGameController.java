@@ -100,6 +100,8 @@ public class PongGameController implements GameController, Serializable {
             // sp.play(loseLifeID, 1, 1, 0, 0, 1);
             if(isOver()){
                 paused = true;
+                playing = false;
+                PongGameActivity.pongSaver.updateAndSaveScoreboardIfGameOver(this);
             }
 
         }
@@ -134,7 +136,7 @@ public class PongGameController implements GameController, Serializable {
      */
     public void draw(){
         if (this.surfaceHolder.getSurface().isValid()){
-            if (isOver()){
+            if (playing == false){
                 this.canvas = this.surfaceHolder.lockCanvas();
                 this.paint.setColor(Color.argb(255,255,255,255));
                 this.paint.setTextSize(60);
