@@ -108,6 +108,7 @@ public class PongGameActivity extends AppCompatActivity {
         //Adding saveButton to frameLayout
         frameLayout.addView(saveButton, params);
         setContentView(frameLayout);
+
     }
 
 
@@ -157,7 +158,6 @@ public class PongGameActivity extends AppCompatActivity {
      */
     @Override
     protected void onPause() {
-        pongView.paused = true;
         super.onPause();
         pongView.pause();
     }
