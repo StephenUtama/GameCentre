@@ -23,22 +23,22 @@ public class ColdWarGameInfo extends GameInfo {
     /**
      * The "International Reputation" of the signed in user. Used by the win/lose condition.
      */
-    private Integer Player1Reputation;
+    private Integer Player1Reputation = 2;
 
     /**
      * The "International Reputation" of the guest user. Used by the win/lose condition.
      */
-    private Integer Player2Reputation;
+    private Integer Player2Reputation = 2;
 
     /**
      * The number of spies of the signed in user. Used by the win/lose condition.
      */
-    private Integer Player1NumSpies;
+    private Integer Player1NumSpies = 4;
 
     /**
      * The number of spies of the guest user. Used by the win/los condition.
      */
-    private Integer Player2NumSpies;
+    private Integer Player2NumSpies = 4;
 
     public Integer getPlayer1NumSpies() {
         return Player1NumSpies;
@@ -92,24 +92,29 @@ public class ColdWarGameInfo extends GameInfo {
 
     public ColdWarGameInfo() {
         board = new ArrayList<>();
-        setUpTestBoard();
+        setUpDefaultBoard();
     }
 
     /**
      * Set up a blank board with no pieces.
      */
-    private void setUpBlankBoard() {
+    private void setUpDefaultBoard() {
         for (int i = 0; i < 36; i++) {
             Tile newTile = new Tile(null);
             board.add(newTile);
         }
+        // set up the bases
+        board.get(0).setAgent(new SUBase(PLAYER2));
+        board.get(5).setAgent(new SUBase(PLAYER2));
+        board.get(30).setAgent(new USBase(PLAYER1));
+        board.get(35).setAgent(new USBase(PLAYER1));
     }
 
     /**
      * Set up a test board with some pieces.
      */
     private void setUpTestBoard() {
-        setUpBlankBoard();
+        setUpDefaultBoard();
         Spy spy = new Spy(PLAYER2);
         board.get(3).setAgent(spy);
 
