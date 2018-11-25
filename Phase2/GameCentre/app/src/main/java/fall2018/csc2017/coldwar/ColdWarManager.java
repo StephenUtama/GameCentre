@@ -11,7 +11,8 @@ public class ColdWarManager {
      * @return wheher the game is over.
      */
     public boolean isOver(ColdWarGameInfo info) {
-        return false;
+        return (info.getPlayer1Reputation().equals(0) | info.getPlayer2Reputation().equals(0) |
+        info.isBaseInfiltrated);
     }
 
     /**
@@ -98,6 +99,10 @@ public class ColdWarManager {
             else {
                 info.setPlayer1Reputation(info.getPlayer1Reputation() - 1);
             }
+        }
+
+        else if (receiver.getClass().getName().equals("USBase") | receiver.getClass().getName().equals("SUBase")){
+            info.isBaseInfiltrated = true;
         }
     }
 

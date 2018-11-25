@@ -7,6 +7,11 @@ import generalclasses.GameInfo;
 
 public class ColdWarGameInfo extends GameInfo {
 
+    /**
+     * Used to determine whether the game is over.
+     */
+    boolean isBaseInfiltrated = false;
+
     public static String PLAYER1 = "p1";
     public static String PLAYER2 = "p2";
 
@@ -18,12 +23,12 @@ public class ColdWarGameInfo extends GameInfo {
     /**
      * The "International Reputation" of the signed in user. Used by the lose condition.
      */
-    private int Player1Reputation;
+    private Integer Player1Reputation;
 
     /**
      * The "International Reputation" of the guest user. Used by the lose condition.
      */
-    private int Player2Reputation;
+    private Integer Player2Reputation;
 
     /**
      * The current player.
@@ -42,11 +47,11 @@ public class ColdWarGameInfo extends GameInfo {
         return this.board;
     }
 
-    public int getPlayer1Reputation(){
+    public Integer getPlayer1Reputation(){
         return this.Player1Reputation;
     }
 
-    public int getPlayer2Reputation(){
+    public Integer getPlayer2Reputation(){
         return this.Player2Reputation;
     }
 
