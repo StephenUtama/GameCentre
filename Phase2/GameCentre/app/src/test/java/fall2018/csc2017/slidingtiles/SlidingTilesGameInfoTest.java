@@ -43,8 +43,21 @@ public class SlidingTilesGameInfoTest {
     }
 
     @Test
-    public void checkIn1versionSolvedGame() {
+    public void checkInversionSolvedGame() {
         setUpCorrect();
         assertEquals(true, slidingTilesManager.getInfo().calculate_inversions(makeTiles(), 15) == 0);
+    }
+
+    @Test
+    public void checkGameName() {
+        setUpCorrect();
+        assertEquals("Sliding Tiles", slidingTilesManager.getInfo().getGame());
+    }
+
+    @Test
+    public void calculateScore() {
+        setUpCorrect();
+        slidingTilesManager.makeMove(14);
+        assertEquals(1, slidingTilesManager.getInfo().getScore());
     }
 }
