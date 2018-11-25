@@ -8,7 +8,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class SlidingTilesGameInfoTest {
+public class SlidingTilesGameInfoAndManagerTest {
 
 
     /** The board manager for testing. */
@@ -43,21 +43,39 @@ public class SlidingTilesGameInfoTest {
     }
 
     @Test
-    public void checkInversionSolvedGame() {
+    public void testInversionSolvedGame() {
         setUpCorrect();
         assertEquals(true, slidingTilesManager.getInfo().calculate_inversions(makeTiles(), 15) == 0);
     }
 
     @Test
-    public void checkGameName() {
+    public void testGameName() {
         setUpCorrect();
         assertEquals("Sliding Tiles", slidingTilesManager.getInfo().getGame());
     }
 
     @Test
-    public void calculateScore() {
+    public void testCalculateScore() {
         setUpCorrect();
         slidingTilesManager.makeMove(14);
         assertEquals(1, slidingTilesManager.getInfo().getScore());
+        slidingTilesManager.makeMove(15);
+        assertEquals(false, slidingTilesManager.getInfo().getScore() == 1);
     }
+
+    @Test
+    public void testTouchMove() {
+        setUpCorrect();
+        slidingTilesManager.makeMove(14);
+        assertEquals(true, slidingTilesManager.getBoard().getTile(3,3).getId() == 15);
+    }
+
+//    @Test
+//    public void testCoordinatetoIndex() {
+//        setUpCorrect();
+//        int [] ret = new int[2];
+//        ret[0] = 3;
+//        ret[1] = 3;
+//        assertEquals(15, SlidingTilesManager.convertCoordinateToPosition(ret));
+//    }
 }
