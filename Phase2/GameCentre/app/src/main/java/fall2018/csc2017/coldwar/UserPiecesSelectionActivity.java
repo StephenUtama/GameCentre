@@ -64,9 +64,9 @@ public class UserPiecesSelectionActivity extends AppCompatActivity {
         List<String> agentPositions = agentToPositionList.get(agent);
         for (String agentPosition : agentPositions) {
             // make a new spy object >> then insert it to gameinfo, passing in the spy and the coodinates
-            int[] arrayCoordinates = getArrayCoordinatesFromPosition(agentPosition);
+            int position = getPosition(agentPosition);
             Spy spy = new Spy(gameInfo.PLAYER1);
-//            gameInfo.setTile(spy, arrayCoordinates);
+            gameInfo.setTile(spy, position);
         }
     }
 
@@ -74,11 +74,13 @@ public class UserPiecesSelectionActivity extends AppCompatActivity {
      * @param agentPosition the position that the user inputs, e.g A4
      * @return the corresponding in "array terms"
      */
-    private int[] getArrayCoordinatesFromPosition(String agentPosition) {
+    private int getPosition(String agentPosition) {
+        int position = 0;
         int coord1 = (int) agentPosition.charAt(0);
         int coord2 = Integer.parseInt(String.valueOf(agentPosition.charAt(1))) - 1;
-        int[] result = {coord1, coord2};
-        return result;
+        position = coord1 * 6 + coord2;
+
+        return position;
     }
 
     private HashMap<String, ArrayList<String>> getAgentPositions() {

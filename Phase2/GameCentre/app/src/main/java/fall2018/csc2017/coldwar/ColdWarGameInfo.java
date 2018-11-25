@@ -120,6 +120,11 @@ public class ColdWarGameInfo extends GameInfo {
         board.get(2).setAgent(new Diplomat(PLAYER1));
     }
 
+    public void setTile(Agent agent, int position) {
+        Tile tileToSet = this.board.get(position);
+        tileToSet.setAgent(agent);
+    }
+
     @Override
     public int getScore() {
         return 0;
