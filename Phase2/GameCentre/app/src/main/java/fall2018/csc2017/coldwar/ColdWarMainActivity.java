@@ -64,7 +64,7 @@ public class ColdWarMainActivity extends AppCompatActivity {
         gridView.setAdapter(new ImageAdapterGridView(getBaseContext(), imageIDs));
     }
 
-    public void begiMoveButtonClicked(View view) {
+    public void beginMoveButtonClicked(View view) {
         ColdWarManager.beginTurn(coldWarGameInfo);
         imageIDs = ColdWarManager.getImageIDs(coldWarGameInfo);
         gridView.setAdapter(new ImageAdapterGridView(getBaseContext(), imageIDs));

@@ -24,7 +24,7 @@ tools:context="fall2018.csc2017.coldwar.ColdWarMainActivity">
         android:text="End Move" />
 
     <Button
-        android:onClick="begiMoveButtonClicked"
+        android:onClick="beginMoveButtonClicked"
         android:id="@+id/beginMoveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
