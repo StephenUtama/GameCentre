@@ -44,22 +44,44 @@ public class ColdWarManager {
         return neighbours.contains(to);
     }
 
-//    /**
-//     * Takes in an Integer move and relevant information about the state of the current game and
-//     * decide whether move is valid.
-//     * @param info The information about the current state of the game
-//     * @param from position to move from
-//     * @param to position to move to
-//     * @return whether the move is valid
-//     */
-//    public boolean isValidMove(ColdWarGameInfo info, Integer from, Integer to) {
-//        List<Tile> board = info.getBoard();
+    /**
+     * Takes in an Integer move and relevant information about the state of the current game and
+     * decide whether move is valid.
+     * @param info The information about the current state of the game
+     * @param from position to move from
+     * @param to position to move to
+     * @return whether the move is valid
+     */
+    public boolean isValidMove(ColdWarGameInfo info, Integer from, Integer to) {
+
+        List<Tile> board = info.getBoard();
+        Agent fromOccupant = board.get(from).getAgent();
+        Agent toOccupant = board.get(to).getAgent();
+
+        // check if from and to are neighbouring
+        if (!isNeighbouring(from, to)) {
+            return false;
+        }
+
+        // check if from is a valid piece and owned by current player
+        if (fromOccupant == null | !fromOccupant.getOwner().equals(info.getCurrentPlayer())) {
+            return false;
+        }
+
+        // check if to is owned by the other player
+        return (! (toOccupant != null && toOccupant.getOwner().equals(info.getCurrentPlayer())));
+    }
+
 //        if (isNeighbouring(from, to)){
-//            if (board.get(to).getAgent().getOwner() != info.getCurrentPlayer()){
-//                if ()
+//            if (toOccupant == null){
+//                // move fromOccupant from from to to.
+//                board.get(to).setAgent(fromOccupant);
+//                board.get(from).setAgent(null);
+//            }
+//            else {
+//
 //            }
 //        }
-//    }
 
 
     /** Move the agent at selectedPosition to positionToMove
