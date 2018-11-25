@@ -1,4 +1,5 @@
 package fall2018.csc2017.coldwar;
+
 import java.util.ArrayList;
 import java.util.List;
 import fall2018.csc2017.slidingtiles.R;
@@ -68,27 +69,59 @@ public class ColdWarManager {
             return false;
         }
 
+        // check if diplomat is trying to steal information from base (this is not allowed)
+        if (fromOccupant.getClass().getName().equals("Diplomat") &&
+                (toOccupant.getClass().getName().equals("SUBase") |
+                        toOccupant.getClass().getName().equals("USBase"))) {
+            return false;
+        }
+
         // check if to is owned by the other player
         return (! (toOccupant != null && toOccupant.getOwner().equals(info.getCurrentPlayer())));
     }
 
-//        if (isNeighbouring(from, to)){
-//            if (toOccupant == null){
-//                // move fromOccupant from from to to.
-//                board.get(to).setAgent(fromOccupant);
-//                board.get(from).setAgent(null);
-//            }
-//            else {
-//
-//            }
-//        }
+    /**
+     * Perform action on receiver based on performer
+     * @param info information about the current state of the game
+     * @param performer the Agent performing the action
+     * @param receiver the Agent receiving the action
+     *
+     * Precondition: performer and receiver are not null and performance is legal.
+     */
+    private void performAction(ColdWarGameInfo info, Agent performer, Agent receiver){
+        String currentPlayer = info.getCurrentPlayer();
 
+        if (receiver.getClass().getName().equals("Diplomat")) {
+            if (currentPlayer.equals(ColdWarGameInfo.PLAYER2)){
+                info.setPlayer2Reputation(info.getPlayer2Reputation() - 1);
+            }
+            else {
+                info.setPlayer1Reputation(info.getPlayer1Reputation() - 1);
+            }
+        }
+    }
 
     /** Move the agent at selectedPosition to positionToMove
+     * @param info Information about the current state of the game
      * @param selectedPosition The position of the agent to move
      * @param positionToMove The position of where we want the given agent to move to
      */
-    public void makeMove(int selectedPosition, int positionToMove) {
+    public void makeMove(ColdWarGameInfo info, int selectedPosition, int positionToMove) {
+        List<Tile> board = info.getBoard();
+        Agent fromOccupant = board.get(selectedPosition).getAgent();
+        Agent toOccupant = board.get(positionToMove).getAgent();
+
+        if (isValidMove(info, selectedPosition, positionToMove)){
+
+            // move to positionToMove
+            board.get(positionToMove).setAgent(fromOccupant);
+            board.get(selectedPosition).setAgent(null);
+
+            // perform action on occupant at positionToMove if possible
+            if (toOccupant != null){
+                performAction(info, fromOccupant, toOccupant);
+            }
+        }
     }
 
     static List<Integer> getImageIDs(ColdWarGameInfo coldWarGameInfo){

@@ -18,12 +18,12 @@ public class ColdWarGameInfo extends GameInfo {
     /**
      * The "International Reputation" of the signed in user. Used by the lose condition.
      */
-    private int userReputation;
+    private int Player1Reputation;
 
     /**
      * The "International Reputation" of the guest user. Used by the lose condition.
      */
-    private int guestReputation;
+    private int Player2Reputation;
 
     /**
      * The current player.
@@ -42,20 +42,20 @@ public class ColdWarGameInfo extends GameInfo {
         return this.board;
     }
 
-    public int getUserReputation(){
-        return this.userReputation;
+    public int getPlayer1Reputation(){
+        return this.Player1Reputation;
     }
 
-    public int getGuestReputation(){
-        return this.guestReputation;
+    public int getPlayer2Reputation(){
+        return this.Player2Reputation;
     }
 
-    public void setUserReputation(int userReputation) {
-        this.userReputation = userReputation;
+    public void setPlayer1Reputation(int player1Reputation) {
+        this.Player1Reputation = player1Reputation;
     }
 
-    public void setGuestReputation(int guestReputation){
-        this.guestReputation = guestReputation;
+    public void setPlayer2Reputation(int player2Reputation){
+        this.Player2Reputation = player2Reputation;
     }
 
     public ColdWarGameInfo() {
