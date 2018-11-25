@@ -5,9 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -39,12 +41,17 @@ public class UserPiecesSelectionActivity extends AppCompatActivity {
         // get all data from the edit texts >> these data are coodinates of the board
         HashMap<String, ArrayList<String>> agentToPositionList = getAgentPositions();
 
-        // add the spies to the board
-        addAgents("spy", agentToPositionList);
-        addAgents("diplomat", agentToPositionList);
+        if (agentToPositionList != null) {
+            // add the spies to the board
+            addAgents("spy", agentToPositionList);
+            addAgents("diplomat", agentToPositionList);
 
-        intent.putExtra("gameInfo", gameInfo);
-        startActivity(intent);
+            intent.putExtra("gameInfo", gameInfo);
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, "Please enter valid inputs", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     /** Add agents of type agent to the positions dictated by agentToPositionList.
@@ -75,18 +82,73 @@ public class UserPiecesSelectionActivity extends AppCompatActivity {
     }
 
     private HashMap<String, ArrayList<String>> getAgentPositions() {
-        // need to make sure input is valid
-        EditText spy1Input = findViewById(R.id.spy1Input);
-        EditText spy2Input = findViewById(R.id.spy2Input);
-        EditText spy3Input = findViewById(R.id.spy3Input);
-        EditText spy4Input = findViewById(R.id.spy4Input);
+        ArrayList<String> spyPositions = getSpyPositions();
+        ArrayList<String> diplomatPositions = getDiplomatPositions();
+
+        boolean spyValid = checkValid(spyPositions);
+        boolean diplomatValid = checkValid(diplomatPositions);
+
+        if (spyValid && diplomatValid) { // valid
+            HashMap<String, ArrayList<String>> result = new HashMap<>();
+            result.put("spy", new ArrayList<String>());
+            result.put("agent", new ArrayList<String>());
+
+            return result;
+        }
+        return null;
+    }
+
+    private boolean checkValid(ArrayList<String> positions) {
+        Character[] validLetters = {'A', 'B', 'C', 'D', 'E', 'F'};
+        Integer[] validNumbers = {1, 2, 3, 4, 5, 6};
+
+        if (positions.size() != 2) {
+            return false;
+        }
+
+        // thus, length of string is 2
+        for (String position : positions) {
+            boolean firstCharValid = Arrays.asList(validLetters).contains(position.charAt(0));
+            boolean secondCharValid = Arrays.asList(validNumbers).contains(position.charAt(1));
+            boolean notValid = !firstCharValid || !secondCharValid;
+            if (notValid) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private ArrayList<String> getDiplomatPositions() {
+        ArrayList<String> diplomatPositions = new ArrayList<>();
 
         EditText dip1Input = findViewById(R.id.dip1Input);
         EditText dip2Input = findViewById(R.id.dip2Input);
         EditText dip3Input = findViewById(R.id.dip3Input);
         EditText dip4Input = findViewById(R.id.dip4Input);
 
-        return null;
+        diplomatPositions.add(dip1Input.getText().toString());
+        diplomatPositions.add(dip2Input.getText().toString());
+        diplomatPositions.add(dip3Input.getText().toString());
+        diplomatPositions.add(dip4Input.getText().toString());
+
+        return diplomatPositions;
+    }
+
+    private ArrayList<String> getSpyPositions() {
+        ArrayList<String> spyPositions = new ArrayList<>();
+
+        EditText spy1Input = findViewById(R.id.spy1Input);
+        EditText spy2Input = findViewById(R.id.spy2Input);
+        EditText spy3Input = findViewById(R.id.spy3Input);
+        EditText spy4Input = findViewById(R.id.spy4Input);
+
+        spyPositions.add(spy1Input.getText().toString());
+        spyPositions.add(spy2Input.getText().toString());
+        spyPositions.add(spy3Input.getText().toString());
+        spyPositions.add(spy4Input.getText().toString());
+
+        return spyPositions;
     }
 }
 
