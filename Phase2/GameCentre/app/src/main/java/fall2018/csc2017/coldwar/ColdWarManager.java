@@ -236,14 +236,14 @@ public class ColdWarManager {
     }
 
     /**
-     * Makes all pieces in info unmovable if movable and vice versa.
+     * Makes all playable Agent pieces in info unmovable if movable and vice versa.
      * @param info The game info of the current game
      */
     static void toggleMovability(ColdWarGameInfo info) {
         List<Tile> board = info.getBoard();
         for (int i = 0; i < board.size(); i++) {
             Agent occupant = board.get(i).getAgent();
-            if (! (occupant == null)){
+            if (occupant instanceof Spy | occupant instanceof Diplomat){
                 if (occupant.isCanMove()) {
                     occupant.setCanMove(false);
                 }
