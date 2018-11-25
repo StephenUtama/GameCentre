@@ -81,6 +81,9 @@ public class PongScoreBoardActivity extends AppCompatActivity {
                 if (scoreboard != null) {
                     displayGlobalRankings();
                 }
+                else{
+                    displayBlankRankings();
+                }
                 display.setText("Global Rankings");
             }
         });
@@ -141,7 +144,7 @@ public class PongScoreBoardActivity extends AppCompatActivity {
      */
     protected void displayLocalRankings(String username) {
         ArrayList<Integer> localScores = scores.get(username);
-        Collections.sort(localScores);
+        Collections.sort(localScores, Collections.reverseOrder());
         int i = 0;
 
         // Setting the text values for all the user's scores
@@ -208,6 +211,7 @@ public class PongScoreBoardActivity extends AppCompatActivity {
             ArrayList<Integer> value = scores.get(user);
             Object[] set = {user, Collections.max(value)};
             sortHighScoreArray(highScoresArray);
+            Collections.reverse(highScoresArray);
             // if its not full
             if (highScoresArray.size() != 9) {
                 highScoresArray.add(set);
