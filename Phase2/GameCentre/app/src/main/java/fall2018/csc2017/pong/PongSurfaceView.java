@@ -70,7 +70,7 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
 
     @Override
     public void run() {
-        while (!controller.isOver()) {
+        while (controller.playing) {
 
             // Capture the current time in milliseconds in startFrameTime
             long startFrameTime = System.currentTimeMillis();
