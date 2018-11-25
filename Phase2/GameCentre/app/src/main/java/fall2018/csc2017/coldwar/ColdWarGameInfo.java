@@ -6,6 +6,8 @@ import java.util.List;
 import generalclasses.GameInfo;
 
 public class ColdWarGameInfo extends GameInfo {
+    private Integer START_REPUTATION = 0;
+
 
     /**
      * Used to determine whether the game is over.
@@ -23,12 +25,12 @@ public class ColdWarGameInfo extends GameInfo {
     /**
      * The "International Reputation" of the signed in user. Used by the win/lose condition.
      */
-    private Integer Player1Reputation = 2;
+    private Integer Player1Reputation = START_REPUTATION;
 
     /**
      * The "International Reputation" of the guest user. Used by the win/lose condition.
      */
-    private Integer Player2Reputation = 2;
+    private Integer Player2Reputation = START_REPUTATION;
 
     /**
      * The number of spies of the signed in user. Used by the win/lose condition.
