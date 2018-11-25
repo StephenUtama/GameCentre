@@ -170,6 +170,21 @@
 
     </LinearLayout>
 
+    <TextView
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
+        android:text="Please select a row then a column without any spaces in between. You may only select from rows A and B and not from the bases(A1, A6). For example, A2 would be a valid input but not F1."
+        android:layout_above="@id/boardImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/boardImage"
+        android:layout_width="373dp"
+        android:layout_height="309dp"
+        android:layout_above="@+id/submitP2"
+        android:layout_alignParentStart="true"
+        android:src="@drawable/board" />
 
     <Button
         android:id="@+id/submitP2"
