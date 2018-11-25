@@ -15,6 +15,7 @@ import fall2018.csc2017.slidingtiles.R;
 public class GuestPiecesSelectionActivity extends PieceSelectionActivity {
 
     ColdWarGameInfo gameInfo;
+    PiecesSelectionManager selectionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +28,7 @@ public class GuestPiecesSelectionActivity extends PieceSelectionActivity {
     private void assignments() {
         Intent intent = getIntent();
         gameInfo = (ColdWarGameInfo) intent.getSerializableExtra("gameInfo");
+        selectionManager = new PiecesSelectionManager();
     }
 
     public void addSubmitListener() {
@@ -37,12 +39,13 @@ public class GuestPiecesSelectionActivity extends PieceSelectionActivity {
                 Intent intent = new Intent(GuestPiecesSelectionActivity.this, ColdWarMainActivity.class);
 
                 // get all data from the edit texts >> these data are coordinates of the board
-                HashMap<String, ArrayList<String>> agentToPositionList = getAgentPositions();
+                HashMap<String, ArrayList<String>> agentToPositionList =
+                        selectionManager.getAgentPositions(gameInfo.PLAYER2, getSpyPositions(), getDiplomatPositions());
 
                 if (agentToPositionList != null) {
                     // add the spies to the board
-                    addAgents("spy", agentToPositionList, gameInfo, gameInfo.PLAYER2);
-                    addAgents("diplomat", agentToPositionList, gameInfo, gameInfo.PLAYER2);
+                    selectionManager.addAgents("spy", agentToPositionList, gameInfo, gameInfo.PLAYER2);
+                    selectionManager.addAgents("diplomat", agentToPositionList, gameInfo, gameInfo.PLAYER2);
 
                     intent.putExtra("gameInfo", gameInfo);
                     startActivity(intent);

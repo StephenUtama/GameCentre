@@ -20,6 +20,7 @@ import generalclasses.GameInfo;
 public class UserPiecesSelectionActivity extends PieceSelectionActivity {
 
     ColdWarGameInfo gameInfo;
+    PiecesSelectionManager selectionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,7 @@ public class UserPiecesSelectionActivity extends PieceSelectionActivity {
 
     private void assignments() {
         gameInfo = new ColdWarGameInfo();
+        selectionManager = new PiecesSelectionManager();
     }
 
     public void addSubmitListener() {
@@ -40,13 +42,14 @@ public class UserPiecesSelectionActivity extends PieceSelectionActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(UserPiecesSelectionActivity.this, GuestPiecesSelectionActivity.class);
 
-                // get all data from the edit texts >> these data are coodinates of the board
-                HashMap<String, ArrayList<String>> agentToPositionList = getAgentPositions();
+                // get all data from the edit texts >> these data are coordinates of the board
+                HashMap<String, ArrayList<String>> agentToPositionList =
+                        selectionManager.getAgentPositions(gameInfo.PLAYER1, getSpyPositions(), getDiplomatPositions());
 
                 if (agentToPositionList != null) {
                     // add the spies to the board
-                    addAgents("spy", agentToPositionList, gameInfo, gameInfo.PLAYER1);
-                    addAgents("diplomat", agentToPositionList, gameInfo, gameInfo.PLAYER1);
+                    selectionManager.addAgents("spy", agentToPositionList, gameInfo, gameInfo.PLAYER1);
+                    selectionManager.addAgents("diplomat", agentToPositionList, gameInfo, gameInfo.PLAYER1);
 
                     intent.putExtra("gameInfo", gameInfo);
                     startActivity(intent);
