@@ -181,6 +181,7 @@ public class PongStartingActivity extends AppCompatActivity {
     // TODO
     /**
      * 1. Refactor based on MVC
+     * 2. Debug the part where back button crashes the app
      * 2. Create Unit test
      * 3. Make some more functionalities/adjust UI
      */

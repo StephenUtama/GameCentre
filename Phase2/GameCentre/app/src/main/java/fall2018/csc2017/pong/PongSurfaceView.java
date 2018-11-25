@@ -126,6 +126,7 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
      */
     public void pause(){
         controller.playing = false; // Note
+        controller.paused = true;
         try {
             thread.join();
         } catch (InterruptedException e){
