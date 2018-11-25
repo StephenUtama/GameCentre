@@ -61,6 +61,9 @@ public class PongScoreBoardActivity extends AppCompatActivity {
         user = (User) getIntent().getSerializableExtra("user");
         // load the scoreboards from save file
         loadScoreboards();
+        if (scoreboards == null) {
+            scoreboards = new PongGameScoreBoards();
+        }
         final PongScoreBoard scoreboard = (PongScoreBoard) scoreboards.getScoreboard("Pong");
         if (scoreboard != null) {
             scores = scoreboard.getScoreMap();
@@ -100,7 +103,7 @@ public class PongScoreBoardActivity extends AppCompatActivity {
 
     private void loadScoreboards() {
         try {
-            InputStream inputStream = this.openFileInput("SAVED_SCOREBOARDS");
+            InputStream inputStream = this.openFileInput("SAVED_PONG_SCOREBOARDS");
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
                 scoreboards = (GameScoreboards) input.readObject();

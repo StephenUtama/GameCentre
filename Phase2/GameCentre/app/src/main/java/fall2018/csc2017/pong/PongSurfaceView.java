@@ -96,7 +96,7 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
     @Override
     public boolean onTouchEvent(MotionEvent motionEvent) {
         if (controller.isOver()){
-
+            //want to save here
             controller.setupAndRestart();
         }else{
             switch (motionEvent.getAction() & MotionEvent.ACTION_MASK) {

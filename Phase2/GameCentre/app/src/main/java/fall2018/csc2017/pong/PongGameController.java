@@ -26,8 +26,6 @@ public class PongGameController implements GameController, Serializable {
      */
     SurfaceHolder surfaceHolder;
 
-    private PongFileSaverModel pongSaver;
-
     /**
      * Whether or not game is running (from thread).
      * Volatile because it is accessed from inside and outside the thread
@@ -134,8 +132,8 @@ public class PongGameController implements GameController, Serializable {
     public void draw(){
         if (this.surfaceHolder.getSurface().isValid()){
             if (isOver()){
-                pongSaver.updateAndSaveScoreboardIfGameOver(this);
                 paused = true;
+                PongGameActivity.pongSaver.updateAndSaveScoreboardIfGameOver(this);
                 this.canvas = this.surfaceHolder.lockCanvas();
                 this.paint.setColor(Color.argb(255,255,255,255));
                 this.paint.setTextSize(60);

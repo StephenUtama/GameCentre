@@ -48,6 +48,8 @@ public class PongGameActivity extends AppCompatActivity {
      */
     private PongGameInfo gameInfo;
 
+    public static PongFileSaverModel pongSaver;
+
     public static final String SAVE_FILENAME = "master_save_file.ser";
 
     @Override
@@ -79,6 +81,8 @@ public class PongGameActivity extends AppCompatActivity {
             pongView = new PongSurfaceView(this, size.x, size.y, gameInfo);
         }
         this.controller = new PongGameController(pongView.getHolder(), gameInfo);
+
+        pongSaver = new PongFileSaverModel(this);
 
         //Create your frame layout
         FrameLayout frameLayout = new FrameLayout(this);

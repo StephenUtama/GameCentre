@@ -64,7 +64,6 @@ class SlidingTilesManager extends Manager implements Serializable {
      * @param position the tile to check
      * @return whether the tile at position is surrounded by a blank tile
      */
-    @Override
     public boolean isValidMove(Object position) {
 
         int row = (Integer) position / Board.NUM_COLS;
