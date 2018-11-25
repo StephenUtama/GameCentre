@@ -64,6 +64,12 @@ public class GameActivityController {
         }
     }
 
+    /**
+     * Update the button's background
+     * @param tilesbtn List of buttons that we assign the background
+     * @param image_game If game is Image game or not
+     * @param board The board of this game that we pug the buttons
+     */
     public void updateTileButtons(ArrayList<Button> tilesbtn, boolean image_game, Board board) {
 
         if (image_game) { // If the complexity is image, updates buttons differently

@@ -26,6 +26,8 @@ public class PongGameController implements GameController, Serializable {
      */
     SurfaceHolder surfaceHolder;
 
+    private PongFileSaverModel pongSaver;
+
     /**
      * Whether or not game is running (from thread).
      * Volatile because it is accessed from inside and outside the thread
@@ -64,14 +66,13 @@ public class PongGameController implements GameController, Serializable {
         // Initialize surfaceHolder and paint objects
         this.surfaceHolder = ourHolder;
         paint = new Paint();
-
         // Initialize a PongGameInfo
         this.gameInfo = gameInfo;
 
     }
 
     /**
-     * Updates the rect of the ball and racket
+     * Updates the rect of the ball and racket (Make move pretty much)
      */
     public void update() {
 
@@ -100,10 +101,6 @@ public class PongGameController implements GameController, Serializable {
             gameInfo.updateLife();
             // sp.play(loseLifeID, 1, 1, 0, 0, 1);
 
-            if(gameInfo.getLives() == 0){
-                paused = true;
-                setupAndRestart();
-            }
         }
         // If ball hits top of the screen
         if(gameInfo.getBall().getRectF().top < 0){
@@ -128,7 +125,6 @@ public class PongGameController implements GameController, Serializable {
 
             // sp.play(beep3ID, 1, 1, 0, 0, 1);
         }
-
     }
 
     /**
@@ -137,17 +133,28 @@ public class PongGameController implements GameController, Serializable {
      */
     public void draw(){
         if (this.surfaceHolder.getSurface().isValid()){
-
-            this.canvas = this.surfaceHolder.lockCanvas();
-            this.canvas.drawColor(Color.argb(255, 120, 197, 87));
-            this.paint.setColor(Color.argb(255, 255, 255, 255));
-            this.canvas.drawRect(gameInfo.getRacket().getRectF(), this.paint);
-            this.canvas.drawRect(gameInfo.getBall().getRectF(), this.paint);
-            this.paint.setColor(Color.argb(255, 255, 255, 255));
-            this.paint.setTextSize(40);
-            this.canvas.drawText("Score: " + gameInfo.getScore() + "  Lives: " + gameInfo.getLives(),
-                    10,50, this.paint);
-            this.surfaceHolder.unlockCanvasAndPost(this.canvas);
+            if (isOver()){
+                pongSaver.updateAndSaveScoreboardIfGameOver(this);
+                paused = true;
+                this.canvas = this.surfaceHolder.lockCanvas();
+                this.paint.setColor(Color.argb(255,255,255,255));
+                this.paint.setTextSize(60);
+                this.canvas.drawText("Game Over! Score: " + gameInfo.getScore(), gameInfo.screenWidth/4, gameInfo.screenHeight/2, this.paint);
+                this.paint.setTextSize(40);
+                this.canvas.drawText("Tap to play one more time!", gameInfo.screenWidth/4 + 10, gameInfo.screenHeight/2 + 50, this.paint);
+                this.surfaceHolder.unlockCanvasAndPost(this.canvas);
+            }else{
+                this.canvas = this.surfaceHolder.lockCanvas();
+                this.canvas.drawColor(Color.argb(255, 120, 197, 87));
+                this.paint.setColor(Color.argb(255, 255, 255, 255));
+                this.canvas.drawRect(gameInfo.getRacket().getRectF(), this.paint);
+                this.canvas.drawRect(gameInfo.getBall().getRectF(), this.paint);
+                this.paint.setColor(Color.argb(255, 255, 255, 255));
+                this.paint.setTextSize(40);
+                this.canvas.drawText("Score: " + gameInfo.getScore() + "  Lives: " + gameInfo.getLives(),
+                        10,50, this.paint);
+                this.surfaceHolder.unlockCanvasAndPost(this.canvas);
+            }
         }
     }
 
@@ -162,5 +169,9 @@ public class PongGameController implements GameController, Serializable {
             gameInfo.setScore(0);
             gameInfo.setLives(3);
         }
+    }
+
+    public boolean isOver(){
+        return gameInfo.lives == 0;
     }
 }

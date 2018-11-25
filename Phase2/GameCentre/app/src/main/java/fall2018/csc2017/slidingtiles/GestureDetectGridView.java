@@ -1,11 +1,11 @@
 package fall2018.csc2017.slidingtiles;
 
-/*
+/**
 Adapted from:
 https://github.com/DaveNOTDavid/sample-puzzle/blob/master/app/src/main/java/com/davenotdavid/samplepuzzle/GestureDetectGridView.java
 
 This extension of GridView contains built in logic for handling swipes between buttons
- */
+ **/
 
 import android.annotation.TargetApi;
 import android.content.Context;

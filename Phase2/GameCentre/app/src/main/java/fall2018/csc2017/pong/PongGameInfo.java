@@ -115,4 +115,8 @@ public class PongGameInfo extends GameInfo implements Serializable {
     public String getGame() {
         return "Pong";
     }
+
+    public PongGameInfo getPongGameInfo(){
+        return this;
+    }
 }

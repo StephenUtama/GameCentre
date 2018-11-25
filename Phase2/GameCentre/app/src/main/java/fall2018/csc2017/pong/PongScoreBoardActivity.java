@@ -48,7 +48,7 @@ public class PongScoreBoardActivity extends AppCompatActivity {
      */
     private User user;
     private TextView display;
-    GameScoreboards scoreboards = null;
+    GameScoreboards scoreboards;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -202,7 +202,7 @@ public class PongScoreBoardActivity extends AppCompatActivity {
         ArrayList<Object[]> highScoresArray = new ArrayList<>(); // max size: 9, contains [user, score]
         for (String user : scores.keySet()) {
             ArrayList<Integer> value = scores.get(user);
-            Object[] set = {user, Collections.min(value)};
+            Object[] set = {user, Collections.max(value)};
             sortHighScoreArray(highScoresArray);
             // if its not full
             if (highScoresArray.size() != 9) {
