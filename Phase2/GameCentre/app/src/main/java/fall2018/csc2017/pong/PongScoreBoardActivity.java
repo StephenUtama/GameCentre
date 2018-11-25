@@ -217,13 +217,14 @@ public class PongScoreBoardActivity extends AppCompatActivity {
                 highScoresArray.add(set);
             }
             // if the lowest score in the scoreboard is greater than current score
-            else if ((int) highScoresArray.get(8)[1] > (int) set[1]) {
+            else if ((int) highScoresArray.get(8)[1] < (int) set[1]) {
                 highScoresArray.remove(8);
                 highScoresArray.add(set);
 
             }
         }
         sortHighScoreArray(highScoresArray);
+        Collections.reverse(highScoresArray);
         return highScoresArray;
     }
 
