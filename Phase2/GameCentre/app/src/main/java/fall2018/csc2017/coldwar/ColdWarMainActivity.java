@@ -1,5 +1,6 @@
 package fall2018.csc2017.coldwar;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -24,7 +25,9 @@ public class ColdWarMainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cold_war_main);
-        final ColdWarGameInfo coldWarGameInfo = new ColdWarGameInfo();
+
+        Intent intent = getIntent();
+        final ColdWarGameInfo coldWarGameInfo = (ColdWarGameInfo) intent.getSerializableExtra("gameInfo");
         List<Tile> board = coldWarGameInfo.getBoard();
         imageIDs = ColdWarManager.getImageIDs(coldWarGameInfo);
 

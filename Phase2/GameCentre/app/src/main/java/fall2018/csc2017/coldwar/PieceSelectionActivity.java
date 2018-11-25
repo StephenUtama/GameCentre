@@ -15,19 +15,26 @@ import java.util.List;
 import fall2018.csc2017.slidingtiles.R;
 
 public class PieceSelectionActivity extends AppCompatActivity {
-    /** Add agents of type agent to the positions dictated by agentToPositionList.
-     * @param agent the type of agent
+    /**
+     * Add agents of type agent to the positions dictated by agentToPositionList.
+     *
+     * @param agent               the type of agent
      * @param agentToPositionList a hash map that maps an agent type to the positions
-     * that will contain this agent
+     *                            that will contain this agent
      */
-    protected void addAgents(String agent, HashMap<String, ArrayList<String>> agentToPositionList, ColdWarGameInfo gameInfo) {
+    protected void addAgents(String agent, HashMap<String, ArrayList<String>> agentToPositionList, ColdWarGameInfo gameInfo, String player) {
         // get position data >> then translate to array coordinates
         List<String> agentPositions = agentToPositionList.get(agent);
         for (String agentPosition : agentPositions) {
             // make a new spy object >> then insert it to gameinfo, passing in the spy and the coodinates
             int position = getPosition(agentPosition);
-            Spy spy = new Spy(gameInfo.PLAYER1);
-            gameInfo.setTile(spy, position);
+            if (agent.equals("spy")) {
+                Spy spy = new Spy(player);
+                gameInfo.setTile(spy, position);
+            } else {
+                Diplomat diplomat = new Diplomat(player);
+                gameInfo.setTile(diplomat, position);
+            }
         }
     }
 

@@ -45,8 +45,8 @@ public class UserPiecesSelectionActivity extends PieceSelectionActivity {
 
                 if (agentToPositionList != null) {
                     // add the spies to the board
-                    addAgents("spy", agentToPositionList, gameInfo);
-                    addAgents("diplomat", agentToPositionList, gameInfo);
+                    addAgents("spy", agentToPositionList, gameInfo, gameInfo.PLAYER1);
+                    addAgents("diplomat", agentToPositionList, gameInfo, gameInfo.PLAYER1);
 
                     intent.putExtra("gameInfo", gameInfo);
                     startActivity(intent);

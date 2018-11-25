@@ -41,8 +41,8 @@ public class GuestPiecesSelectionActivity extends PieceSelectionActivity {
 
                 if (agentToPositionList != null) {
                     // add the spies to the board
-                    addAgents("spy", agentToPositionList, gameInfo);
-                    addAgents("diplomat", agentToPositionList, gameInfo);
+                    addAgents("spy", agentToPositionList, gameInfo, gameInfo.PLAYER2);
+                    addAgents("diplomat", agentToPositionList, gameInfo, gameInfo.PLAYER2);
 
                     intent.putExtra("gameInfo", gameInfo);
                     startActivity(intent);
