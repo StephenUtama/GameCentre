@@ -176,6 +176,7 @@ public class PongScoreBoardActivity extends AppCompatActivity {
         TextView currentUserText = findViewById(getResources().getIdentifier("User" + i,
                 "id",
                 this.getPackageName()));
+        System.out.println("The package name is " + this.getPackageName());
         currentUserText.setText(userText);
 
         TextView currentScoreText = findViewById(getResources().getIdentifier("Score" + i,

@@ -73,7 +73,10 @@ public class PongGameController implements GameController, Serializable {
      * Updates the rect of the ball and racket (Make move pretty much)
      */
     public void update() {
-
+        if(isOver()){
+            paused = true;
+            setupAndRestart();
+        }
         // Move the racket if required
         gameInfo.getRacket().update(gameInfo.getFps());
         gameInfo.getBall().update(gameInfo.getFps());
@@ -132,8 +135,6 @@ public class PongGameController implements GameController, Serializable {
     public void draw(){
         if (this.surfaceHolder.getSurface().isValid()){
             if (isOver()){
-                paused = true;
-                PongGameActivity.pongSaver.updateAndSaveScoreboardIfGameOver(this);
                 this.canvas = this.surfaceHolder.lockCanvas();
                 this.paint.setColor(Color.argb(255,255,255,255));
                 this.paint.setTextSize(60);
