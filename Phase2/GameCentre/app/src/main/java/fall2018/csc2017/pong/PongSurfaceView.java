@@ -70,7 +70,7 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
 
     @Override
     public void run() {
-        while (controller.playing) {
+        while (!controller.isOver()) {
 
             // Capture the current time in milliseconds in startFrameTime
             long startFrameTime = System.currentTimeMillis();
@@ -91,25 +91,23 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
                 controller.gameInfo.setFps(1000 / timeThisFrame);
             }
         }
+
+        if (controller.isOver()){
+            PongGameActivity.pongSaver.updateAndSaveScoreboardIfGameOver(this.controller);
+        }
+
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent motionEvent) {
         if (controller.isOver()){
-            //want to save here
             controller.setupAndRestart();
         }else{
             switch (motionEvent.getAction() & MotionEvent.ACTION_MASK) {
 
                 // Player has touched the screen
                 case MotionEvent.ACTION_DOWN:
-
                     controller.paused = false;
-                    if (controller.gameInfo.getLives() == 0){
-                        Toast.makeText(this.context, "Game Over! Score: " + controller.gameInfo.getScore(), Toast.LENGTH_SHORT).show();
-                        controller.setupAndRestart();
-                    }
-
                     // Is the touch on the right or left?
                     if(motionEvent.getX() > screenWidth / 2){
                         controller.gameInfo.getRacket().setMovementState(controller.gameInfo.getRacket().RIGHT);
