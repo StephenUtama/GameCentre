@@ -28,16 +28,11 @@ import static fall2018.csc2017.slidingtiles.StartingActivity.SAVE_FILENAME;
  */
 public class SlidingTilesFileSaverModel extends SaverModel {
 
-//    private User user;
-
     public GameScoreboards getScoreboards() {
         loadScoreboards("SAVED_SCOREBOARDS");
         return scoreboards;
     }
 
-//    public User getUser() {
-//        return user;
-//    }
 
     public SlidingTilesFileSaverModel(Context context) {
         super(context);
