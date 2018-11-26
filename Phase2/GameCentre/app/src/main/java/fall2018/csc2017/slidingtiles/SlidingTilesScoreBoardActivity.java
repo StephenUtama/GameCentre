@@ -21,6 +21,7 @@ import java.util.LinkedHashMap;
 
 import generalactivities.ScoreBoardActivity;
 import generalclasses.GameScoreboards;
+import generalclasses.ScoreBoard;
 import generalclasses.User;
 
 /**
@@ -52,7 +53,7 @@ public class SlidingTilesScoreBoardActivity extends ScoreBoardActivity {
         if (scoreboards == null) {
             scoreboards = new SlidingTileScoreboards();
         }
-        final SlidingTilesScoreBoard scoreboard = (SlidingTilesScoreBoard) scoreboards.getScoreboard(complexity);
+        final ScoreBoard scoreboard = scoreboards.getScoreboard(complexity);
         if (scoreboard != null) {
             scores = scoreboard.getScoreMap();
         }

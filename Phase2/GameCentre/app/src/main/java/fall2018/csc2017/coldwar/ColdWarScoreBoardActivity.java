@@ -1,14 +1,11 @@
 package fall2018.csc2017.coldwar;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import fall2018.csc2017.slidingtiles.R;
-import fall2018.csc2017.slidingtiles.SlidingTileScoreboards;
-import fall2018.csc2017.slidingtiles.SlidingTilesScoreBoard;
 import generalactivities.ScoreBoardActivity;
 import generalclasses.GameScoreboards;
 import generalclasses.ScoreBoard;

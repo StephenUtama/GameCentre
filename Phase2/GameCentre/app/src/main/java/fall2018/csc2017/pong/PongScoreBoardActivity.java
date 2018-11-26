@@ -19,8 +19,6 @@ import java.util.Comparator;
 import java.util.LinkedHashMap;
 
 import fall2018.csc2017.slidingtiles.R;
-import fall2018.csc2017.slidingtiles.SlidingTileScoreboards;
-import fall2018.csc2017.slidingtiles.SlidingTilesScoreBoard;
 import generalclasses.GameScoreboards;
 import generalclasses.ScoreBoard;
 import generalclasses.User;
@@ -64,7 +62,7 @@ public class PongScoreBoardActivity extends AppCompatActivity {
         if (scoreboards == null) {
             scoreboards = new PongGameScoreBoards();
         }
-        final PongScoreBoard scoreboard = (PongScoreBoard) scoreboards.getScoreboard("Pong");
+        final ScoreBoard scoreboard = scoreboards.getScoreboard("Pong");
         if (scoreboard != null) {
             scores = scoreboard.getScoreMap();
         }

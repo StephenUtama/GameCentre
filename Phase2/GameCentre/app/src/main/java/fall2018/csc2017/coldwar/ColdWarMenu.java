@@ -14,6 +14,8 @@ import fall2018.csc2017.slidingtiles.R;
 import fall2018.csc2017.slidingtiles.SlidingTilesScoreBoardActivity;
 import fall2018.csc2017.slidingtiles.StartingActivity;
 import generalclasses.GameInfo;
+import generalclasses.GameScoreboards;
+import generalclasses.ScoreBoard;
 import generalclasses.User;
 
 public class ColdWarMenu extends AppCompatActivity {
@@ -21,6 +23,7 @@ public class ColdWarMenu extends AppCompatActivity {
     String username;
     User user;
     ColdWarSaverModel mSaver;
+    GameScoreboards scoreboards;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,11 @@ public class ColdWarMenu extends AppCompatActivity {
     }
 
     public void startGame(View view) {
+        // if this is the very first game, need to add
+        if (scoreboards.getScoreboard("default") == null) {
+            scoreboards.addScoreboard("default", new ScoreBoard());
+            mSaver.saveScoreboards(scoreboards, "COLD_WAR_SAVED_SCOREBOARDS");
+        }
         Intent intent = new Intent(this, UserPiecesSelectionActivity.class);
         intent.putExtra("username", username);
         startActivity(intent);
@@ -74,6 +82,6 @@ public class ColdWarMenu extends AppCompatActivity {
         mSaver.startingResume(username);
         user = mSaver.getUser();
         // also load the most recent copy of scores
-//        scoreboards = mSaver.getScoreboards();
+        scoreboards = mSaver.getScoreboards();
     }
 }
