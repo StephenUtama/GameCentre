@@ -31,7 +31,7 @@ public class UserPiecesSelectionActivity extends PieceSelectionActivity {
     }
 
     private void assignments() {
-        gameInfo = new ColdWarGameInfo();
+        gameInfo = new ColdWarGameInfo(getIntent().getStringExtra("username"));
         selectionManager = new PiecesSelectionManager();
     }
 

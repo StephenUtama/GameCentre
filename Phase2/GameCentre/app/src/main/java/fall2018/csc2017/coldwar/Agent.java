@@ -9,7 +9,7 @@ public abstract class Agent implements Serializable {
     /*
         Indicates whether this piece is visible.
          */
-    public boolean isVisible = true;
+    public boolean isVisible = false;
 
     public boolean isVisible() {
         return isVisible;
