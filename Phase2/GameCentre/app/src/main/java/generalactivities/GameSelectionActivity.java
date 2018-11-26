@@ -69,8 +69,8 @@ public class GameSelectionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // for testing purposes
-                Intent intent = new Intent(GameSelectionActivity.this, ColdWarMainActivity.class);
-//                Intent intent = new Intent(GameSelectionActivity.this, ColdWarMenu.class);
+//                Intent intent = new Intent(GameSelectionActivity.this, ColdWarMainActivity.class);
+                Intent intent = new Intent(GameSelectionActivity.this, ColdWarMenu.class);
                 intent.putExtra("username", username);
                 startActivity(intent);
             }
