@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.HashMap;
 
 import fall2018.csc2017.slidingtiles.SlidingTilesGameInfo;
+import generalclasses.GameScoreboards;
 import generalclasses.SaverModel;
 import generalclasses.User;
 
@@ -20,6 +21,11 @@ import static fall2018.csc2017.slidingtiles.StartingActivity.SAVE_FILENAME;
 public class ColdWarSaverModel extends SaverModel {
     public ColdWarSaverModel(Context context) {
         super(context);
+    }
+
+    public GameScoreboards getScoreboards() {
+        loadScoreboards("COLD_WAR_SAVED_SCOREBOARDS");
+        return scoreboards;
     }
 
     public void saveButtonListener(ColdWarGameInfo gameInfo, User user) {

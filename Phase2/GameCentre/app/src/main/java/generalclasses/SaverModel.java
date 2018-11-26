@@ -17,9 +17,6 @@ public abstract class SaverModel {
     public GameScoreboards scoreboards;
     public User user;
 
-    public GameScoreboards getScoreboards() {
-        return scoreboards;
-    }
 
     public User getUser() {
         return user;
@@ -79,7 +76,8 @@ public abstract class SaverModel {
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {
-            saveScoreboards(new GameScoreboards(),scoreBoardSaveLocation);
+            scoreboards = new GameScoreboards();
+            saveScoreboards(scoreboards, scoreBoardSaveLocation);
         } catch (IOException e) {
             Log.e("login activity", "Can not read file: " + e.toString());
         } catch (ClassNotFoundException e) {

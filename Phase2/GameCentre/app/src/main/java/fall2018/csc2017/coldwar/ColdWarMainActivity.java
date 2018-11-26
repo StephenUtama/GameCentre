@@ -99,8 +99,6 @@ public class ColdWarMainActivity extends AppCompatActivity {
         endButton.setEnabled(false);
         beginButton.setEnabled(true);
         saveButton.setEnabled(true);
-
-
     }
 
     public void beginMoveButtonClicked(View view) {
