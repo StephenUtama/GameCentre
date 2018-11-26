@@ -45,7 +45,8 @@ tools:context="fall2018.csc2017.coldwar.ColdWarMainActivity">
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="60dp"
         android:layout_marginEnd="21dp"
-        android:text="Save" />
+        android:text="Save"
+        android:enabled="false"/>
 
     <TextView
         android:id="@+id/userReputation"

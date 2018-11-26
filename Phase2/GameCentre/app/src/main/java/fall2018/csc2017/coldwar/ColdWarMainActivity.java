@@ -30,7 +30,7 @@ public class ColdWarMainActivity extends AppCompatActivity {
 
     ColdWarGameInfo coldWarGameInfo;
 
-    private Button endButton, beginButton;
+    private Button endButton, beginButton, saveButton;
 
     ColdWarSaverModel mSaver;
 
@@ -41,6 +41,7 @@ public class ColdWarMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cold_war_main);
         endButton = findViewById(R.id.endMoveButton);
         beginButton = findViewById(R.id.beginMoveButton);
+        saveButton = findViewById(R.id.saveButton);
 
         Intent intent = getIntent();
         coldWarGameInfo = (ColdWarGameInfo) intent.getSerializableExtra("gameInfo");
@@ -97,6 +98,7 @@ public class ColdWarMainActivity extends AppCompatActivity {
         gridView.setAdapter(new ImageAdapterGridView(getBaseContext(), imageIDs));
         endButton.setEnabled(false);
         beginButton.setEnabled(true);
+        saveButton.setEnabled(true);
     }
 
     public void beginMoveButtonClicked(View view) {
@@ -104,6 +106,7 @@ public class ColdWarMainActivity extends AppCompatActivity {
         imageIDs = ColdWarManager.getImageIDs(coldWarGameInfo);
         gridView.setAdapter(new ImageAdapterGridView(getBaseContext(), imageIDs));
         beginButton.setEnabled(false);
+        saveButton.setEnabled(false);
     }
 
     public void save(View view) {

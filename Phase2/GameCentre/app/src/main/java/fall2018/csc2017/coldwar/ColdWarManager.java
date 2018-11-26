@@ -204,7 +204,7 @@ public class ColdWarManager {
         String currentPlayer = info.getCurrentPlayer();
 
         toggleMovability(info);
-        toggleVisibility(info);
+        makeInvisible(info);
 
         if (currentPlayer.equals(ColdWarGameInfo.PLAYER1)) {
             info.setCurrentPlayer(ColdWarGameInfo.PLAYER2);
@@ -218,7 +218,7 @@ public class ColdWarManager {
      * @param info The game info of the current game
      */
     static void beginTurn(ColdWarGameInfo info) {
-        toggleVisibility(info);
+        makeVisible(info);
     }
 
     /**
@@ -237,6 +237,34 @@ public class ColdWarManager {
                 else {
                     occupant.setVisible(true);
                 }
+            }
+        }
+    }
+
+    /**
+     * Makes all pieces visible.
+     * @param info The game info of the current game
+     */
+    static private void makeVisible(ColdWarGameInfo info) {
+        List<Tile> board = info.getBoard();
+        for (int i = 0; i < board.size(); i++){
+            Agent occupant = board.get(i).getAgent();
+            if (! (occupant == null)){
+                occupant.setVisible(true);
+            }
+        }
+    }
+
+    /**
+     * Makes all pieces invisible.
+     * @param info The game info of the current game
+     */
+    static private void makeInvisible(ColdWarGameInfo info) {
+        List<Tile> board = info.getBoard();
+        for (int i = 0; i < board.size(); i++){
+            Agent occupant = board.get(i).getAgent();
+            if (! (occupant == null)){
+                occupant.setVisible(false);
             }
         }
     }
