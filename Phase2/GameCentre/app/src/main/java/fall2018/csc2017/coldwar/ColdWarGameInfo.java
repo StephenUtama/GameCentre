@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import generalclasses.GameInfo;
+import generalclasses.ScoreBoard;
 import generalclasses.User;
 
 public class ColdWarGameInfo extends GameInfo {
@@ -152,38 +153,25 @@ public class ColdWarGameInfo extends GameInfo {
         board.get(35).setAgent(new USBase(PLAYER1));
     }
 
-    /**
-     * Set up a test board with some pieces.
-     */
-    private void setUpTestBoard() {
-        setUpDefaultBoard();
-        board.get(0).setAgent(new SUBase(PLAYER2));
-        board.get(5).setAgent(new SUBase(PLAYER2));
-        board.get(30).setAgent(new USBase(PLAYER1));
-        board.get(35).setAgent(new USBase(PLAYER1));
-
-        board.get(31).setAgent(new Diplomat(PLAYER1));
-        board.get(32).setAgent(new Diplomat(PLAYER1));
-        board.get(33).setAgent(new Diplomat(PLAYER1));
-        board.get(34).setAgent(new Diplomat(PLAYER1));
-        board.get(24).setAgent(new Spy(PLAYER1));
-        board.get(25).setAgent(new Spy(PLAYER1));
-        board.get(26).setAgent(new Spy(PLAYER1));
-        board.get(27).setAgent(new Spy(PLAYER1));
-
-        board.get(2).setAgent(new Diplomat(PLAYER2));
-        board.get(3).setAgent(new Diplomat(PLAYER2));
-        board.get(4).setAgent(new Diplomat(PLAYER2));
-        board.get(1).setAgent(new Diplomat(PLAYER2));
-        board.get(6).setAgent(new Spy(PLAYER2));
-        board.get(7).setAgent(new Spy(PLAYER2));
-        board.get(8).setAgent(new Spy(PLAYER2));
-        board.get(9).setAgent(new Spy(PLAYER2));
-    }
-
     public void setTile(Agent agent, int position) {
         Tile tileToSet = this.board.get(position);
         tileToSet.setAgent(agent);
+    }
+
+    public int getScore(ScoreBoard scoreBoard) {
+        // we get to assume game is over
+        int currentScore = 0;
+        if (!scoreBoard.getScoreMap().containsKey(userName)) {
+            currentScore = scoreBoard.getScoreMap().get(userName).get(0);
+        }
+
+        if (ColdWarManager.getWinner(this).equals(PLAYER1)) {
+            currentScore += 1;
+        } else {
+            currentScore -= 1;
+        }
+
+        return currentScore;
     }
 
     @Override
