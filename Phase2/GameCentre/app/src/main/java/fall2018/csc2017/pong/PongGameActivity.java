@@ -19,6 +19,10 @@ import java.util.Date;
 
 import generalclasses.User;
 
+/**
+ * GameActivity of Pong game. Creates the SurfaceView and load the game if needed
+ * Since this class only contains view and buttons, excluded from Unit test
+ */
 public class PongGameActivity extends AppCompatActivity {
 
     /**
