@@ -21,8 +21,9 @@ public class ColdWarMainActivity extends AppCompatActivity {
     GridView gridView;
 
     TextView userReputationText;
-
     TextView guestReputationText;
+    TextView winText;
+
 
     List<Integer> imageIDs;
 
@@ -88,7 +89,8 @@ public class ColdWarMainActivity extends AppCompatActivity {
                 }
                 imageIDs = ColdWarManager.getImageIDs(coldWarGameInfo);
 
-                gridView.setAdapter(new ImageAdapterGridView(getBaseContext(), imageIDs));}
+                gridView.setAdapter(new ImageAdapterGridView(getBaseContext(), imageIDs));
+            }
         });
     }
 
@@ -99,7 +101,10 @@ public class ColdWarMainActivity extends AppCompatActivity {
         endButton.setEnabled(false);
         beginButton.setEnabled(true);
         saveButton.setEnabled(true);
-
+        if (ColdWarManager.isOver(coldWarGameInfo)) {
+            String message = ColdWarManager.getWinText(coldWarGameInfo);
+            ColdWarManager.showAlert(message, this);
+        }
 
     }
 

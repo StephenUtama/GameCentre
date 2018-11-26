@@ -1,5 +1,9 @@
 package fall2018.csc2017.coldwar;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -359,5 +363,17 @@ public class ColdWarManager {
                 }
             }
         }
+    }
+
+    /**
+     * Show a popup with message.
+     * @param message Message to show
+     * @param con The context
+     */
+    public static void showAlert(String message, Context con) {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(con);
+        dialog.setTitle(message);
+        dialog.show();
+
     }
 }
