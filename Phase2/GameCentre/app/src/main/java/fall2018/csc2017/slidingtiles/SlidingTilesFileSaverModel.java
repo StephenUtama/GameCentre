@@ -66,7 +66,6 @@ public class SlidingTilesFileSaverModel extends SaverModel {
             String username = slidingTilesManager.getInfo().getUserName();
             int score = slidingTilesManager.getInfo().getScore();
             String complexity = slidingTilesManager.getInfo().getComplexity();
-            String game = slidingTilesManager.getInfo().getGame();
 
             // assume we have loaded scoreboards and have the correct scoreboard
             loadScoreboards("SAVED_SCOREBOARDS");
