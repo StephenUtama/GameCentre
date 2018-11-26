@@ -19,14 +19,14 @@ import generalclasses.User;
 
 import static fall2018.csc2017.pong.PongStartingActivity.SAVE_FILENAME;
 
-public class PongFileSaverModel{
+public class PongFileSaverModel extends SaverModel{
 
     private Context context;
     private GameScoreboards scoreboards;
     private User user;
 
     public PongFileSaverModel(Context context) {
-        this.context = context;
+        super(context);
     }
 
     public GameScoreboards getScoreboards() {
@@ -51,13 +51,6 @@ public class PongFileSaverModel{
         }
     }
 
-    private void makeToastNothingToSave() {
-        Toast.makeText(context, "Nothing to Save", Toast.LENGTH_SHORT).show();
-    }
-
-    private void makeToastSavedText() {
-        Toast.makeText(context, "Game Saved", Toast.LENGTH_SHORT).show();
-    }
 
     public void updateAndSaveScoreboardIfGameOver(PongGameController controller) {
 
@@ -97,16 +90,6 @@ public class PongFileSaverModel{
         }
     }
 
-    public void saveToFile(String fileName) {
-        try {
-            ObjectOutputStream outputStream = new ObjectOutputStream(
-                    context.openFileOutput(fileName, context.MODE_PRIVATE));
-            outputStream.writeObject(User.usernameToUser);
-            outputStream.close();
-        } catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
-    }
 
     public void loadScoreboards() {
         try {
