@@ -1,8 +1,13 @@
 package fall2018.csc2017.coldwar;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.view.Gravity;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,11 +58,11 @@ public class ColdWarManager {
         }
 
         else if (info.isPlayer1BaseInfiltrated()){
-            return "User's capital has been infiltrated by Guest's spies. All secrets have been" +
+            return "User's capital has been infiltrated by Guest's spies. All secrets have been " +
                     "stolen, rendering User defenseless against Guest. Guest wins!";
         }
         else {
-            return "Guest's capital has been infiltrated by User's spies. All secrets have been" +
+            return "Guest's capital has been infiltrated by User's spies. All secrets have been " +
                     "stolen, rendering Guest defenseless against User. User wins!";
         }
     }
@@ -372,8 +377,21 @@ public class ColdWarManager {
      */
     public static void showAlert(String message, Context con) {
         AlertDialog.Builder dialog = new AlertDialog.Builder(con);
-        dialog.setTitle(message);
+        TextView myMessage = new TextView(con);
+        myMessage.setText(message);
+        myMessage.setTextSize(20);
+        myMessage.setGravity(Gravity.CENTER_HORIZONTAL);
+        dialog.setView(myMessage);
         dialog.show();
 
+
+//        Dialog d = dialog.setView(new View(con)).create();
+//
+//        dialog.setTitle(message);
+//        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+//        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+//        lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+//        dialog.show();
+//        d.getWindow().setAttributes(lp);
     }
 }
