@@ -44,7 +44,7 @@ public class ColdWarMainActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         coldWarGameInfo = (ColdWarGameInfo) intent.getSerializableExtra("gameInfo");
-        List<Tile> board = coldWarGameInfo.getBoard();
+//        coldWarGameInfo = new ColdWarGameInfo("");
         imageIDs = ColdWarManager.getImageIDs(coldWarGameInfo);
 
         mSaver = new ColdWarSaverModel(this);
@@ -71,7 +71,12 @@ public class ColdWarMainActivity extends AppCompatActivity {
                     selectedPosition = position;
                 }
                 else {
-                    ColdWarManager.makeMove(coldWarGameInfo, selectedPosition, position);
+                    if ( ColdWarManager.makeMove(coldWarGameInfo, selectedPosition, position)) {
+                        endButton.setEnabled(true);
+                    }
+                    else {
+                        Toast.makeText(ColdWarMainActivity.this, "Invalid Move", Toast.LENGTH_SHORT).show();
+                    }
                     selectedPosition = -1; // this indicates that selectedPosition is reset to "unselected"
                     String guestReputationString = "Guest Global Reputation: " +
                             coldWarGameInfo.getPlayer2Reputation().toString();
@@ -79,7 +84,6 @@ public class ColdWarMainActivity extends AppCompatActivity {
                             coldWarGameInfo.getPlayer1Reputation().toString();
                     guestReputationText.setText(guestReputationString);
                     userReputationText.setText(userReputationString);
-                    endButton.setEnabled(true);
                 }
                 imageIDs = ColdWarManager.getImageIDs(coldWarGameInfo);
 

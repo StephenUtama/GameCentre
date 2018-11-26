@@ -140,8 +140,9 @@ public class ColdWarManager {
      * @param info             Information about the current state of the game
      * @param selectedPosition The position of the agent to move
      * @param positionToMove   The position of where we want the given agent to move to
+     * @return Whether a move was successfully made.
      */
-    public static void makeMove(ColdWarGameInfo info, int selectedPosition, int positionToMove) {
+    public static boolean makeMove(ColdWarGameInfo info, int selectedPosition, int positionToMove) {
         List<Tile> board = info.getBoard();
         Agent fromOccupant = board.get(selectedPosition).getAgent();
         Agent toOccupant = board.get(positionToMove).getAgent();
@@ -159,7 +160,12 @@ public class ColdWarManager {
 
             // set all pieces to be unmovable
             toggleMovability(info);
+
+            return true;
         }
+
+        // no valid move was made
+        return false;
     }
 
     /**
