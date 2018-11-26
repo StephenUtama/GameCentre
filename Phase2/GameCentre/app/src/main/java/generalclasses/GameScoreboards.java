@@ -3,18 +3,17 @@ package generalclasses;
 import java.io.Serializable;
 import java.util.HashMap;
 
-public abstract class GameScoreboards implements Serializable{
-//    String game;
+public class GameScoreboards implements Serializable{
     private HashMap<String, ScoreBoard> scoreboardsForGame = new HashMap<>();
 
-    public void addScoreboard(String gameName, ScoreBoard scoreBoard) {
-        scoreboardsForGame.put(gameName, scoreBoard);
+    public void addScoreboard(String difficulty, ScoreBoard scoreBoard) {
+        scoreboardsForGame.put(difficulty, scoreBoard);
     }
 
-    public ScoreBoard getScoreboard(String gameName) {
-        if (!scoreboardsForGame.keySet().contains(gameName)) {
-            scoreboardsForGame.put(gameName, null);
+    public ScoreBoard getScoreboard(String difficulty) {
+        if (!scoreboardsForGame.keySet().contains(difficulty)) {
+            scoreboardsForGame.put(difficulty, null);
         }
-        return scoreboardsForGame.get(gameName);
+        return scoreboardsForGame.get(difficulty);
     }
 }

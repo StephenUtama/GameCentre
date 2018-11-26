@@ -16,7 +16,7 @@ public class PongGameScoreBoards extends GameScoreboards implements Serializable
 
     public ScoreBoard getScoreboard(String gameName) {
         if (!scoreboardsForGame.keySet().contains(gameName)) {
-            scoreboardsForGame.put(gameName, new PongScoreBoard());
+            scoreboardsForGame.put(gameName, new ScoreBoard());
         }
         return scoreboardsForGame.get(gameName);
     }

@@ -4,6 +4,7 @@ import fall2018.csc2017.slidingtiles.R;
 
 public class USBase extends Agent {
     USBase(String owner){
+        setCanMove(false);
         this.setOwner(owner);
     }
 

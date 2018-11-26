@@ -6,6 +6,10 @@ import android.graphics.RectF;
 import java.io.IOException;
 import java.io.Serializable;
 
+/**
+ * RectF that is Serializable
+ * Excluded from unit test since this is just a Model involving a file
+ */
 public class SerializableRectF implements Serializable {
 
     private static final long serialVersionUID = 1L;

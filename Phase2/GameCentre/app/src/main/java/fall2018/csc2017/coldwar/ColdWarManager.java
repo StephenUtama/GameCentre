@@ -14,8 +14,78 @@ public class ColdWarManager {
      */
     public static boolean isOver(ColdWarGameInfo info) {
         return (info.getPlayer1Reputation().equals(0) | info.getPlayer2Reputation().equals(0) |
-                info.isBaseInfiltrated | info.getPlayer1NumSpies().equals(0) |
-                info.getPlayer2NumSpies().equals(0));
+                info.isPlayer1BaseInfiltrated() | info.isPlayer2BaseInfiltrated() |
+                info.getPlayer1NumSpies().equals(0) | info.getPlayer2NumSpies().equals(0));
+    }
+
+    /**
+     * Determine and return the win text when game is ended. Win text is determined by the how the
+     * game was won.
+     * @param info Information about the current game
+     * @return A String of text that describes the end game scenario.
+     */
+    public static String getWinText(ColdWarGameInfo info) {
+        if (info.getPlayer1Reputation().equals(0)){
+            return "Due to the murder of multiple legitimate diplomats by User's country, " +
+                    "public opinion and UN sanctions have led the toppling of User's government, " +
+                    "ending a long and bitter cold war between the world's two superpowers. Guest " +
+                    "wins!";
+        }
+        else if (info.getPlayer2Reputation().equals(0)) {
+            return "Due to the murder of multiple legitimate diplomats by Guest's country, " +
+                    "public opinion and UN sanctions have led the toppling of Guest's government, " +
+                    "ending a long and bitter cold war between the world's two superpowers. User " +
+                    "wins!";
+        }
+        else if (info.getPlayer1NumSpies().equals(0)) {
+            return "All spies in User's country have been eradicated, causing Guest's country's " +
+                    "technological prowess to quickly dwarf that of User's. There now remains" +
+                    " one sole superpower. Guest wins!";
+        }
+        else if (info.getPlayer2NumSpies().equals(0)) {
+            return "All spies in Guest's country have been eradicated, causing User's country's " +
+                    "technological prowess to quickly dwarf that of Guest's. There now remains" +
+                    " one sole superpower. User wins!";
+        }
+
+        else if (info.isPlayer1BaseInfiltrated()){
+            return "User's capital has been infiltrated by Guest's spies. All secrets have been" +
+                    "stolen, rendering User defenseless against Guest. Guest wins!";
+        }
+        else {
+            return "Guest's capital has been infiltrated by User's spies. All secrets have been" +
+                    "stolen, rendering Guest defenseless against User. User wins!";
+        }
+    }
+
+    /**
+     * Return the winner of the game.
+     *
+     * Precondition: The game is ended.
+     *
+     * @param info Information about the current game
+     * @return the winner of the current game.
+     */
+    public static String getWinner(ColdWarGameInfo info) {
+        if (info.getPlayer1Reputation().equals(0)){
+            return ColdWarGameInfo.PLAYER2;
+        }
+        else if (info.getPlayer2Reputation().equals(0)) {
+            return ColdWarGameInfo.PLAYER1;
+        }
+        else if (info.getPlayer1NumSpies().equals(0)) {
+            return ColdWarGameInfo.PLAYER2;
+        }
+        else if (info.getPlayer2NumSpies().equals(0)) {
+            return ColdWarGameInfo.PLAYER1;
+        }
+
+        else if (info.isPlayer1BaseInfiltrated()){
+            return ColdWarGameInfo.PLAYER2;
+        }
+        else {
+            return ColdWarGameInfo.PLAYER1;
+        }
     }
 
     /**
@@ -68,9 +138,13 @@ public class ColdWarManager {
         Agent fromOccupant = board.get(from).getAgent();
         Agent toOccupant = board.get(to).getAgent();
 
-
-        // check if from is a real Agent
+        // check if from is a not null
         if (fromOccupant == null) {
+            return false;
+        }
+
+        // check if from piece can move
+        if (! fromOccupant.isCanMove()){
             return false;
         }
 
@@ -100,14 +174,14 @@ public class ColdWarManager {
      *
      * @param info     information about the current state of the game
      * @param receiver the Agent receiving the action
-     *                 <p>
-     *                 Precondition: performer and receiver are not null and performance is legal.
+     *
+     * Precondition: performer and receiver are not null and performance is legal.
      */
     private static void performAction(ColdWarGameInfo info, Agent receiver) {
         String currentPlayer = info.getCurrentPlayer();
 
         // performing player loses reputation if action is performed on an enemy diplomat
-        if (receiver.getClass().getName().equals("Diplomat")) {
+        if (receiver instanceof Diplomat) {
             if (currentPlayer.equals(ColdWarGameInfo.PLAYER2)) {
                 info.setPlayer2Reputation(info.getPlayer2Reputation() - 1);
             } else {
@@ -115,8 +189,8 @@ public class ColdWarManager {
             }
         }
 
-        // update the number of spies if spies have been performed on
-        else if (receiver.getClass().getName().equals("Spy")) {
+        // update the number of spies if a spy has been performed on
+        else if (receiver instanceof Spy) {
             if (currentPlayer.equals(ColdWarGameInfo.PLAYER2)) {
                 info.setPlayer1NumSpies(info.getPlayer1NumSpies() - 1);
             } else {
@@ -125,8 +199,11 @@ public class ColdWarManager {
         }
 
         // update variable isBaseInfiltrated in info if a base has been infiltrated (by a spy)
-        else if (receiver.getClass().getName().equals("USBase") | receiver.getClass().getName().equals("SUBase")) {
-            info.isBaseInfiltrated = true;
+        else if (receiver instanceof USBase) {
+            info.setPlayer1BaseInfiltrated(true);
+        }
+        else if (receiver instanceof SUBase) {
+            info.setPlayer2BaseInfiltrated(true);
         }
     }
 
@@ -136,10 +213,10 @@ public class ColdWarManager {
      * @param info             Information about the current state of the game
      * @param selectedPosition The position of the agent to move
      * @param positionToMove   The position of where we want the given agent to move to
+     * @return Whether a move was successfully made.
      */
-    public static void makeMove(ColdWarGameInfo info, int selectedPosition, int positionToMove) {
+    public static boolean makeMove(ColdWarGameInfo info, int selectedPosition, int positionToMove) {
         List<Tile> board = info.getBoard();
-        String currentPlayer = info.getCurrentPlayer();
         Agent fromOccupant = board.get(selectedPosition).getAgent();
         Agent toOccupant = board.get(positionToMove).getAgent();
 
@@ -154,16 +231,18 @@ public class ColdWarManager {
                 performAction(info, toOccupant);
             }
 
-            if (currentPlayer.equals(ColdWarGameInfo.PLAYER1)) {
-                info.setCurrentPlayer(ColdWarGameInfo.PLAYER2);
-            } else {
-                info.setCurrentPlayer(ColdWarGameInfo.PLAYER1);
-            }
+            // set all pieces to be unmovable
+            toggleMovability(info);
+
+            return true;
         }
+
+        // no valid move was made
+        return false;
     }
 
     /**
-     * Return a list of imageIDs essential for displaying a visual represtation of board.
+     * Return a list of imageIDs essential for displaying a visual representation of board.
      *
      * @param coldWarGameInfo Information used to generate imageIDs list.
      * @return A list of integers corresponding to imageIDs in the drawables folder based on the
@@ -174,19 +253,111 @@ public class ColdWarManager {
         List<Tile> board = coldWarGameInfo.getBoard();
 
         for (int i = 0; i < board.size(); i++) {
-            if (board.get(i).getAgent() == null) {
+            Agent occupant = board.get(i).getAgent();
+            if (occupant == null) {
                 IDs.add(R.drawable.cold_war_blank_tile);
             }
-//            else if (board.get(i).getAgent().getOwner() == null){
-//                IDs.add(board.get(i).getAgent().getPicture());
-//            }
-            else if (board.get(i).getAgent().getOwner().equals(coldWarGameInfo.getCurrentPlayer())) {
-                IDs.add(board.get(i).getAgent().getPicture());
+            else if (occupant.getOwner().equals(coldWarGameInfo.getCurrentPlayer())
+                    && occupant.isVisible()) {
+                IDs.add(occupant.getPicture());
             } else {
                 IDs.add(R.drawable.unknown);
             }
         }
 
         return IDs;
+    }
+
+    /**
+     * Makes all pieces in info movable and makes visibility anonymous for all. Switch current player
+     * to other player.
+     * @param info The game info of the current game
+     */
+    static void endTurn(ColdWarGameInfo info) {
+        String currentPlayer = info.getCurrentPlayer();
+
+        toggleMovability(info);
+        makeInvisible(info);
+
+        if (currentPlayer.equals(ColdWarGameInfo.PLAYER1)) {
+            info.setCurrentPlayer(ColdWarGameInfo.PLAYER2);
+        } else {
+            info.setCurrentPlayer(ColdWarGameInfo.PLAYER1);
+        }
+    }
+
+    /**
+     * Makes visibility visible if piece is owned by current player.
+     * @param info The game info of the current game
+     */
+    static void beginTurn(ColdWarGameInfo info) {
+        makeVisible(info);
+    }
+
+    /**
+     * Makes all pieces in info that are owned by the current player visible if invisible and vice
+     * versa.
+     * @param info The game info of the current game
+     */
+    static private void toggleVisibility(ColdWarGameInfo info) {
+        List<Tile> board = info.getBoard();
+        for (int i = 0; i < board.size(); i++){
+            Agent occupant = board.get(i).getAgent();
+            if (! (occupant == null)){
+                if (occupant.isVisible()){
+                    occupant.setVisible(false);
+                }
+                else {
+                    occupant.setVisible(true);
+                }
+            }
+        }
+    }
+
+    /**
+     * Makes all pieces visible.
+     * @param info The game info of the current game
+     */
+    static private void makeVisible(ColdWarGameInfo info) {
+        List<Tile> board = info.getBoard();
+        for (int i = 0; i < board.size(); i++){
+            Agent occupant = board.get(i).getAgent();
+            if (! (occupant == null)){
+                occupant.setVisible(true);
+            }
+        }
+    }
+
+    /**
+     * Makes all pieces invisible.
+     * @param info The game info of the current game
+     */
+    static private void makeInvisible(ColdWarGameInfo info) {
+        List<Tile> board = info.getBoard();
+        for (int i = 0; i < board.size(); i++){
+            Agent occupant = board.get(i).getAgent();
+            if (! (occupant == null)){
+                occupant.setVisible(false);
+            }
+        }
+    }
+
+    /**
+     * Makes all playable Agent pieces in info unmovable if movable and vice versa.
+     * @param info The game info of the current game
+     */
+    static private void toggleMovability(ColdWarGameInfo info) {
+        List<Tile> board = info.getBoard();
+        for (int i = 0; i < board.size(); i++) {
+            Agent occupant = board.get(i).getAgent();
+            if (occupant instanceof Spy | occupant instanceof Diplomat){
+                if (occupant.isCanMove()) {
+                    occupant.setCanMove(false);
+                }
+                else {
+                    occupant.setCanMove(true);
+                }
+            }
+        }
     }
 }

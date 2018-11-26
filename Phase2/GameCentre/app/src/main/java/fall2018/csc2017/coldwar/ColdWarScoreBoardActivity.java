@@ -1,59 +1,34 @@
-package fall2018.csc2017.slidingtiles;
+package fall2018.csc2017.coldwar;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.LinkedHashMap;
-
+import fall2018.csc2017.slidingtiles.R;
 import generalactivities.ScoreBoardActivity;
 import generalclasses.GameScoreboards;
 import generalclasses.ScoreBoard;
 import generalclasses.User;
 
-/**
- * The Activity for the Scoreboard.
- */
-public class SlidingTilesScoreBoardActivity extends ScoreBoardActivity {
-    /**
-     * The current user
-     */
-    private User user;
-    private String complexity;
+public class ColdWarScoreBoardActivity extends ScoreBoardActivity {
+
+    User user;
     private TextView display;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_sliding_tiles_score_board);
-        SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("my_prefs", Context.MODE_PRIVATE);
-        int bg = sharedPref.getInt("background_resources", android.R.color.white); // the second parameter will be fallback if the preference is not found
-        getWindow().setBackgroundDrawableResource(bg);
-        // Getting the values
-        user = (User) getIntent().getSerializableExtra("user");
-        complexity = getIntent().getStringExtra("complexity");
+        setContentView(R.layout.activity_cold_war_score_board);
 
-//        scores = User.getScoreBoard("Sliding Tiles", complexity).getScoreMap();
-//        scores = scoreboards.
+
         // load the scoreboards from save file//
-        loadScoreboards("SAVED_SCOREBOARDS");
+        loadScoreboards("COLD_WAR_SAVED_SCOREBOARDS");
+        user = (User) getIntent().getSerializableExtra("user");
         if (scoreboards == null) {
-            scoreboards = new SlidingTileScoreboards();
+            scoreboards = new GameScoreboards();
         }
-        final ScoreBoard scoreboard = scoreboards.getScoreboard(complexity);
+        final ScoreBoard scoreboard = scoreboards.getScoreboard("default");
         if (scoreboard != null) {
             scores = scoreboard.getScoreMap();
         }
@@ -90,5 +65,4 @@ public class SlidingTilesScoreBoardActivity extends ScoreBoardActivity {
             }
         });
     }
-
 }

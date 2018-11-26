@@ -1,55 +1,120 @@
 
-# Team Agreement
+#### Team Agreement
 
-This agreement details an approximate plan for the project and the roles of each team member. All team members contributing to this project agrees to abide by the laid out below. 
+This agreement details an approximate plan for the project and the roles of each team member.
+All team members contributing to this project agrees to abide by the laid out below.
 
-## Work Agreement
-All team members will try to the best of their abilities to complete the tasks assigned to them. Each member will commit their assigned tasks at or before the agreed upon deadline for their particular task. In the event that a member's work is not satisfactory, that member will be given at least one day to edit their work. If agreed upon unanimously by the other three group members, a group member's work may be delegated to other members if this group member repeatedly fails to produce a working implementation. 
+#### Work Agreement
 
-## Roles
+All team members will try to the best of their abilities to complete the tasks assigned to them.
+Each member will commit their assigned tasks at or before the agreed upon deadline for their particular task.
+In the event that a member's work is not satisfactory, that member will be given at least one day to edit their work.
+If agreed upon unanimously by the other three group members, a group member's work may be delegated
+to other members if this group member repeatedly fails to produce a working implementation.
 
-### Design
+#### Roles (Phase 2)
 
-All members convene physically to devise a design for the application. Specific roles are not assigned. 
+## Kevin Lie
+* Implement Pong Game and all it's features (scoreboard, save, load)
+* Create Unit Test for Pong
 
-### Implementation
-This segment may be subject to change and adjustment.
+## Yuwa Yokohama
+* Implement Pong Game and all it's features (scoreboard, save, load)
+* Create Unit Test for Pong
 
-#### Kelvin Fan
+## Kailong Huang
+* Implement ColdWar and all it's features (undo, scoreboard, save, load)
+* Create Unit Test for Cold War
+
+## Kelvin Fan
+* Implement ColdWar and all it's features (undo, scoreboard, save, load)
+* Create Unit Test for Cold War
+
+## Stephen Utama
+* Make SlidingTiles always solvable
+* Make SlidingTiles Unit Test
+* Refactor SlidingTiles to make it follow the MVC design pattern etc
+
+##### Weekly Meetings (Phase 2)
+
+## Meeting 1 (November 12)
+* Decide what games we were going to implement.
+* Assigned our roles.
+* Set up git with Phase 2
+* Planned to create our respective games before our next meeting.
+* Planned to make SlidingTiles always solvable before our next meeting.
+
+## Meeting 2 (November 18)
+* Discussed about the current state of our games.
+* Planned to finish Saving, Loading, ScoreBoard and Undo for ColdWar and Pong before our next meeting.
+* Planned to refactor SlidingTiles
+
+## Meeting 3 (November 25)
+* Discussed about the current state of our games and their problems.
+* Planned to finish the UnitTests for Pong, ColdWar and Sliding Tiles before our next meeting.
+* Planned to refactor the current way we save our games for Pong, ColdWar, SlidingTiles.
+
+#### Accomplishments
+
+## Kelvin Fan
 * Login/Loading/Saving logic
 * Unlimited undos functionality implementation
 * GameInfo class implementation
 * User class implementation
-* MovementController class implementation 
+* MovementController class implementation
+* Implemented ColdWar Game
+* Implemented ColdWar ScoreBoard
+* Implemented Save and Load for ColdWar
+* Created Unit Tests for ColdWar
 
-#### Kailong Huang
+## Kailong Huang
 * Login/Loading/Saving logic
 * Autosave functionality
 * GameInfo class implementation 
 * User class implementation
 * Game difficulty setting interface + logic
+* Implemented ColdWar Game
+* Created Unit Tests for ColdWar
 
-#### Yuwa Yokohama
+## Yuwa Yokohama
 * Login/Loading/Saving interface
 * User interface
 * Game difficulty setting interface + logic
 * BONUS: implement feature to change background for tiles
+* Implemented Pong Game
+* Implemented Save and Load for Pong Game
+* Implemented ScoreBoard for Pong Game
+* Created Unit Tests for Pong Game
 
-#### Kevin Lie
+## Kevin Lie
 * Scoreboard interface
 * Scoreboard class logic
 * Game difficulty setting interface + logic
+* Implemented Pong Game
+* Implemented Save and Load for Pong Game
+* Implemented ScoreBoard for Pong Game
+* Created Unit Tests for Pong Game
 
-## Contact Information
+## Stephen Utama
+* Made Sliding Tiles always solvable
+* Implemented Save for Pong Game
+* Implemented ScoreBoard for Pong Game
+* Created Unit Tests for Sliding Tiles
+* Refactored the saving logic into FileSaverModels
 
-**Kelvin Yao Fan** 
+#### Contact Information
+
+## Kelvin Yao Fan
 * kelvinyao.fan@mail.utoronto.ca
 
-**Yuwa Yokohama**
+## Yuwa Yokohama
 * yuwa.yokohama@mail.utoronto.ca
 
-**Kevin Alitirto Lie**
+## Kevin Alitirto Lie
 * kevin.lie@mail.utoronto.ca
 
-**Kailong Huang**
+## Kailong Huang
 * kailong.huang@mail.utoronto.ca
+
+## Stephen Utama
+* stephen.utama@mail.utoronto.ca

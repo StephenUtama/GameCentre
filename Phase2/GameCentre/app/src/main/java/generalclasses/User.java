@@ -5,7 +5,6 @@ import android.content.res.Resources;
 import java.io.Serializable;
 import java.util.HashMap;
 
-import fall2018.csc2017.slidingtiles.SlidingTilesScoreBoard;
 
 
 /**

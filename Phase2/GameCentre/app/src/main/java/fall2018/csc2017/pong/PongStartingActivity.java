@@ -20,6 +20,11 @@ import fall2018.csc2017.slidingtiles.R;
 import generalclasses.GameInfo;
 import generalclasses.User;
 
+/**
+ * Menu of Pong game.
+ * Since this only contains buttons and file methods (Models), this Activity will be excluded
+ * from Unit test
+ */
 public class PongStartingActivity extends AppCompatActivity {
 
     /**
@@ -177,11 +182,4 @@ public class PongStartingActivity extends AppCompatActivity {
                     + e.toString());
         }
     }
-
-    // TODO
-    /**
-     * 1. Refactor based on MVC
-     * 2. Create Unit test
-     * 3. Make some more functionalities/adjust UI
-     */
 }

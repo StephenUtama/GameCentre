@@ -17,6 +17,8 @@ import java.util.HashMap;
 import fall2018.csc2017.pong.PongGameInfo;
 import generalclasses.GameInfo;
 import generalclasses.GameScoreboards;
+import generalclasses.SaverModel;
+import generalclasses.ScoreBoard;
 import generalclasses.User;
 
 import static fall2018.csc2017.slidingtiles.StartingActivity.SAVE_FILENAME;
@@ -24,40 +26,23 @@ import static fall2018.csc2017.slidingtiles.StartingActivity.SAVE_FILENAME;
 /**
  * The Model for Sliding Tiles.
  */
-public class SlidingTilesFileSaverModel {
+public class SlidingTilesFileSaverModel extends SaverModel {
 
-    private Context context;
-    private GameScoreboards scoreboards;
-    private User user;
+//    private User user;
 
     public GameScoreboards getScoreboards() {
+        loadScoreboards("SAVED_SCOREBOARDS");
         return scoreboards;
     }
 
-    public User getUser() {
-        return user;
-    }
+//    public User getUser() {
+//        return user;
+//    }
 
     public SlidingTilesFileSaverModel(Context context) {
-        this.context = context;
+        super(context);
     }
 
-
-    /**
-     * Save the current hash map with each user's saves to fileName.
-     *
-     * @param fileName the name of the file
-     */
-    public void saveToFile(String fileName) {
-        try {
-            ObjectOutputStream outputStream = new ObjectOutputStream(
-                    context.openFileOutput(fileName, context.MODE_PRIVATE));
-            outputStream.writeObject(User.usernameToUser);
-            outputStream.close();
-        } catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
-    }
 
     public void saveButtonListener(SlidingTilesGameInfo gameInfo, User user) {
 
@@ -84,13 +69,9 @@ public class SlidingTilesFileSaverModel {
             String game = slidingTilesManager.getInfo().getGame();
 
             // assume we have loaded scoreboards and have the correct scoreboard
-            loadScoreboards();
-            SlidingTilesScoreBoard scoreboard = (SlidingTilesScoreBoard) scoreboards.getScoreboard(complexity);
-//            if (scoreboard == null) {
-//                scoreboard = new Sli
-//            }
-//
-            // Adding the score to the scoreboard
+            loadScoreboards("SAVED_SCOREBOARDS");
+            ScoreBoard scoreboard = scoreboards.getScoreboard(complexity);
+
             if (scoreboard.getScoreMap().containsKey(username)) {
                 // if user already has a score
                 scoreboard.addScore(username, score);
@@ -99,65 +80,24 @@ public class SlidingTilesFileSaverModel {
             }
             // save scoreboard
             scoreboards.addScoreboard(complexity, scoreboard);
-            saveScoreboards(scoreboards);
+            saveScoreboards(scoreboards, "SAVED_SCOREBOARDS");
         }
     }
 
 
-    public void saveScoreboards(GameScoreboards scoreboards) {
-        try {
-            ObjectOutputStream outputStream = new ObjectOutputStream(
-                    context.openFileOutput("SAVED_SCOREBOARDS", context.MODE_PRIVATE));
-            outputStream.writeObject(scoreboards);
-            outputStream.close();
-        } catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
-    }
-
-
-    /**
-     * Display that there was nothing to save.
-     */
-    private void makeToastNothingToSave() {
-        Toast.makeText(context, "Nothing to Save", Toast.LENGTH_SHORT).show();
-    }
-
-    /**
-     * Display that a game was saved successfully.
-     */
-    private void makeToastSavedText() {
-        Toast.makeText(context, "Game Saved", Toast.LENGTH_SHORT).show();
-    }
-//
     public void instantiateGameandBegin(String complexity) {
-        loadScoreboards();
+        loadScoreboards("SAVED_SCOREBOARDS");
         if (scoreboards == null) {
             scoreboards = new SlidingTileScoreboards();
         }
         if (scoreboards.getScoreboard(complexity) == null) { // if no one has won a game
 //            SlidingTileScoreboards newBoards = new SlidingTileScoreboards();
-            scoreboards.addScoreboard(complexity, new SlidingTilesScoreBoard());
-            saveScoreboards(scoreboards);
+            scoreboards.addScoreboard(complexity, new ScoreBoard());
+            saveScoreboards(scoreboards, "SAVED_SCOREBOARDS");
             // in subsequent games, however, there is no need for this
         }
     }
-    public void loadScoreboards() {
-        try {
-            InputStream inputStream = context.openFileInput("SAVED_SCOREBOARDS");
-            if (inputStream != null) {
-                ObjectInputStream input = new ObjectInputStream(inputStream);
-                scoreboards = (SlidingTileScoreboards) input.readObject();
-                inputStream.close();
-            }
-        } catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
-        } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
-        } catch (ClassNotFoundException e) {
-            Log.e("login activity", "File contained unexpected data type: " + e.toString());
-        }
-    }
+
 
     public String[] getSaveNamesComplexity(String complexity, HashMap<String, GameInfo> saves) {
         ArrayList<String> tempResult = new ArrayList<>();
@@ -187,5 +127,7 @@ public class SlidingTilesFileSaverModel {
             Log.e("login activity", "File contained unexpected data type: "
                     + e.toString());
         }
+
+
     }
 }

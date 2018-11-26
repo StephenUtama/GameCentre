@@ -9,19 +9,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 
 import fall2018.csc2017.slidingtiles.SlidingTileScoreboards;
-import fall2018.csc2017.slidingtiles.SlidingTilesGameInfo;
-import fall2018.csc2017.slidingtiles.SlidingTilesScoreBoard;
 
 public abstract class SaverModel {
-    private Context context;
-    private GameScoreboards scoreboards;
-    private User user;
+    public Context context;
+    public GameScoreboards scoreboards;
+    public User user;
 
     public GameScoreboards getScoreboards() {
         return scoreboards;
@@ -51,10 +45,10 @@ public abstract class SaverModel {
         }
     }
 
-    public void saveScoreboards(GameScoreboards scoreboards) {
+    public void saveScoreboards(GameScoreboards scoreboards, String scoreBoardSaveLocation) {
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
-                    context.openFileOutput("SAVED_SCOREBOARDS", context.MODE_PRIVATE));
+                    context.openFileOutput(scoreBoardSaveLocation, context.MODE_PRIVATE));
             outputStream.writeObject(scoreboards);
             outputStream.close();
         } catch (IOException e) {
@@ -65,27 +59,27 @@ public abstract class SaverModel {
     /**
      * Display that there was nothing to save.
      */
-    private void makeToastNothingToSave() {
+    public void makeToastNothingToSave() {
         Toast.makeText(context, "Nothing to Save", Toast.LENGTH_SHORT).show();
     }
 
     /**
      * Display that a game was saved successfully.
      */
-    private void makeToastSavedText() {
+    public void makeToastSavedText() {
         Toast.makeText(context, "Game Saved", Toast.LENGTH_SHORT).show();
     }
 
-    public void loadScoreboards() {
+    public void loadScoreboards(String scoreBoardSaveLocation) {
         try {
-            InputStream inputStream = context.openFileInput("SAVED_SCOREBOARDS");
+            InputStream inputStream = context.openFileInput(scoreBoardSaveLocation);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
-                scoreboards = (SlidingTileScoreboards) input.readObject();
+                scoreboards = (GameScoreboards) input.readObject();
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
+            saveScoreboards(new GameScoreboards(),scoreBoardSaveLocation);
         } catch (IOException e) {
             Log.e("login activity", "Can not read file: " + e.toString());
         } catch (ClassNotFoundException e) {

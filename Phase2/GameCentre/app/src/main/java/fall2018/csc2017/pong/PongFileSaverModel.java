@@ -12,14 +12,14 @@ import java.io.ObjectOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import fall2018.csc2017.slidingtiles.SlidingTileScoreboards;
 import generalclasses.GameScoreboards;
 import generalclasses.SaverModel;
+import generalclasses.ScoreBoard;
 import generalclasses.User;
 
 import static fall2018.csc2017.pong.PongStartingActivity.SAVE_FILENAME;
 
-public class PongFileSaverModel{
+public class PongFileSaverModel {
 
     private Context context;
     private GameScoreboards scoreboards;
@@ -68,10 +68,10 @@ public class PongFileSaverModel{
             String game = controller.gameInfo.getPongGameInfo().getGame();
             // assume we have loaded scoreboards and have the correct scoreboard
             loadScoreboards();
-            if (scoreboards == null){
+            if (scoreboards == null) {
                 scoreboards = new PongGameScoreBoards();
             }
-            PongScoreBoard scoreboard = (PongScoreBoard) scoreboards.getScoreboard(game);
+            ScoreBoard scoreboard = scoreboards.getScoreboard(game);
 
             // Adding the score to the scoreboard
             if (scoreboard.getScoreMap().containsKey(username)) {
@@ -124,10 +124,4 @@ public class PongFileSaverModel{
             Log.e("login activity", "File contained unexpected data type: " + e.toString());
         }
     }
-
-
-    //SaveToFile
-    // SaveScoreBoard
-    // LoadScoreBoard
-
 }

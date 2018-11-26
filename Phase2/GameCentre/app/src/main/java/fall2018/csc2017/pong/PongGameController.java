@@ -59,11 +59,7 @@ public class PongGameController implements GameController, Serializable {
     /**
      * Initializes PongGameController
      */
-    public PongGameController(SurfaceHolder ourHolder, PongGameInfo gameInfo) {
-
-        // Initialize surfaceHolder and paint objects
-        this.surfaceHolder = ourHolder;
-        paint = new Paint();
+    public PongGameController(PongGameInfo gameInfo) {
         // Initialize a PongGameInfo
         this.gameInfo = gameInfo;
 
@@ -79,7 +75,7 @@ public class PongGameController implements GameController, Serializable {
         gameInfo.getBall().update(gameInfo.getFps());
 
         // If ball colliding with racket
-        if(RectF.intersects(gameInfo.getRacket().getRectF(), gameInfo.getBall().getRectF())) {
+        if (RectF.intersects(gameInfo.getRacket().getRectF(), gameInfo.getBall().getRectF())) {
             gameInfo.getBall().setRandomXVelocity();
             gameInfo.getBall().reverseYVelocity();
             gameInfo.getBall().clearObstacleY(gameInfo.getRacket().getRectF().top - 2);
@@ -91,22 +87,16 @@ public class PongGameController implements GameController, Serializable {
         }
 
         // If ball hits bottom of the screen
-        if(gameInfo.getBall().getRectF().bottom > gameInfo.getScreenHeight()){
+        if (gameInfo.getBall().getRectF().bottom > gameInfo.getScreenHeight()) {
             gameInfo.getBall().reverseYVelocity();
             gameInfo.getBall().clearObstacleY(gameInfo.getScreenHeight() - 2);
 
             // Lose a life
             gameInfo.updateLife();
             // sp.play(loseLifeID, 1, 1, 0, 0, 1);
-            if(isOver()){
-                paused = true;
-                playing = false;
-                PongGameActivity.pongSaver.updateAndSaveScoreboardIfGameOver(this);
-            }
-
         }
         // If ball hits top of the screen
-        if(gameInfo.getBall().getRectF().top < 0){
+        if (gameInfo.getBall().getRectF().top < 0) {
             gameInfo.getBall().reverseYVelocity();
             gameInfo.getBall().clearObstacleY(12);
 
@@ -114,7 +104,7 @@ public class PongGameController implements GameController, Serializable {
         }
 
         // If ball hits left of the screen
-        if(gameInfo.getBall().getRectF().left < 0){
+        if (gameInfo.getBall().getRectF().left < 0) {
             gameInfo.getBall().reverseXVelocity();
             gameInfo.getBall().clearObstacleX(2);
 
@@ -122,57 +112,34 @@ public class PongGameController implements GameController, Serializable {
         }
 
         // If ball hits right of the screen
-        if(gameInfo.getBall().getRectF().right > gameInfo.getScreenWidth()){
+        if (gameInfo.getBall().getRectF().right > gameInfo.getScreenWidth()) {
             gameInfo.getBall().reverseXVelocity();
             gameInfo.getBall().clearObstacleX(gameInfo.getScreenWidth() - 22);
 
             // sp.play(beep3ID, 1, 1, 0, 0, 1);
         }
-    }
-
-    /**
-     * displaying the objects in the screen by using Paint and Canvas.
-     * We do this by making sure surfaceHolder and canvas is valid
-     */
-    public void draw(){
-        if (this.surfaceHolder.getSurface().isValid()){
-            if (playing == false){
-                this.canvas = this.surfaceHolder.lockCanvas();
-                this.paint.setColor(Color.argb(255,255,255,255));
-                this.paint.setTextSize(60);
-                this.canvas.drawText("Game Over! Score: " + gameInfo.getScore(), gameInfo.screenWidth/4, gameInfo.screenHeight/2, this.paint);
-                this.paint.setTextSize(40);
-                this.canvas.drawText("Tap to play one more time!", gameInfo.screenWidth/4 + 10, gameInfo.screenHeight/2 + 50, this.paint);
-                this.surfaceHolder.unlockCanvasAndPost(this.canvas);
-            }else{
-                this.canvas = this.surfaceHolder.lockCanvas();
-                this.canvas.drawColor(Color.argb(255, 120, 197, 87));
-                this.paint.setColor(Color.argb(255, 255, 255, 255));
-                this.canvas.drawRect(gameInfo.getRacket().getRectF(), this.paint);
-                this.canvas.drawRect(gameInfo.getBall().getRectF(), this.paint);
-                this.paint.setColor(Color.argb(255, 255, 255, 255));
-                this.paint.setTextSize(40);
-                this.canvas.drawText("Score: " + gameInfo.getScore() + "  Lives: " + gameInfo.getLives(),
-                        10,50, this.paint);
-                this.surfaceHolder.unlockCanvasAndPost(this.canvas);
-            }
+        if (isOver()) {
+            paused = true;
+            playing = false;
+            PongGameActivity.pongSaver.updateAndSaveScoreboardIfGameOver(this);
         }
     }
 
     /**
      * Restart the game.
      */
-    public void setupAndRestart(){
+    public void setupAndRestart() {
         // Put the ball back to the start
         gameInfo.getBall().reset(gameInfo.getScreenWidth(), gameInfo.getScreenHeight());
         // if game over reset scores and lives
-        if(gameInfo.getLives() == 0) {
+        if (gameInfo.getLives() == 0) {
             gameInfo.setScore(0);
             gameInfo.setLives(3);
         }
     }
 
-    public boolean isOver(){
+
+    public boolean isOver() {
         return gameInfo.lives == 0;
     }
 }

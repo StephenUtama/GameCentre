@@ -19,6 +19,10 @@ import java.util.Date;
 
 import generalclasses.User;
 
+/**
+ * GameActivity of Pong game. Creates the SurfaceView and load the game if needed
+ * Since this class only contains view and buttons, excluded from Unit test
+ */
 public class PongGameActivity extends AppCompatActivity {
 
     /**
@@ -80,7 +84,8 @@ public class PongGameActivity extends AppCompatActivity {
         else {
             pongView = new PongSurfaceView(this, size.x, size.y, gameInfo);
         }
-        this.controller = new PongGameController(pongView.getHolder(), gameInfo);
+
+        this.controller = new PongGameController(gameInfo);
 
         pongSaver = new PongFileSaverModel(this);
 
@@ -108,6 +113,7 @@ public class PongGameActivity extends AppCompatActivity {
         //Adding saveButton to frameLayout
         frameLayout.addView(saveButton, params);
         setContentView(frameLayout);
+
     }
 
 

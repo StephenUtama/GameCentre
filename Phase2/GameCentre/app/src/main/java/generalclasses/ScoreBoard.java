@@ -1,19 +1,25 @@
 package generalclasses;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
-public abstract class ScoreBoard implements Serializable {
+public class ScoreBoard implements Serializable {
 
     /**
-     * LinkedHashMap of scores where the key is the user and the value is his score(s).
+     * A HashMap of all the scores, where the key is the User and value is his/her score.
      */
-    LinkedHashMap scores = new LinkedHashMap();
+    private LinkedHashMap<String, ArrayList<Integer>> scores = new LinkedHashMap<>();
 
     /**
-     * @return A LinkedHashMap which has all the users and scores that completed the game.
+     * Returns the scores
+     *
+     * @return scores
      */
-    public abstract LinkedHashMap getScoreMap();
+
+    public LinkedHashMap<String, ArrayList<Integer>> getScoreMap() {
+        return scores;
+    }
 
     /**
      * Adds a user that is not in the list and his/her score
@@ -21,7 +27,12 @@ public abstract class ScoreBoard implements Serializable {
      * @param user  the player's username
      * @param score the player's score
      */
-    public abstract void addUserAndScore(String user, int score);
+
+    public void addUserAndScore(String user, int score) {
+        ArrayList<Integer> scoreArray = new ArrayList<>();
+        scoreArray.add(score);
+        scores.put(user, scoreArray);
+    }
 
     /**
      * Add a score to a existing user.
@@ -29,5 +40,9 @@ public abstract class ScoreBoard implements Serializable {
      * @param user  the player's username
      * @param score the player's score
      */
-    public abstract void addScore(String user, int score);
+
+    public void addScore(String user, int score) {
+
+        scores.get(user).add(score);
+    }
 }
