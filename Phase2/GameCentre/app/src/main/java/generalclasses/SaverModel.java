@@ -51,10 +51,10 @@ public abstract class SaverModel {
         }
     }
 
-    public void saveScoreboards(GameScoreboards scoreboards) {
+    public void saveScoreboards(GameScoreboards scoreboards, String scoreBoardSaveLocation) {
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
-                    context.openFileOutput("SAVED_SCOREBOARDS", context.MODE_PRIVATE));
+                    context.openFileOutput(scoreBoardSaveLocation, context.MODE_PRIVATE));
             outputStream.writeObject(scoreboards);
             outputStream.close();
         } catch (IOException e) {
@@ -76,16 +76,16 @@ public abstract class SaverModel {
         Toast.makeText(context, "Game Saved", Toast.LENGTH_SHORT).show();
     }
 
-    public void loadScoreboards() {
+    public void loadScoreboards(String scoreBoardSaveLocation) {
         try {
-            InputStream inputStream = context.openFileInput("SAVED_SCOREBOARDS");
+            InputStream inputStream = context.openFileInput(scoreBoardSaveLocation);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
                 scoreboards = (SlidingTileScoreboards) input.readObject();
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
+            saveScoreboards(new GameScoreboards(),scoreBoardSaveLocation);
         } catch (IOException e) {
             Log.e("login activity", "Can not read file: " + e.toString());
         } catch (ClassNotFoundException e) {

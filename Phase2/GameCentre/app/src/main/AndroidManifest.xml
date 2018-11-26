@@ -42,7 +42,8 @@
         <activity android:name="fall2018.csc2017.pong.PongScoreBoardActivity" />
         <activity android:name="fall2018.csc2017.coldwar.UserPiecesSelectionActivity" />
         <activity android:name="fall2018.csc2017.coldwar.GuestPiecesSelectionActivity" />
-        <activity android:name="fall2018.csc2017.coldwar.ColdWarMenu"></activity>
+        <activity android:name="fall2018.csc2017.coldwar.ColdWarMenu" />
+        <activity android:name="fall2018.csc2017.coldwar.ColdWarScoreBoardActivity"></activity>
     </application>
 
 </manifest>
