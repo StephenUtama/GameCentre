@@ -3,6 +3,7 @@ package fall2018.csc2017.coldwar;
 import android.view.View;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import generalclasses.GameInfo;
@@ -161,8 +162,9 @@ public class ColdWarGameInfo extends GameInfo {
     public int getScore(ScoreBoard scoreBoard) {
         // we get to assume game is over
         int currentScore = 0;
-        if (!scoreBoard.getScoreMap().containsKey(userName)) {
-            currentScore = scoreBoard.getScoreMap().get(userName).get(0);
+        LinkedHashMap<String, ArrayList<Integer>> scoreMap = scoreBoard.getScoreMap();
+        if (scoreMap.containsKey(userName)) {
+            currentScore = scoreMap.get(userName).get(0);
         }
 
         if (ColdWarManager.getWinner(this).equals(PLAYER1)) {

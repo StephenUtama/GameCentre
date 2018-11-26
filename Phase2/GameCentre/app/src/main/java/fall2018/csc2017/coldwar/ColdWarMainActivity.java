@@ -118,7 +118,7 @@ public class ColdWarMainActivity extends AppCompatActivity {
             int currentScore = coldWarGameInfo.getScore(scoreBoard);
 
             // update scoreboard with latest score, then save
-            scoreBoard.addScore(userName, currentScore);
+            scoreBoard.addUserAndScore(userName, currentScore);
             gameScoreboards.addScoreboard("default", scoreBoard);
             mSaver.saveScoreboards(gameScoreboards, "COLD_WAR_SAVED_SCOREBOARDS");
         }
