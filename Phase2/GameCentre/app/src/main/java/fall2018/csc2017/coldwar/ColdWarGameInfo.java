@@ -9,7 +9,7 @@ import generalclasses.GameInfo;
 import generalclasses.User;
 
 public class ColdWarGameInfo extends GameInfo {
-    private Integer START_REPUTATION = 0;
+    private Integer START_REPUTATION = 2;
 
 
     /**

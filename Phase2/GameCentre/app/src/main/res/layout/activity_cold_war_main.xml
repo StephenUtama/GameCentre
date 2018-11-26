@@ -47,4 +47,26 @@ tools:context="fall2018.csc2017.coldwar.ColdWarMainActivity">
         android:layout_marginEnd="21dp"
         android:text="Save" />
 
+    <TextView
+        android:id="@+id/userReputation"
+        android:layout_width="277dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="226dp"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/guestReputation"
+        android:layout_width="278dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/userReputation"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="-2dp"
+        android:layout_marginBottom="181dp"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
 </RelativeLayout>

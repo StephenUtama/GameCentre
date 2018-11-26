@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -18,6 +19,10 @@ import generalclasses.User;
 public class ColdWarMainActivity extends AppCompatActivity {
 
     GridView gridView;
+
+    TextView userReputationText;
+
+    TextView guestReputationText;
 
     List<Integer> imageIDs;
 
@@ -38,16 +43,22 @@ public class ColdWarMainActivity extends AppCompatActivity {
         beginButton = findViewById(R.id.beginMoveButton);
 
         Intent intent = getIntent();
-
-        // the actual code
-//        coldWarGameInfo = (ColdWarGameInfo) intent.getSerializableExtra("gameInfo");
-        // test
-        coldWarGameInfo = new ColdWarGameInfo("a");
-
-//        List<Tile> board = coldWarGameInfo.getBoard();
+        coldWarGameInfo = (ColdWarGameInfo) intent.getSerializableExtra("gameInfo");
+        List<Tile> board = coldWarGameInfo.getBoard();
         imageIDs = ColdWarManager.getImageIDs(coldWarGameInfo);
 
         mSaver = new ColdWarSaverModel(this);
+
+        userReputationText = (TextView) findViewById(R.id.userReputation);
+        guestReputationText = (TextView) findViewById(R.id.guestReputation);
+
+        String guestReputationString = "Guest Global Reputation: " +
+                coldWarGameInfo.getPlayer2Reputation().toString();
+        String userReputationString = "User Global Reputation: " +
+                coldWarGameInfo.getPlayer1Reputation().toString();
+        guestReputationText.setText(guestReputationString);
+        userReputationText.setText(userReputationString);
+
 
         gridView = findViewById(R.id.coldWarGridView);
         gridView.setAdapter(new ImageAdapterGridView(this, imageIDs));
@@ -62,11 +73,17 @@ public class ColdWarMainActivity extends AppCompatActivity {
                 else {
                     ColdWarManager.makeMove(coldWarGameInfo, selectedPosition, position);
                     selectedPosition = -1; // this indicates that selectedPosition is reset to "unselected"
+                    String guestReputationString = "Guest Global Reputation: " +
+                            coldWarGameInfo.getPlayer2Reputation().toString();
+                    String userReputationString = "User Global Reputation: " +
+                            coldWarGameInfo.getPlayer1Reputation().toString();
+                    guestReputationText.setText(guestReputationString);
+                    userReputationText.setText(userReputationString);
+                    endButton.setEnabled(true);
                 }
                 imageIDs = ColdWarManager.getImageIDs(coldWarGameInfo);
 
-                gridView.setAdapter(new ImageAdapterGridView(getBaseContext(), imageIDs));
-            }
+                gridView.setAdapter(new ImageAdapterGridView(getBaseContext(), imageIDs));}
         });
     }
 
@@ -82,7 +99,6 @@ public class ColdWarMainActivity extends AppCompatActivity {
         ColdWarManager.beginTurn(coldWarGameInfo);
         imageIDs = ColdWarManager.getImageIDs(coldWarGameInfo);
         gridView.setAdapter(new ImageAdapterGridView(getBaseContext(), imageIDs));
-        endButton.setEnabled(true);
         beginButton.setEnabled(false);
     }
 
@@ -91,6 +107,4 @@ public class ColdWarMainActivity extends AppCompatActivity {
         User user = User.usernameToUser.get(coldWarGameInfo.getUserName());
         mSaver.saveButtonListener(coldWarGameInfo, user);
     }
-
-
 }

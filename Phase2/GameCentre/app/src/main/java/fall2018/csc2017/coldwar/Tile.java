@@ -18,11 +18,4 @@ class Tile implements Serializable {
     public Tile(Agent agent){
         this.agent = agent;
     }
-
-//    public int getPicture() {
-//        if (this.agent == null) {
-//            return R.drawable.cold_war_blank_tile;
-//        }
-//        return agent.getPicture();
-//    }
 }
