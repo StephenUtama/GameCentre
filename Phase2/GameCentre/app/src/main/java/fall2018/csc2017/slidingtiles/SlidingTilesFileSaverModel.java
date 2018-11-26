@@ -27,16 +27,16 @@ import static fall2018.csc2017.slidingtiles.StartingActivity.SAVE_FILENAME;
  */
 public class SlidingTilesFileSaverModel extends SaverModel {
 
-    private GameScoreboards scoreboards;
-    private User user;
+//    private User user;
 
     public GameScoreboards getScoreboards() {
+        loadScoreboards("SAVED_SCOREBOARDS");
         return scoreboards;
     }
 
-    public User getUser() {
-        return user;
-    }
+//    public User getUser() {
+//        return user;
+//    }
 
     public SlidingTilesFileSaverModel(Context context) {
         super(context);
@@ -68,7 +68,7 @@ public class SlidingTilesFileSaverModel extends SaverModel {
             String game = slidingTilesManager.getInfo().getGame();
 
             // assume we have loaded scoreboards and have the correct scoreboard
-            loadScoreboards();
+            loadScoreboards("SAVED_SCOREBOARDS");
             SlidingTilesScoreBoard scoreboard = (SlidingTilesScoreBoard) scoreboards.getScoreboard(complexity);
 
             if (scoreboard.getScoreMap().containsKey(username)) {
@@ -79,20 +79,20 @@ public class SlidingTilesFileSaverModel extends SaverModel {
             }
             // save scoreboard
             scoreboards.addScoreboard(complexity, scoreboard);
-            saveScoreboards(scoreboards);
+            saveScoreboards(scoreboards, "SAVED_SCOREBOARDS");
         }
     }
 
 
     public void instantiateGameandBegin(String complexity) {
-        loadScoreboards();
+        loadScoreboards("SAVED_SCOREBOARDS");
         if (scoreboards == null) {
             scoreboards = new SlidingTileScoreboards();
         }
         if (scoreboards.getScoreboard(complexity) == null) { // if no one has won a game
 //            SlidingTileScoreboards newBoards = new SlidingTileScoreboards();
             scoreboards.addScoreboard(complexity, new SlidingTilesScoreBoard());
-            saveScoreboards(scoreboards);
+            saveScoreboards(scoreboards, "SAVED_SCOREBOARDS");
             // in subsequent games, however, there is no need for this
         }
     }
@@ -126,5 +126,7 @@ public class SlidingTilesFileSaverModel extends SaverModel {
             Log.e("login activity", "File contained unexpected data type: "
                     + e.toString());
         }
+
+
     }
 }
