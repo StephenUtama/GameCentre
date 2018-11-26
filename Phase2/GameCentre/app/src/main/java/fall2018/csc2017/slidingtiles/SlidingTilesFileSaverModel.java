@@ -18,6 +18,7 @@ import fall2018.csc2017.pong.PongGameInfo;
 import generalclasses.GameInfo;
 import generalclasses.GameScoreboards;
 import generalclasses.SaverModel;
+import generalclasses.ScoreBoard;
 import generalclasses.User;
 
 import static fall2018.csc2017.slidingtiles.StartingActivity.SAVE_FILENAME;
@@ -69,7 +70,7 @@ public class SlidingTilesFileSaverModel extends SaverModel {
 
             // assume we have loaded scoreboards and have the correct scoreboard
             loadScoreboards("SAVED_SCOREBOARDS");
-            SlidingTilesScoreBoard scoreboard = (SlidingTilesScoreBoard) scoreboards.getScoreboard(complexity);
+            ScoreBoard scoreboard = scoreboards.getScoreboard(complexity);
 
             if (scoreboard.getScoreMap().containsKey(username)) {
                 // if user already has a score
@@ -91,7 +92,7 @@ public class SlidingTilesFileSaverModel extends SaverModel {
         }
         if (scoreboards.getScoreboard(complexity) == null) { // if no one has won a game
 //            SlidingTileScoreboards newBoards = new SlidingTileScoreboards();
-            scoreboards.addScoreboard(complexity, new SlidingTilesScoreBoard());
+            scoreboards.addScoreboard(complexity, new ScoreBoard());
             saveScoreboards(scoreboards, "SAVED_SCOREBOARDS");
             // in subsequent games, however, there is no need for this
         }

@@ -10,10 +10,10 @@ public class GameScoreboards implements Serializable{
         scoreboardsForGame.put(difficulty, scoreBoard);
     }
 
-    public ScoreBoard getScoreboard(String gameName) {
-        if (!scoreboardsForGame.keySet().contains(gameName)) {
-            scoreboardsForGame.put(gameName, null);
+    public ScoreBoard getScoreboard(String difficulty) {
+        if (!scoreboardsForGame.keySet().contains(difficulty)) {
+            scoreboardsForGame.put(difficulty, null);
         }
-        return scoreboardsForGame.get(gameName);
+        return scoreboardsForGame.get(difficulty);
     }
 }
