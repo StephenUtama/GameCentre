@@ -78,7 +78,16 @@ public class Ball implements Serializable {
         return rect.getRectF();
     }
 
+    public float getXVelocity() {
+        return XVelocity;
+    }
+
+    public float getYVelocity() {
+        return YVelocity;
+    }
+
     /**
+
      * Updates the position of the ball in each frame
      * @param fps fps of device
      */

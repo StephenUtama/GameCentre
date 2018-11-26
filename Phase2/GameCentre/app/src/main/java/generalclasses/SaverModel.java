@@ -19,9 +19,9 @@ import fall2018.csc2017.slidingtiles.SlidingTilesGameInfo;
 import fall2018.csc2017.slidingtiles.SlidingTilesScoreBoard;
 
 public abstract class SaverModel {
-    private Context context;
-    private GameScoreboards scoreboards;
-    private User user;
+    public Context context;
+    public GameScoreboards scoreboards;
+    public User user;
 
     public GameScoreboards getScoreboards() {
         return scoreboards;
@@ -65,14 +65,14 @@ public abstract class SaverModel {
     /**
      * Display that there was nothing to save.
      */
-    private void makeToastNothingToSave() {
+    public void makeToastNothingToSave() {
         Toast.makeText(context, "Nothing to Save", Toast.LENGTH_SHORT).show();
     }
 
     /**
      * Display that a game was saved successfully.
      */
-    private void makeToastSavedText() {
+    public void makeToastSavedText() {
         Toast.makeText(context, "Game Saved", Toast.LENGTH_SHORT).show();
     }
 

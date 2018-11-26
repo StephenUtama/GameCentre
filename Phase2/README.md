@@ -23,13 +23,13 @@ These instructions should help you get a development env running on Android Stud
 Clone from the Game Centre repository;
 
 ```
-git clone https://markus.teach.cs.toronto.edu/git/csc207-2018-09-reg/group_0519
+https://markus.teach.cs.toronto.edu/git/csc207-2018-09-reg/group_0601
 ```
 
 Enter the correct directory;
 
 ```
-cd group_0519/Phase1/
+cd group_0601/Phase1/
 ```
 
 Open the project named *GameCentre* with Android Studio.
@@ -83,6 +83,7 @@ In order to test these codes properly, please use the drawable file from our sub
 * **Yuwa Yokohama**
 * **Kevin Alitirto Lie**
 * **Kailong Huang**
+* **Stephen Utama**
 
 ## License
 
