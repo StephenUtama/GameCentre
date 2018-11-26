@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import fall2018.csc2017.slidingtiles.R;
+import fall2018.csc2017.slidingtiles.SlidingTilesScoreBoardActivity;
 import fall2018.csc2017.slidingtiles.StartingActivity;
 import generalclasses.GameInfo;
 import generalclasses.User;
@@ -61,7 +62,9 @@ public class ColdWarMenu extends AppCompatActivity {
     }
 
     public void loadScoreboard(View view) {
-
+        Intent intent = new Intent(this, ColdWarScoreBoardActivity.class);
+        intent.putExtra("user", user);  // hmm.... maybe change this
+        startActivity(intent);
     }
 
     @Override

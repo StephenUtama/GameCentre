@@ -19,18 +19,14 @@ import generalclasses.User;
 
 import static fall2018.csc2017.pong.PongStartingActivity.SAVE_FILENAME;
 
-/**
- * Contains the methods that are related to savings
- * Since this contains file interactions, this class is excluded from Unit test
- */
-public class PongFileSaverModel extends SaverModel{
+public class PongFileSaverModel {
 
     private Context context;
     private GameScoreboards scoreboards;
     private User user;
 
     public PongFileSaverModel(Context context) {
-        super(context);
+        this.context = context;
     }
 
     public GameScoreboards getScoreboards() {
@@ -55,6 +51,13 @@ public class PongFileSaverModel extends SaverModel{
         }
     }
 
+    private void makeToastNothingToSave() {
+        Toast.makeText(context, "Nothing to Save", Toast.LENGTH_SHORT).show();
+    }
+
+    private void makeToastSavedText() {
+        Toast.makeText(context, "Game Saved", Toast.LENGTH_SHORT).show();
+    }
 
     public void updateAndSaveScoreboardIfGameOver(PongGameController controller) {
 
@@ -65,7 +68,7 @@ public class PongFileSaverModel extends SaverModel{
             String game = controller.gameInfo.getPongGameInfo().getGame();
             // assume we have loaded scoreboards and have the correct scoreboard
             loadScoreboards();
-            if (scoreboards == null){
+            if (scoreboards == null) {
                 scoreboards = new PongGameScoreBoards();
             }
             PongScoreBoard scoreboard = (PongScoreBoard) scoreboards.getScoreboard(game);
@@ -94,6 +97,16 @@ public class PongFileSaverModel extends SaverModel{
         }
     }
 
+    public void saveToFile(String fileName) {
+        try {
+            ObjectOutputStream outputStream = new ObjectOutputStream(
+                    context.openFileOutput(fileName, context.MODE_PRIVATE));
+            outputStream.writeObject(User.usernameToUser);
+            outputStream.close();
+        } catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
+    }
 
     public void loadScoreboards() {
         try {
@@ -111,10 +124,4 @@ public class PongFileSaverModel extends SaverModel{
             Log.e("login activity", "File contained unexpected data type: " + e.toString());
         }
     }
-
-
-    //SaveToFile
-    // SaveScoreBoard
-    // LoadScoreBoard
-
 }

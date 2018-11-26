@@ -1,8 +1,12 @@
 package fall2018.csc2017.pong;
 
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.Toast;
 
@@ -33,10 +37,15 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
      */
     PongGameController controller;
 
+    SurfaceHolder surfaceHolder;
+
     /**
      * GameInfo for the game
      */
     PongGameInfo gameInfo;
+
+    Canvas canvas;
+    Paint paint;
 
     /**
      * The current context
@@ -60,9 +69,11 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
 
         // Initialize the gameInfo
         this.gameInfo = gameInfo;
+        this.surfaceHolder = getHolder();
+        this.paint = new Paint();
 
         //Initialize the controller
-        this.controller = new PongGameController(getHolder(), gameInfo);
+        this.controller = new PongGameController(gameInfo);
     }
 
     /**
@@ -85,7 +96,7 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
                 controller.update();
             }
             // Draw the frame
-            controller.draw();
+            draw();
 
             // time it took in millisecond to update and draw
             long timeThisFrame = System.currentTimeMillis() - startFrameTime;
@@ -96,6 +107,35 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
             }
         }
 
+    }
+
+    /**
+     * displaying the objects in the screen by using Paint and Canvas.
+     * We do this by making sure surfaceHolder and canvas is valid
+     */
+    public void draw() {
+        if (this.surfaceHolder.getSurface().isValid()) {
+            if (controller.playing == false) {
+                this.canvas = this.surfaceHolder.lockCanvas();
+                this.paint.setColor(Color.argb(255, 255, 255, 255));
+                this.paint.setTextSize(60);
+                this.canvas.drawText("Game Over! Score: " + gameInfo.getScore(), gameInfo.screenWidth / 4, gameInfo.screenHeight / 2, this.paint);
+                this.paint.setTextSize(40);
+                this.canvas.drawText("Tap to play one more time!", gameInfo.screenWidth / 4 + 10, gameInfo.screenHeight / 2 + 50, this.paint);
+                this.surfaceHolder.unlockCanvasAndPost(this.canvas);
+            } else {
+                this.canvas = this.surfaceHolder.lockCanvas();
+                this.canvas.drawColor(Color.argb(255, 120, 197, 87));
+                this.paint.setColor(Color.argb(255, 255, 255, 255));
+                this.canvas.drawRect(gameInfo.getRacket().getRectF(), this.paint);
+                this.canvas.drawRect(gameInfo.getBall().getRectF(), this.paint);
+                this.paint.setColor(Color.argb(255, 255, 255, 255));
+                this.paint.setTextSize(40);
+                this.canvas.drawText("Score: " + gameInfo.getScore() + "  Lives: " + gameInfo.getLives(),
+                        10, 50, this.paint);
+                this.surfaceHolder.unlockCanvasAndPost(this.canvas);
+            }
+        }
     }
 
     @Override

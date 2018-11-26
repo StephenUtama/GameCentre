@@ -39,7 +39,7 @@ public class SlidingTilesGameInfo extends GameInfo {
         }
         tiles.add(new Tile(24)); //add blank tile
 
-        Collections.shuffle(tiles);
+//        Collections.shuffle(tiles);
         boolean solvable = check_solvable(tiles);
         while (!solvable) {
             Collections.shuffle(tiles);
