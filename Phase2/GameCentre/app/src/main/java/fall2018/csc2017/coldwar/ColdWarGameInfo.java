@@ -103,8 +103,8 @@ public class ColdWarGameInfo extends GameInfo {
     public ColdWarGameInfo(String userName) {
         this.userName = userName;
         board = new ArrayList<>();
-//        setUpDefaultBoard();
-        setUpTestBoard();
+        setUpDefaultBoard();
+//        setUpTestBoard();
     }
 
     public String getUserName() {

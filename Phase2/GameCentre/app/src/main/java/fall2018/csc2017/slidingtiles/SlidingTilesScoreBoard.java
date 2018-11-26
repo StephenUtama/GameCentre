@@ -48,6 +48,7 @@ public class SlidingTilesScoreBoard extends ScoreBoard implements Serializable {
      */
     @Override
     public void addScore(String user, int score) {
+
         scores.get(user).add(score);
     }
 }

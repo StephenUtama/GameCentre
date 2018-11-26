@@ -40,6 +40,7 @@
         <Button
             android:id="@+id/scoreboard"
             android:text="Scoreboard"
+            android:onClick="loadScoreboard"
             android:layout_margin="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
