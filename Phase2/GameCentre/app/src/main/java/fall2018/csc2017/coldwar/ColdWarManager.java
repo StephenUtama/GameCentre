@@ -285,7 +285,6 @@ public class ColdWarManager {
     static void endTurn(ColdWarGameInfo info) {
         String currentPlayer = info.getCurrentPlayer();
 
-        toggleMovability(info);
         makeInvisible(info);
 
         if (currentPlayer.equals(ColdWarGameInfo.PLAYER1)) {
@@ -300,6 +299,9 @@ public class ColdWarManager {
      * @param info The game info of the current game
      */
     static void beginTurn(ColdWarGameInfo info) {
+
+        // Allow pieces to be movable
+        toggleMovability(info);
         makeVisible(info);
     }
 
