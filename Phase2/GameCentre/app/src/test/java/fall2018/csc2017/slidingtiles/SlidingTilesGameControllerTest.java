@@ -10,11 +10,19 @@ import static org.mockito.Mockito.when;
 
 import org.junit.Test;
 
+/**
+ * UnitTest for SlidingTilesGameController
+ */
 public class SlidingTilesGameControllerTest {
 
     private SlidingTilesManager slidingTilesManager;
     private GestureDetectGridView mView;
     private SlidingTilesGameController mController;
+
+    /**
+     * Mocking our dependencies(SlidingTilesManager)
+     * @throws Exception
+     */
     @Before
     public void setUp() throws Exception {
         slidingTilesManager = mock(SlidingTilesManager.class);
@@ -22,6 +30,10 @@ public class SlidingTilesGameControllerTest {
         mController.setSlidingTilesManager(slidingTilesManager);
         mView = mock(GestureDetectGridView.class);
     }
+
+    /**
+     * Testing ProcessTapMovement to see that a movement is properly registered.
+     */
     @Test
     public void testProcessTapMovement() {
         when(slidingTilesManager.isValidMove(14)).thenReturn(true);
