@@ -59,11 +59,7 @@ public class PongGameController implements GameController, Serializable {
     /**
      * Initializes PongGameController
      */
-    public PongGameController(SurfaceHolder ourHolder, PongGameInfo gameInfo) {
-
-        // Initialize surfaceHolder and paint objects
-        this.surfaceHolder = ourHolder;
-        paint = new Paint();
+    public PongGameController(PongGameInfo gameInfo) {
         // Initialize a PongGameInfo
         this.gameInfo = gameInfo;
 
@@ -126,35 +122,6 @@ public class PongGameController implements GameController, Serializable {
             paused = true;
             playing = false;
             PongGameActivity.pongSaver.updateAndSaveScoreboardIfGameOver(this);
-        }
-    }
-
-    /**
-     * displaying the objects in the screen by using Paint and Canvas.
-     * We do this by making sure surfaceHolder and canvas is valid
-     */
-    public void draw() {
-        if (this.surfaceHolder.getSurface().isValid()) {
-            if (playing == false) {
-                this.canvas = this.surfaceHolder.lockCanvas();
-                this.paint.setColor(Color.argb(255, 255, 255, 255));
-                this.paint.setTextSize(60);
-                this.canvas.drawText("Game Over! Score: " + gameInfo.getScore(), gameInfo.screenWidth / 4, gameInfo.screenHeight / 2, this.paint);
-                this.paint.setTextSize(40);
-                this.canvas.drawText("Tap to play one more time!", gameInfo.screenWidth / 4 + 10, gameInfo.screenHeight / 2 + 50, this.paint);
-                this.surfaceHolder.unlockCanvasAndPost(this.canvas);
-            } else {
-                this.canvas = this.surfaceHolder.lockCanvas();
-                this.canvas.drawColor(Color.argb(255, 120, 197, 87));
-                this.paint.setColor(Color.argb(255, 255, 255, 255));
-                this.canvas.drawRect(gameInfo.getRacket().getRectF(), this.paint);
-                this.canvas.drawRect(gameInfo.getBall().getRectF(), this.paint);
-                this.paint.setColor(Color.argb(255, 255, 255, 255));
-                this.paint.setTextSize(40);
-                this.canvas.drawText("Score: " + gameInfo.getScore() + "  Lives: " + gameInfo.getLives(),
-                        10, 50, this.paint);
-                this.surfaceHolder.unlockCanvasAndPost(this.canvas);
-            }
         }
     }
 
