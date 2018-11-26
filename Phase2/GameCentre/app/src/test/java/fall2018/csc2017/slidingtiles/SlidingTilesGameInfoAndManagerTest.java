@@ -72,13 +72,14 @@ public class SlidingTilesGameInfoAndManagerTest {
         assertEquals(false, slidingTilesManager.getBoard().getTile(3,2).getId() == 13);
     }
 
-//    @Test
-//    public void testCoordinatetoIndex() {
-//        setUpCorrect();
-//        int [] ret = new int[2];
-//        ret[0] = 3;
-//        ret[1] = 3;
-//        assertEquals(15, SlidingTilesManager.convertCoordinateToPosition(ret));
-//    }
-    //
+    @Test
+    public void testCoordinatetoIndex() {
+        setUpCorrect();
+        int [] ret = new int[2];
+        ret[0] = 3;
+        ret[1] = 3;
+
+        assertEquals(15, (int) SlidingTilesManager.convertCoordinateToPosition(ret));
+    }
+
 }
