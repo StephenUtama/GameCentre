@@ -85,7 +85,7 @@ public class PongGameActivity extends AppCompatActivity {
             pongView = new PongSurfaceView(this, size.x, size.y, gameInfo);
         }
 
-        this.controller = new PongGameController(pongView.getHolder(), gameInfo);
+        this.controller = new PongGameController(gameInfo);
 
         pongSaver = new PongFileSaverModel(this);
 
