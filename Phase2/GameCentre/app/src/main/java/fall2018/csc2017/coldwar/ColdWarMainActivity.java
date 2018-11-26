@@ -14,6 +14,8 @@ import android.widget.Toast;
 import java.util.List;
 
 import fall2018.csc2017.slidingtiles.R;
+import generalclasses.GameScoreboards;
+import generalclasses.ScoreBoard;
 import generalclasses.User;
 
 public class ColdWarMainActivity extends AppCompatActivity {
@@ -102,6 +104,23 @@ public class ColdWarMainActivity extends AppCompatActivity {
         if (ColdWarManager.isOver(coldWarGameInfo)) {
             String message = ColdWarManager.getWinText(coldWarGameInfo);
             ColdWarManager.showAlert(message, this);
+        }
+
+        saveScoreBoardIfGameOver();
+    }
+    private void saveScoreBoardIfGameOver() {
+        if (ColdWarManager.isOver(coldWarGameInfo)) {
+            mSaver.loadScoreboards("COLD_WAR_SAVED_SCOREBOARDS");
+            // get the correct scoreboard
+            GameScoreboards gameScoreboards = mSaver.getScoreboards();
+            ScoreBoard scoreBoard = gameScoreboards.getScoreboard("default");
+            String userName = coldWarGameInfo.getUserName();
+            int currentScore = coldWarGameInfo.getScore(scoreBoard);
+
+            // update scoreboard with latest score, then save
+            scoreBoard.addScore(userName, currentScore);
+            gameScoreboards.addScoreboard("default", scoreBoard);
+            mSaver.saveScoreboards(gameScoreboards, "COLD_WAR_SAVED_SCOREBOARDS");
         }
     }
 
