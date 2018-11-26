@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-//View Class
+//View Class, not tested
 /**
  * The activity for selecting the complexities of the game
  */

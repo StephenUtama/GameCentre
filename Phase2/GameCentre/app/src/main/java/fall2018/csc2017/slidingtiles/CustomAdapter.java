@@ -16,6 +16,7 @@ import android.widget.Button;
 
 import java.util.ArrayList;
 
+//View Aid Class, not tested
 public class CustomAdapter extends BaseAdapter {
     private ArrayList<Button> mButtons = null;
     private int mColumnWidth, mColumnHeight;

@@ -46,8 +46,6 @@ public class SlidingTilesScoreBoardActivity extends ScoreBoardActivity {
         user = (User) getIntent().getSerializableExtra("user");
         complexity = getIntent().getStringExtra("complexity");
 
-//        scores = User.getScoreBoard("Sliding Tiles", complexity).getScoreMap();
-//        scores = scoreboards.
         // load the scoreboards from save file//
         loadScoreboards("SAVED_SCOREBOARDS");
         if (scoreboards == null) {
