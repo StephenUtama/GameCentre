@@ -6,6 +6,11 @@ import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.widget.Toast;
 
+/**
+ * SurfaceView of Pong game where ball and racket moves.
+ * Since this only contains the method that keep calling update() and draw() from controller,
+ * and onTouchEvent which is a user input, this class is excluded from Unit Test
+ */
 public class PongSurfaceView extends SurfaceView implements Runnable {
 
     /**

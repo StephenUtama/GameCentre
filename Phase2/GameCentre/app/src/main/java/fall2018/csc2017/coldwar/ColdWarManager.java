@@ -140,8 +140,9 @@ public class ColdWarManager {
      * @param info             Information about the current state of the game
      * @param selectedPosition The position of the agent to move
      * @param positionToMove   The position of where we want the given agent to move to
+     * @return Whether a move was successfully made.
      */
-    public static void makeMove(ColdWarGameInfo info, int selectedPosition, int positionToMove) {
+    public static boolean makeMove(ColdWarGameInfo info, int selectedPosition, int positionToMove) {
         List<Tile> board = info.getBoard();
         Agent fromOccupant = board.get(selectedPosition).getAgent();
         Agent toOccupant = board.get(positionToMove).getAgent();
@@ -159,7 +160,12 @@ public class ColdWarManager {
 
             // set all pieces to be unmovable
             toggleMovability(info);
+
+            return true;
         }
+
+        // no valid move was made
+        return false;
     }
 
     /**
@@ -198,7 +204,7 @@ public class ColdWarManager {
         String currentPlayer = info.getCurrentPlayer();
 
         toggleMovability(info);
-        toggleVisibility(info);
+        makeInvisible(info);
 
         if (currentPlayer.equals(ColdWarGameInfo.PLAYER1)) {
             info.setCurrentPlayer(ColdWarGameInfo.PLAYER2);
@@ -212,7 +218,7 @@ public class ColdWarManager {
      * @param info The game info of the current game
      */
     static void beginTurn(ColdWarGameInfo info) {
-        toggleVisibility(info);
+        makeVisible(info);
     }
 
     /**
@@ -231,6 +237,34 @@ public class ColdWarManager {
                 else {
                     occupant.setVisible(true);
                 }
+            }
+        }
+    }
+
+    /**
+     * Makes all pieces visible.
+     * @param info The game info of the current game
+     */
+    static private void makeVisible(ColdWarGameInfo info) {
+        List<Tile> board = info.getBoard();
+        for (int i = 0; i < board.size(); i++){
+            Agent occupant = board.get(i).getAgent();
+            if (! (occupant == null)){
+                occupant.setVisible(true);
+            }
+        }
+    }
+
+    /**
+     * Makes all pieces invisible.
+     * @param info The game info of the current game
+     */
+    static private void makeInvisible(ColdWarGameInfo info) {
+        List<Tile> board = info.getBoard();
+        for (int i = 0; i < board.size(); i++){
+            Agent occupant = board.get(i).getAgent();
+            if (! (occupant == null)){
+                occupant.setVisible(false);
             }
         }
     }

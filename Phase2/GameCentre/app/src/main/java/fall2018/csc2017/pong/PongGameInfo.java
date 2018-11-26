@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 import generalclasses.GameInfo;
 
+/**
+ * Information of game state. We are saving this into file.
+ * Since this only contains the chunk of information (Model), we exclude this from testing.
+ */
 public class PongGameInfo extends GameInfo implements Serializable {
 
     /**

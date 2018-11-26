@@ -19,6 +19,10 @@ import generalclasses.User;
 
 import static fall2018.csc2017.pong.PongStartingActivity.SAVE_FILENAME;
 
+/**
+ * Contains the methods that are related to savings
+ * Since this contains file interactions, this class is excluded from Unit test
+ */
 public class PongFileSaverModel extends SaverModel{
 
     private Context context;

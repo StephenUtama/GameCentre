@@ -18,25 +18,6 @@ public class RacketTest {
     public void setUp() throws Exception {
         testRacket = new Racket(1080, 1920);
     }
-    /**
-    @Test
-    public void getRectF(){
-        RectF newRectF = new RectF(1080/2, 1920 - 150, 1080/6 + 1080/2, 1920 - 150 + 1920/25);
-        SerializableRectF Rect = new SerializableRectF(newRectF);
-        assertTrue( Rect.);
-    }
-
-    @Test
-    public void getRectMove(){
-        assertEquals(true, testRacket.getRectMove() == 0);
-    }
-
-    @Test
-    public void setMovementState() {
-        testRacket.setMovementState(1);
-        assertEquals(true, testRacket.getRectMove() == 1);
-    }
-     **/
 
     @Test
     public void updateLeftMove() {
@@ -52,7 +33,7 @@ public class RacketTest {
     }
 
     @Test
-    public void updateRightMove(){
+    public void updateRightMove() {
         testRacket.setMovementState(2);
         testRacket.update(1);
         assertTrue(1620 == testRacket.getRectF().left);
