@@ -9,14 +9,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 
 import fall2018.csc2017.slidingtiles.SlidingTileScoreboards;
-import fall2018.csc2017.slidingtiles.SlidingTilesGameInfo;
-import fall2018.csc2017.slidingtiles.SlidingTilesScoreBoard;
 
 public abstract class SaverModel {
     public Context context;
@@ -81,7 +75,7 @@ public abstract class SaverModel {
             InputStream inputStream = context.openFileInput(scoreBoardSaveLocation);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
-                scoreboards = (SlidingTileScoreboards) input.readObject();
+                scoreboards = (GameScoreboards) input.readObject();
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {

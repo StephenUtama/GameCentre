@@ -102,7 +102,6 @@ public class StartingActivity extends AppCompatActivity {
         SlidingTilesGameInfo newGameInfo = new SlidingTilesGameInfo();
         newGameInfo.setComplexity(complexity);
         newGameInfo.setUserName(username);
-//        User.addScoreboard(game, complexity, new SlidingTilesScoreBoard());
 
         mSaver.instantiateGameandBegin(complexity);
 
