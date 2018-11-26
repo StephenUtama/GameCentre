@@ -1,10 +1,13 @@
 package pong;
 
+import android.graphics.RectF;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import fall2018.csc2017.pong.PongGameController;
 import fall2018.csc2017.pong.PongGameInfo;
+import fall2018.csc2017.pong.SerializableRectF;
 
 import static org.junit.Assert.*;
 
@@ -31,8 +34,13 @@ public class PongGameControllerTest {
         testInfo.getRacket().getRectF().right = testInfo.getBall().getRectF().right;
         testInfo.getRacket().getRectF().top = testInfo.getBall().getRectF().top;
         testInfo.getRacket().getRectF().bottom = testInfo.getBall().getRectF().bottom;
+
+        assertTrue(RectF.intersects(testInfo.getBall().getRectF(), testInfo.getRacket().getRectF()));
+
+        testInfo.getRacket().getRectF().bottom = testInfo.getBall().getRectF().bottom;
         testController.update();
         // Check whether the ball's coordinate was updated properly
+        System.out.println("Post Score is: " + testInfo.getScore());
 
         assertEquals(true, tempScore + 1 == testInfo.getScore());
         //testing both increase and random
