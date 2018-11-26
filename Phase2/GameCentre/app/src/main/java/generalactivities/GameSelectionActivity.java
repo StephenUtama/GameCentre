@@ -32,7 +32,6 @@ public class GameSelectionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game_selections);
         declarations();
         addSlidingTileButtonListener();
-//        addBattleshipButtonListener();
         addColdWarButtonListener();
         addPongGameButtonListener();
         SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("my_prefs", Context.MODE_PRIVATE);
@@ -70,8 +69,8 @@ public class GameSelectionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // for testing purposes
-//                Intent intent = new Intent(GameSelectionActivity.this, ColdWarMainActivity.class);
-                Intent intent = new Intent(GameSelectionActivity.this, ColdWarMenu.class);
+                Intent intent = new Intent(GameSelectionActivity.this, ColdWarMainActivity.class);
+//                Intent intent = new Intent(GameSelectionActivity.this, ColdWarMenu.class);
                 intent.putExtra("username", username);
                 startActivity(intent);
             }

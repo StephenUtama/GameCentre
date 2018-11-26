@@ -38,8 +38,13 @@ public class ColdWarMainActivity extends AppCompatActivity {
         beginButton = findViewById(R.id.beginMoveButton);
 
         Intent intent = getIntent();
-        coldWarGameInfo = (ColdWarGameInfo) intent.getSerializableExtra("gameInfo");
-        List<Tile> board = coldWarGameInfo.getBoard();
+
+        // the actual code
+//        coldWarGameInfo = (ColdWarGameInfo) intent.getSerializableExtra("gameInfo");
+        // test
+        coldWarGameInfo = new ColdWarGameInfo("a");
+
+//        List<Tile> board = coldWarGameInfo.getBoard();
         imageIDs = ColdWarManager.getImageIDs(coldWarGameInfo);
 
         mSaver = new ColdWarSaverModel(this);
