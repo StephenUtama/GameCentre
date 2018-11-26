@@ -25,11 +25,11 @@ public class GameActivityController {
     public ArrayList<Button> createTileButtons(boolean image_game, Board board) {
         tileButtons = new ArrayList<>();
 
-        if (image_game){ // If the complexity is image, creates buttons differently
+        if (image_game) { // If the complexity is image, creates buttons differently
             int num;
             for (int row = 0; row != Board.NUM_ROWS; row++) {
                 for (int col = 0; col != Board.NUM_COLS; col++) {
-                    num = board.getTile(row,col).getId()-1;
+                    num = board.getTile(row, col).getId() - 1;
                     helperCreatingButton(num, row, col, board);
                 }
             }
@@ -48,6 +48,7 @@ public class GameActivityController {
 
     /**
      * Helper function for creating a button when complexity is image
+     *
      * @param num id of the tile
      * @param row row of the creating tile
      * @param col col of the creating tile
@@ -66,9 +67,10 @@ public class GameActivityController {
 
     /**
      * Update the button's background
-     * @param tilesbtn List of buttons that we assign the background
+     *
+     * @param tilesbtn   List of buttons that we assign the background
      * @param image_game If game is Image game or not
-     * @param board The board of this game that we pug the buttons
+     * @param board      The board of this game that we pug the buttons
      */
     public void updateTileButtons(ArrayList<Button> tilesbtn, boolean image_game, Board board) {
 
@@ -91,17 +93,18 @@ public class GameActivityController {
 
     /**
      * Helper function for updating the background of the tile when complexity is image
-     * @param b current button that is being updated
+     *
+     * @param b    current button that is being updated
      * @param next the position of the tile that is being updated
      */
-    public void helperUpdate(Button b, int next, Board board){
+    public void helperUpdate(Button b, int next, Board board) {
         int row = next / Board.NUM_ROWS;
         int col = next % Board.NUM_COLS;
         int num = board.getTile(row, col).getId() - 1;
-        if(num != 24){
+        if (num != 24) {
             BitmapDrawable bmp = new BitmapDrawable(GameActivity.backgrounds[num]);
             b.setBackground(bmp);
-        }else{
+        } else {
             b.setBackgroundResource(board.getTile(row, col).getBackground());
         }
     }
