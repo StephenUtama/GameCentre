@@ -101,8 +101,10 @@ public class ColdWarMainActivity extends AppCompatActivity {
         endButton.setEnabled(false);
         beginButton.setEnabled(true);
         saveButton.setEnabled(true);
-        String message = ColdWarManager.getWinText(coldWarGameInfo);
-        ColdWarManager.showAlert(message, this);
+        if (ColdWarManager.isOver(coldWarGameInfo)) {
+            String message = ColdWarManager.getWinText(coldWarGameInfo);
+            ColdWarManager.showAlert(message, this);
+        }
 
         saveScoreBoardIfGameOver();
     }
