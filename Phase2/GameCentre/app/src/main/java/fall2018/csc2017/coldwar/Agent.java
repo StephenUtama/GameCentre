@@ -22,7 +22,7 @@ public abstract class Agent implements Serializable {
     /*
     Indicates whether this piece can move
      */
-    public boolean canMove = true;
+    public boolean canMove = false;
 
     public boolean isCanMove() {
         return canMove;
