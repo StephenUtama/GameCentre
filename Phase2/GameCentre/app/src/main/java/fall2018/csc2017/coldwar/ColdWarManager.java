@@ -14,8 +14,78 @@ public class ColdWarManager {
      */
     public static boolean isOver(ColdWarGameInfo info) {
         return (info.getPlayer1Reputation().equals(0) | info.getPlayer2Reputation().equals(0) |
-                info.isBaseInfiltrated | info.getPlayer1NumSpies().equals(0) |
-                info.getPlayer2NumSpies().equals(0));
+                info.isPlayer1BaseInfiltrated() | info.isPlayer2BaseInfiltrated() |
+                info.getPlayer1NumSpies().equals(0) | info.getPlayer2NumSpies().equals(0));
+    }
+
+    /**
+     * Determine and return the win text when game is ended. Win text is determined by the how the
+     * game was won.
+     * @param info Information about the current game
+     * @return A String of text that describes the end game scenario.
+     */
+    public static String getWinText(ColdWarGameInfo info) {
+        if (info.getPlayer1Reputation().equals(0)){
+            return "Due to the murder of multiple legitimate diplomats by User's country, " +
+                    "public opinion and UN sanctions have led the toppling of User's government, " +
+                    "ending a long and bitter cold war between the world's two superpowers. Guest " +
+                    "wins!";
+        }
+        else if (info.getPlayer2Reputation().equals(0)) {
+            return "Due to the murder of multiple legitimate diplomats by Guest's country, " +
+                    "public opinion and UN sanctions have led the toppling of Guest's government, " +
+                    "ending a long and bitter cold war between the world's two superpowers. User " +
+                    "wins!";
+        }
+        else if (info.getPlayer1NumSpies().equals(0)) {
+            return "All spies in User's country have been eradicated, causing Guest's country's " +
+                    "technological prowess to quickly dwarf that of User's. There now remains" +
+                    " one sole superpower. Guest wins!";
+        }
+        else if (info.getPlayer2NumSpies().equals(0)) {
+            return "All spies in Guest's country have been eradicated, causing User's country's " +
+                    "technological prowess to quickly dwarf that of Guest's. There now remains" +
+                    " one sole superpower. User wins!";
+        }
+
+        else if (info.isPlayer1BaseInfiltrated()){
+            return "User's capital has been infiltrated by Guest's spies. All secrets have been" +
+                    "stolen, rendering User defenseless against Guest. Guest wins!";
+        }
+        else {
+            return "Guest's capital has been infiltrated by User's spies. All secrets have been" +
+                    "stolen, rendering Guest defenseless against User. User wins!";
+        }
+    }
+
+    /**
+     * Return the winner of the game.
+     *
+     * Precondition: The game is ended.
+     *
+     * @param info Information about the current game
+     * @return the winner of the current game.
+     */
+    public static String getWinner(ColdWarGameInfo info) {
+        if (info.getPlayer1Reputation().equals(0)){
+            return ColdWarGameInfo.PLAYER2;
+        }
+        else if (info.getPlayer2Reputation().equals(0)) {
+            return ColdWarGameInfo.PLAYER1;
+        }
+        else if (info.getPlayer1NumSpies().equals(0)) {
+            return ColdWarGameInfo.PLAYER2;
+        }
+        else if (info.getPlayer2NumSpies().equals(0)) {
+            return ColdWarGameInfo.PLAYER1;
+        }
+
+        else if (info.isPlayer1BaseInfiltrated()){
+            return ColdWarGameInfo.PLAYER2;
+        }
+        else {
+            return ColdWarGameInfo.PLAYER1;
+        }
     }
 
     /**
@@ -129,8 +199,11 @@ public class ColdWarManager {
         }
 
         // update variable isBaseInfiltrated in info if a base has been infiltrated (by a spy)
-        else if (receiver.getClass().getName().equals("USBase") | receiver.getClass().getName().equals("SUBase")) {
-            info.isBaseInfiltrated = true;
+        else if (receiver instanceof USBase) {
+            info.setPlayer1BaseInfiltrated(true);
+        }
+        else if (receiver instanceof SUBase) {
+            info.setPlayer2BaseInfiltrated(true);
         }
     }
 

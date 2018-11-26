@@ -9,13 +9,39 @@ import generalclasses.GameInfo;
 import generalclasses.User;
 
 public class ColdWarGameInfo extends GameInfo {
-    private Integer START_REPUTATION = 2;
+    private Integer START_REPUTATION = 4;
 
 
     /**
      * Used to determine whether the game is over.
      */
-    boolean isBaseInfiltrated = false;
+    private boolean isBaseInfiltrated = false;
+
+    /**
+     * Used to determine whether the game is over.
+     */
+    private boolean isPlayer1BaseInfiltrated = false;
+
+    /**
+     * Used to determine whether the game is over.
+     */
+    private boolean isPlayer2BaseInfiltrated = false;
+
+    public boolean isPlayer1BaseInfiltrated() {
+        return isPlayer1BaseInfiltrated;
+    }
+
+    public void setPlayer1BaseInfiltrated(boolean player1BaseInfiltrated) {
+        isPlayer1BaseInfiltrated = player1BaseInfiltrated;
+    }
+
+    public boolean isPlayer2BaseInfiltrated() {
+        return isPlayer2BaseInfiltrated;
+    }
+
+    public void setPlayer2BaseInfiltrated(boolean player2BaseInfiltrated) {
+        isPlayer2BaseInfiltrated = player2BaseInfiltrated;
+    }
 
     public static String PLAYER1 = "p1";
     public static String PLAYER2 = "p2";
