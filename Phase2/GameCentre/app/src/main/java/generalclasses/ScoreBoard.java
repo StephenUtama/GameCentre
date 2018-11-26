@@ -16,7 +16,6 @@ public class ScoreBoard implements Serializable {
      *
      * @return scores
      */
-
     public LinkedHashMap<String, ArrayList<Integer>> getScoreMap() {
         return scores;
     }
@@ -27,7 +26,6 @@ public class ScoreBoard implements Serializable {
      * @param user  the player's username
      * @param score the player's score
      */
-
     public void addUserAndScore(String user, int score) {
         ArrayList<Integer> scoreArray = new ArrayList<>();
         scoreArray.add(score);
@@ -40,9 +38,7 @@ public class ScoreBoard implements Serializable {
      * @param user  the player's username
      * @param score the player's score
      */
-
     public void addScore(String user, int score) {
-
         scores.get(user).add(score);
     }
 }
