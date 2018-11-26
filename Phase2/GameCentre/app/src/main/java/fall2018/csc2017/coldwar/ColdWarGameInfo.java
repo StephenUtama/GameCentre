@@ -1,9 +1,12 @@
 package fall2018.csc2017.coldwar;
 
+import android.view.View;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import generalclasses.GameInfo;
+import generalclasses.User;
 
 public class ColdWarGameInfo extends GameInfo {
     private Integer START_REPUTATION = 0;
@@ -60,6 +63,11 @@ public class ColdWarGameInfo extends GameInfo {
 
 
     /**
+     * The username of the User that owns this ColdWarGameInfo
+     */
+    private String userName;
+
+    /**
      * The current player.
      */
     private String currentPlayer = PLAYER1;
@@ -92,10 +100,15 @@ public class ColdWarGameInfo extends GameInfo {
         this.Player2Reputation = player2Reputation;
     }
 
-    public ColdWarGameInfo() {
+    public ColdWarGameInfo(String userName) {
+        this.userName = userName;
         board = new ArrayList<>();
         setUpDefaultBoard();
 //        setUpTestBoard();
+    }
+
+    public String getUserName() {
+        return userName;
     }
 
     /**
@@ -159,8 +172,10 @@ public class ColdWarGameInfo extends GameInfo {
 
     @Override
     public String getGame() {
-        return null;
+        return "Cold War";
     }
+
+
 }
 
 

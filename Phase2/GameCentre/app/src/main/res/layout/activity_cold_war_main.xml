@@ -38,6 +38,7 @@ tools:context="fall2018.csc2017.coldwar.ColdWarMainActivity">
 
     <Button
         android:id="@+id/saveButton"
+        android:onClick="save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

@@ -13,6 +13,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import fall2018.csc2017.slidingtiles.R;
+import generalclasses.User;
 
 public class ColdWarMainActivity extends AppCompatActivity {
 
@@ -25,6 +26,8 @@ public class ColdWarMainActivity extends AppCompatActivity {
     ColdWarGameInfo coldWarGameInfo;
 
     private Button endButton, beginButton;
+
+    ColdWarSaverModel mSaver;
 
 
     @Override
@@ -39,6 +42,7 @@ public class ColdWarMainActivity extends AppCompatActivity {
         List<Tile> board = coldWarGameInfo.getBoard();
         imageIDs = ColdWarManager.getImageIDs(coldWarGameInfo);
 
+        mSaver = new ColdWarSaverModel(this);
 
         gridView = findViewById(R.id.coldWarGridView);
         gridView.setAdapter(new ImageAdapterGridView(this, imageIDs));
@@ -75,6 +79,12 @@ public class ColdWarMainActivity extends AppCompatActivity {
         gridView.setAdapter(new ImageAdapterGridView(getBaseContext(), imageIDs));
         endButton.setEnabled(true);
         beginButton.setEnabled(false);
+    }
+
+    public void save(View view) {
+        // determine current user
+        User user = User.usernameToUser.get(coldWarGameInfo.getUserName());
+        mSaver.saveButtonListener(coldWarGameInfo, user);
     }
 
 

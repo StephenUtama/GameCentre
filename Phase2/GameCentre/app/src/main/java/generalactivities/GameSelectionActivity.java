@@ -72,6 +72,7 @@ public class GameSelectionActivity extends AppCompatActivity {
                 // for testing purposes
 //                Intent intent = new Intent(GameSelectionActivity.this, ColdWarMainActivity.class);
                 Intent intent = new Intent(GameSelectionActivity.this, ColdWarMenu.class);
+                intent.putExtra("username", username);
                 startActivity(intent);
             }
         });

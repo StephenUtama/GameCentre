@@ -17,6 +17,7 @@ public class ColdWarMenu extends AppCompatActivity {
 
     public void startGame(View view) {
         Intent intent = new Intent(this, UserPiecesSelectionActivity.class);
+        intent.putExtra("username", getIntent().getStringExtra("username"));
         startActivity(intent);
     }
 }
