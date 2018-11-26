@@ -32,7 +32,8 @@ tools:context="fall2018.csc2017.coldwar.ColdWarMainActivity">
         android:layout_alignParentBottom="true"
         android:layout_marginStart="-7dp"
         android:layout_marginBottom="29dp"
-        android:text="begin move" />
+        android:text="begin move"
+        android:enabled="false"/>
 
     <Button
         android:id="@+id/saveButton"

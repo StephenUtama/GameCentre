@@ -1,10 +1,12 @@
 package fall2018.csc2017.coldwar;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.Toast;
 
@@ -22,11 +24,15 @@ public class ColdWarMainActivity extends AppCompatActivity {
 
     ColdWarGameInfo coldWarGameInfo;
 
+    private Button endButton, beginButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cold_war_main);
+        endButton = findViewById(R.id.endMoveButton);
+        beginButton = findViewById(R.id.beginMoveButton);
 
         Intent intent = getIntent();
         coldWarGameInfo = (ColdWarGameInfo) intent.getSerializableExtra("gameInfo");
@@ -51,9 +57,6 @@ public class ColdWarMainActivity extends AppCompatActivity {
                 imageIDs = ColdWarManager.getImageIDs(coldWarGameInfo);
 
                 gridView.setAdapter(new ImageAdapterGridView(getBaseContext(), imageIDs));
-
-                Toast.makeText(ColdWarMainActivity.this, "Position is " +
-                        position, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -62,12 +65,16 @@ public class ColdWarMainActivity extends AppCompatActivity {
         ColdWarManager.endTurn(coldWarGameInfo);
         imageIDs = ColdWarManager.getImageIDs(coldWarGameInfo);
         gridView.setAdapter(new ImageAdapterGridView(getBaseContext(), imageIDs));
+        endButton.setEnabled(false);
+        beginButton.setEnabled(true);
     }
 
     public void beginMoveButtonClicked(View view) {
         ColdWarManager.beginTurn(coldWarGameInfo);
         imageIDs = ColdWarManager.getImageIDs(coldWarGameInfo);
         gridView.setAdapter(new ImageAdapterGridView(getBaseContext(), imageIDs));
+        endButton.setEnabled(true);
+        beginButton.setEnabled(false);
     }
 
 

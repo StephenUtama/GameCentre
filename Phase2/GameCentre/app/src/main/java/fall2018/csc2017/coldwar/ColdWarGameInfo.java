@@ -95,6 +95,7 @@ public class ColdWarGameInfo extends GameInfo {
     public ColdWarGameInfo() {
         board = new ArrayList<>();
         setUpDefaultBoard();
+//        setUpTestBoard();
     }
 
     /**
