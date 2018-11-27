@@ -51,7 +51,7 @@ class ColdWarGameController {
         if (selectedPosition == -1) {
             selectedPositionString = "No position is selected.";
         } else {
-            selectedPositionString = "Current Selected Position is: " + selectedPosition;
+            selectedPositionString = "Current Selected Position is: " + selectedPosition; //TODO: use coordinate position
         }
 
         guestReputationText.setText(guestReputationString);

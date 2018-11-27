@@ -184,6 +184,11 @@ class MovementUtility {
         }
     }
 
+    /**
+     * Translates position format to coordinate format.
+     * @param position
+     * @return
+     */
     static int[] positionToCoordinates(int position) {
         int[] coordinates = {position / 6, position % 6};
         return coordinates;

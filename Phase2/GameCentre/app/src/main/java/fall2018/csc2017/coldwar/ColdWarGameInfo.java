@@ -23,11 +23,7 @@ public class ColdWarGameInfo extends GameInfo {
      */
     private List<Integer> lastMove;
 
-    public List<Integer> getLastMove() {
-        return lastMove;
-    }
-
-    public void setLastMove(List<Integer> lastMove) {
+    void setLastMove(List<Integer> lastMove) {
         this.lastMove = lastMove;
     }
 
@@ -36,8 +32,8 @@ public class ColdWarGameInfo extends GameInfo {
      */
      String getLastMoveString() {
         if (lastMove != null) {
-            return "Your opponent moved a piece from " + getLastMove().get(0)
-                    + " to " + getLastMove().get(1);
+            return "Your opponent moved a piece from " + lastMove.get(0)
+                    + " to " + lastMove.get(1); // TODO: translate to coordinate format
         }
         return "";
     }
