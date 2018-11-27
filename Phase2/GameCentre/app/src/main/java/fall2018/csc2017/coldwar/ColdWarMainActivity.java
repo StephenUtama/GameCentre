@@ -20,27 +20,52 @@ import generalclasses.User;
 
 public class ColdWarMainActivity extends AppCompatActivity {
 
-    GridView gridView;
-
-    TextView userReputationText;
-
-    TextView guestReputationText;
-
-    List<Integer> imageIDs;
-
-    int selectedPosition = -1; // this is "unselected" by default
-
-    ColdWarGameInfo coldWarGameInfo;
-
+    private GridView gridView;
+    private TextView userReputationText;
+    private TextView guestReputationText;
     private Button endButton, beginButton, saveButton;
 
-    ColdWarSaverModel mSaver;
-
+    private int selectedPosition = -1; // this is "unselected" by default
+    private ColdWarGameInfo coldWarGameInfo;
+    private ColdWarSaverModel mSaver;
+    private ColdWarGameController controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cold_war_main);
+
+        assignments();
+        setUpDisplays();
+        setUpGridView();
+
+    }
+
+    private void setUpDisplays() {
+        // set up some displays
+        String guestReputationString = "Guest Global Reputation: " +
+                coldWarGameInfo.getPlayer2Reputation().toString();
+        String userReputationString = "User Global Reputation: " +
+                coldWarGameInfo.getPlayer1Reputation().toString();
+        guestReputationText.setText(guestReputationString);
+        userReputationText.setText(userReputationString);
+    }
+
+    private void setUpGridView() {
+        gridView = findViewById(R.id.coldWarGridView);
+        gridView.setAdapter(new ImageAdapterGridView(this, ColdWarManager.getImageIDs(coldWarGameInfo)));
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                controller.setViews(endButton, guestReputationText, userReputationText);
+                controller.touchMove(coldWarGameInfo, selectedPosition, position);
+                selectedPosition = controller.getSelectedPosition();
+                controller.updateGridView(gridView, coldWarGameInfo);
+            }
+        });
+    }
+
+    private void assignments() {
         endButton = findViewById(R.id.endMoveButton);
         beginButton = findViewById(R.id.beginMoveButton);
         saveButton = findViewById(R.id.saveButton);
@@ -48,85 +73,52 @@ public class ColdWarMainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         coldWarGameInfo = (ColdWarGameInfo) intent.getSerializableExtra("gameInfo");
 //        coldWarGameInfo = new ColdWarGameInfo("");
-        imageIDs = ColdWarManager.getImageIDs(coldWarGameInfo);
+        List<Integer> imageIDs = ColdWarManager.getImageIDs(coldWarGameInfo);
 
         mSaver = new ColdWarSaverModel(this);
 
         userReputationText = (TextView) findViewById(R.id.userReputation);
         guestReputationText = (TextView) findViewById(R.id.guestReputation);
 
-        String guestReputationString = "Guest Global Reputation: " +
-                coldWarGameInfo.getPlayer2Reputation().toString();
-        String userReputationString = "User Global Reputation: " +
-                coldWarGameInfo.getPlayer1Reputation().toString();
-        guestReputationText.setText(guestReputationString);
-        userReputationText.setText(userReputationString);
+        controller = new ColdWarGameController(this);
 
-
-        gridView = findViewById(R.id.coldWarGridView);
-        gridView.setAdapter(new ImageAdapterGridView(this, imageIDs));
-
-
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (selectedPosition == -1){
-                    selectedPosition = position;
-                }
-                else {
-                    if ( ColdWarManager.makeMove(coldWarGameInfo, selectedPosition, position)) {
-                        endButton.setEnabled(true);
-                    }
-                    else {
-                        Toast.makeText(ColdWarMainActivity.this, "Invalid Move", Toast.LENGTH_SHORT).show();
-                    }
-                    selectedPosition = -1; // this indicates that selectedPosition is reset to "unselected"
-                    String guestReputationString = "Guest Global Reputation: " +
-                            coldWarGameInfo.getPlayer2Reputation().toString();
-                    String userReputationString = "User Global Reputation: " +
-                            coldWarGameInfo.getPlayer1Reputation().toString();
-                    guestReputationText.setText(guestReputationString);
-                    userReputationText.setText(userReputationString);
-                }
-                imageIDs = ColdWarManager.getImageIDs(coldWarGameInfo);
-
-                gridView.setAdapter(new ImageAdapterGridView(getBaseContext(), imageIDs));}
-        });
     }
 
     public void endMoveButtonClicked(View view) {
         ColdWarManager.endTurn(coldWarGameInfo);
-        imageIDs = ColdWarManager.getImageIDs(coldWarGameInfo);
+        List<Integer> imageIDs = ColdWarManager.getImageIDs(coldWarGameInfo);
         gridView.setAdapter(new ImageAdapterGridView(getBaseContext(), imageIDs));
         endButton.setEnabled(false);
         beginButton.setEnabled(true);
         saveButton.setEnabled(true);
+        executeWhenGameOver();
+    }
+
+    private void executeWhenGameOver() {
         if (ColdWarManager.isOver(coldWarGameInfo)) {
             String message = ColdWarManager.getWinText(coldWarGameInfo);
             ColdWarManager.showAlert(message, this);
+            saveScoreBoardIfGameOver();
         }
-
-        saveScoreBoardIfGameOver();
     }
-    private void saveScoreBoardIfGameOver() {
-        if (ColdWarManager.isOver(coldWarGameInfo)) {
-            mSaver.loadScoreboards("COLD_WAR_SAVED_SCOREBOARDS");
-            // get the correct scoreboard
-            GameScoreboards gameScoreboards = mSaver.getScoreboards();
-            ScoreBoard scoreBoard = gameScoreboards.getScoreboard("default");
-            String userName = coldWarGameInfo.getUserName();
-            int currentScore = coldWarGameInfo.getScore(scoreBoard);
 
-            // update scoreboard with latest score, then save
-            scoreBoard.addUserAndScore(userName, currentScore);
-            gameScoreboards.addScoreboard("default", scoreBoard);
-            mSaver.saveScoreboards(gameScoreboards, "COLD_WAR_SAVED_SCOREBOARDS");
-        }
+    private void saveScoreBoardIfGameOver() {
+        mSaver.loadScoreboards("COLD_WAR_SAVED_SCOREBOARDS");
+        // get the correct scoreboard
+        GameScoreboards gameScoreboards = mSaver.getScoreboards();
+        ScoreBoard scoreBoard = gameScoreboards.getScoreboard("default");
+        String userName = coldWarGameInfo.getUserName();
+        int currentScore = coldWarGameInfo.getScore(scoreBoard);
+
+        // update scoreboard with latest score, then save
+        scoreBoard.addUserAndScore(userName, currentScore);
+        gameScoreboards.addScoreboard("default", scoreBoard);
+        mSaver.saveScoreboards(gameScoreboards, "COLD_WAR_SAVED_SCOREBOARDS");
     }
 
     public void beginMoveButtonClicked(View view) {
         ColdWarManager.beginTurn(coldWarGameInfo);
-        imageIDs = ColdWarManager.getImageIDs(coldWarGameInfo);
+        List<Integer> imageIDs = ColdWarManager.getImageIDs(coldWarGameInfo);
         gridView.setAdapter(new ImageAdapterGridView(getBaseContext(), imageIDs));
         beginButton.setEnabled(false);
         saveButton.setEnabled(false);
