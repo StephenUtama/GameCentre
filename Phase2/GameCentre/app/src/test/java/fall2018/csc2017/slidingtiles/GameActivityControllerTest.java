@@ -1,8 +1,12 @@
 package fall2018.csc2017.slidingtiles;
-////import static org.mockito.Mockito.mock;
-//import static org.mockito.Mockito.verify;
-//import static org.mockito.Mockito.when;
-//import org.mockito.ArgumentMatchers;
+import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import org.mockito.ArgumentMatchers;
 import static org.junit.Assert.*;
 import android.widget.Button;
 
@@ -11,13 +15,18 @@ import org.junit.Test;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+
+import generalclasses.ScoreBoard;
 
 
 public class GameActivityControllerTest {
 
     private GameActivityController mController;
     private GameActivity mActivity;
+    private SlidingTilesFileSaverModel mSaver;
+    private SlidingTilesManager mManager;
 
     /**
      * Make a set of tiles that are in order.
@@ -37,10 +46,15 @@ public class GameActivityControllerTest {
 
     @Before
     public void setUpMock() {
-//        mActivity = mock(GameActivity.class);
+        mActivity = mock(GameActivity.class);
         mController = new GameActivityController(mActivity);
         Board.NUM_COLS = 4;
         Board.NUM_ROWS = 4;
+        mSaver = mock(SlidingTilesFileSaverModel.class);
+        mManager = mock(SlidingTilesManager.class);
+        SlidingTilesGameInfo gameinfo = new SlidingTilesGameInfo(makeTiles());
+        when(mManager.getInfo()).thenReturn(gameinfo);
+        mController.setmSaver(mSaver);
     }
 
     @Test
@@ -56,11 +70,39 @@ public class GameActivityControllerTest {
         assertEquals(25, tilebuttons1.size());
     }
 
-//    @Test
-//    public void testUpdateTileButtons() {
-//        Board board = new Board(makeTiles());
-//        boolean image_game = false;
-//        ArrayList<Button> tilebuttons = mController.createTileButtons(image_game, board);
-//        assertEquals(R.drawable.tile_25, tilebuttons);
-//    }
+    @Test
+    public void testUpdateTileButtons() {
+        Board board = new Board(makeTiles());
+        boolean image_game = false;
+        ArrayList<Button> tilebuttons = mController.createTileButtons(image_game, board);
+        assertEquals(16, tilebuttons.size());
+    }
+
+    @Test
+    public void testUpdateAndSaveScoreboardIfGameOver() {
+        mManager.getInfo().setUserName("0601");
+        mManager.getInfo().setComplexity("3 x 3");
+        when(mManager.isOver()).thenReturn(true);
+        doNothing().when(mSaver).loadScoreboards(isA(String.class));
+        SlidingTileScoreboards scoreboards = mock(SlidingTileScoreboards.class);
+        ScoreBoard scoreboard = mock(ScoreBoard.class);
+        LinkedHashMap<String, ArrayList<Integer>> scores = new LinkedHashMap<>();
+        scores.put("0601", new ArrayList<Integer>());
+        when(scoreboard.getScoreMap()).thenReturn(scores);
+        doNothing().when(scoreboard).addScore(isA(String.class), isA(Integer.class));
+        doNothing().when(scoreboard).addUserAndScore(isA(String.class), isA(Integer.class));
+        when(scoreboards.getScoreboard("3 x 3")).thenReturn(scoreboard);
+        doNothing().when(scoreboards).addScoreboard(isA(String.class), isA(ScoreBoard.class));
+        mSaver.scoreboards = scoreboards;
+        doNothing().when(mSaver).saveScoreboards(isA(SlidingTileScoreboards.class), isA(String.class));
+        mController.updateAndSaveScoreboardIfGameOver(mManager);
+
+        verify(mManager).isOver();
+        verify(mSaver).loadScoreboards("SAVED_SCOREBOARDS");
+        verify(scoreboards).getScoreboard("3 x 3");
+        verify(scoreboard).addScore("0601", 0);
+        verify(scoreboard, times(0)).addUserAndScore("0601", 0);
+        verify(scoreboards).addScoreboard("3 x 3", scoreboard);
+        verify(mSaver).saveScoreboards(scoreboards, "SAVED_SCOREBOARDS");
+    }
 }
