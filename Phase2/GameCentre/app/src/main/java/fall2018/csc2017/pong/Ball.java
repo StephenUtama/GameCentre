@@ -155,14 +155,6 @@ public class Ball implements Serializable {
         rect.getRectF().top = y - BallHeight;
     }
 
-    public float getBallWidth(){
-        return this.BallWidth;
-    }
-
-    public float getBallHeight(){
-        return this.getBallHeight();
-    }
-
     /**
      * Clears an obstacle on horizontal axis
      * @param x coordinate
