@@ -75,7 +75,10 @@ class ColdWarGameController {
             Agent occupant = board.get(i).getAgent();
             if (occupant == null) {
                 IDs.add(R.drawable.cold_war_blank_tile);
-            } else if (occupant.getOwner().equals(coldWarGameInfo.getCurrentPlayer())
+            } else if (occupant instanceof USBase | occupant instanceof  SUBase) {
+                IDs.add(occupant.getPicture());
+            }
+            else if (occupant.getOwner().equals(coldWarGameInfo.getCurrentPlayer())
                     && occupant.isVisible()) {
                 IDs.add(occupant.getPicture());
             } else {

@@ -6,10 +6,10 @@ public abstract class Agent implements Serializable {
 
     private String owner;
 
-    /*
-        Indicates whether this piece is visible.
-         */
-    public boolean isVisible = false;
+    /**
+     * Indicates whether his piece is visible.
+     */
+    private boolean isVisible = false;
 
     public boolean isVisible() {
         return isVisible;
@@ -19,24 +19,24 @@ public abstract class Agent implements Serializable {
         isVisible = visible;
     }
 
-    /*
-    Indicates whether this piece can move
+    /**
+     * Indicates whether this piece can move.
      */
-    public boolean canMove = false;
+    private boolean canMove = false;
 
-    public boolean isCanMove() {
+    boolean isCanMove() {
         return canMove;
     }
 
-    public void setCanMove(boolean canMove) {
+    void setCanMove(boolean canMove) {
         this.canMove = canMove;
     }
 
-    public void setOwner(String owner) {
+    void setOwner(String owner) {
         this.owner = owner;
     }
 
-    public String getOwner() {
+    String getOwner() {
         return owner;
     }
 

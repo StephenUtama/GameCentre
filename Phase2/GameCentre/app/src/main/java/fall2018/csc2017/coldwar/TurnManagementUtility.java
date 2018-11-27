@@ -50,7 +50,7 @@ class TurnManagementUtility {
     }
 
     /**
-     * Make all pieces invisible.
+     * Make all pieces except bases invisible.
      *
      * @param info The game info of the current game
      */
