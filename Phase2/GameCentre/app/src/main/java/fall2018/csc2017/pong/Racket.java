@@ -79,20 +79,6 @@ public class Racket implements Serializable {
         return this.rect.getRectF();
     }
 
-
-    public void setmRectLeft(float left) {
-        rect.getRectF().left = left;
-    }
-    public void setmRectRight(float right) {
-        rect.getRectF().right = right;
-    }
-    public void setmRectTop(float top) {
-        rect.getRectF().top = top;
-    }
-    public void setmRectBottom(float bottom) {
-        rect.getRectF().bottom = bottom;
-    }
-
     /**
      * Sets new direction of the Racket
      * @param state new movement direction from final values
