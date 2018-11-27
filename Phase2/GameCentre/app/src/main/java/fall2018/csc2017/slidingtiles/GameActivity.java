@@ -14,7 +14,7 @@ import generalclasses.User;
 
 import static fall2018.csc2017.slidingtiles.StartingActivity.SAVE_FILENAME;
 
-//View Class
+//View Class, not tested.
 /**
  * The game activity, also the View.
  */

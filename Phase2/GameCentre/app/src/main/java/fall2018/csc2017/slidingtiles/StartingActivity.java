@@ -25,7 +25,7 @@ import generalclasses.GameScoreboards;
 import generalclasses.ScoreBoard;
 import generalclasses.User;
 
-//View Class
+//View Class, not tested.
 /**
  * The initial activity for the sliding puzzle tile game.
  */
