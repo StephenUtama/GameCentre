@@ -60,7 +60,7 @@ public class ColdWarMainActivity extends AppCompatActivity {
      */
     private void setUpGridView() {
         gridView = findViewById(R.id.coldWarGridView);
-        gridView.setAdapter(new ImageAdapterGridView(this, ColdWarManager.getImageIDs(coldWarGameInfo)));
+        gridView.setAdapter(new ImageAdapterGridView(this, ColdWarGameController.getImageIDs(coldWarGameInfo)));
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -93,8 +93,8 @@ public class ColdWarMainActivity extends AppCompatActivity {
     }
 
     public void endMoveButtonClicked(View view) {
-        ColdWarManager.endTurn(coldWarGameInfo);
-        List<Integer> imageIDs = ColdWarManager.getImageIDs(coldWarGameInfo);
+        TurnManagementUtility.endTurn(coldWarGameInfo);
+        List<Integer> imageIDs = ColdWarGameController.getImageIDs(coldWarGameInfo);
         gridView.setAdapter(new ImageAdapterGridView(getBaseContext(), imageIDs));
 
         // disable end button to prevent player from ending turn before making a move
@@ -108,9 +108,9 @@ public class ColdWarMainActivity extends AppCompatActivity {
      * Check if game over and initiate appropriate Game Over sequence if needed.
      */
     private void executeWhenGameOver() {
-        if (ColdWarManager.isOver(coldWarGameInfo)) {
+        if (GameOverUtility.isOver(coldWarGameInfo)) {
             saveScoreBoardIfGameOver();
-            String message = ColdWarManager.getWinText(coldWarGameInfo);
+            String message = GameOverUtility.getWinText(coldWarGameInfo);
             showAlert(message);
         }
     }
@@ -130,7 +130,7 @@ public class ColdWarMainActivity extends AppCompatActivity {
         dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialog) {
-                finish();
+                finish(); // exit the activity when game is over/**/
             }
         });
         dialog.show();
@@ -154,8 +154,8 @@ public class ColdWarMainActivity extends AppCompatActivity {
     }
 
     public void readyButtonClicked(View view) {
-        ColdWarManager.beginTurn(coldWarGameInfo);
-        List<Integer> imageIDs = ColdWarManager.getImageIDs(coldWarGameInfo);
+        TurnManagementUtility.beginTurn(coldWarGameInfo);
+        List<Integer> imageIDs = ColdWarGameController.getImageIDs(coldWarGameInfo);
         gridView.setAdapter(new ImageAdapterGridView(getBaseContext(), imageIDs));
 
         // disable ready button to prevent player from initiating ready move sequence repeatedly
