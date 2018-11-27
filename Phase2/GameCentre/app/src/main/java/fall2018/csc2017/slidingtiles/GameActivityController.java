@@ -25,6 +25,11 @@ public class GameActivityController {
         this.mSaver = mSaver;
     }
 
+    public void setTileButtons(ArrayList<Button> tileButtons) {
+        this.tileButtons = tileButtons;
+    }
+
+
     public GameActivityController(Context context) {
         this.context = context;
         SlidingTilesFileSaverModel saver = new SlidingTilesFileSaverModel(context);

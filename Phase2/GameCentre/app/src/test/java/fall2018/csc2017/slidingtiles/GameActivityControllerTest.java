@@ -1,4 +1,5 @@
 package fall2018.csc2017.slidingtiles;
+
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.doNothing;
@@ -6,8 +7,12 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
 import org.mockito.ArgumentMatchers;
+
 import static org.junit.Assert.*;
+
+import android.graphics.drawable.Drawable;
 import android.widget.Button;
 
 import org.junit.Before;
@@ -29,10 +34,13 @@ public class GameActivityControllerTest {
     private SlidingTilesManager mManager;
     private SlidingTileScoreboards scoreboards;
     private ScoreBoard scoreboard;
+    private Tile tile;
+    private Board board;
 
 
     /**
      * Make a set of tiles that are in order.
+     *
      * @return a set of tiles that are in order
      */
     private List<Tile> makeTiles() {
@@ -53,6 +61,8 @@ public class GameActivityControllerTest {
         mController = new GameActivityController(mActivity);
         scoreboards = mock(SlidingTileScoreboards.class);
         scoreboard = mock(ScoreBoard.class);
+        board = mock(Board.class);
+        tile = mock(Tile.class);
         Board.NUM_COLS = 4;
         Board.NUM_ROWS = 4;
         mSaver = mock(SlidingTilesFileSaverModel.class);
@@ -63,7 +73,7 @@ public class GameActivityControllerTest {
     }
 
     @Test
-    public void testCreateTileButtons() {
+    public void testCreateTileButtonsImageFalse() {
         boolean image_game = false;
         Board board = new Board(makeTiles());
         ArrayList<Button> tilebuttons = mController.createTileButtons(image_game, board);
@@ -76,6 +86,17 @@ public class GameActivityControllerTest {
     }
 
     @Test
+    public void testHelperCreatingButton() {
+        mController.setTileButtons(new ArrayList<Button>());
+        when(tile.getBackground()).thenReturn(R.drawable.tile_25);
+        when(board.getTile(isA(Integer.class), isA(Integer.class))).thenReturn(tile);
+        mController.helperCreatingButton(24, 3, 3, board);
+
+        verify(board).getTile(3, 3);
+        verify(tile).getBackground();
+    }
+
+    @Test
     public void testUpdateTileButtons() {
         Board board = new Board(makeTiles());
         boolean image_game = false;
@@ -84,6 +105,36 @@ public class GameActivityControllerTest {
         assertEquals(16, tilebuttons.size());
     }
 
+    @Test
+    public void testHelperUpdate() {
+        when(tile.getId()).thenReturn(25);
+        when(tile.getBackground()).thenReturn(R.drawable.tile_25);
+        when(board.getTile(isA(Integer.class), isA(Integer.class))).thenReturn(tile);
+        Button b = mock(Button.class);
+        doNothing().when(b).setBackgroundResource(R.drawable.tile_25);
+
+        mController.helperUpdate(b, 2, board);
+        verify(b).setBackgroundResource(R.drawable.tile_25);
+        verify(b, times(0)).setBackground(isA(Drawable.class));
+    }
+
+    @Test
+    public void testUndoBtnWithPreviousMoves() {
+        when(mManager.returnPreviousMove()).thenReturn(15);
+        doNothing().when(mManager).makeMove(isA(Integer.class));
+
+        mController.undoBtn(1, mManager);
+        verify(mManager).returnPreviousMove();
+        verify(mManager).makeMove(15);
+    }
+
+    @Test
+    public void testUndoBtnWithNoPreviousMoves() {
+        mController.undoBtn(0, mManager);
+
+        verify(mManager, times(0)).returnPreviousMove();
+        verify(mManager, times(0)).makeMove(isA(Integer.class));
+    }
     @Test
     public void testUpdateAndSaveScoreboardIfGameOver() {
         mManager.getInfo().setUserName("0601");
