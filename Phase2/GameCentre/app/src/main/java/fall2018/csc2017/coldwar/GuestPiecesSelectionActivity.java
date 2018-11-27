@@ -49,6 +49,7 @@ public class GuestPiecesSelectionActivity extends PieceSelectionActivity {
 
                     intent.putExtra("gameInfo", gameInfo);
                     startActivity(intent);
+                    finish();
                 } else {
                     Toast.makeText(GuestPiecesSelectionActivity.this, "Please enter valid inputs", Toast.LENGTH_SHORT).show();
                 }
