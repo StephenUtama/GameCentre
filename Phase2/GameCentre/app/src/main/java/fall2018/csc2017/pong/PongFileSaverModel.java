@@ -21,10 +21,25 @@ import static fall2018.csc2017.pong.PongStartingActivity.SAVE_FILENAME;
 
 public class PongFileSaverModel {
 
+    /**
+     * Context that is passed in
+     */
     private Context context;
+
+    /**
+     * GameScoreBoards
+     */
     private GameScoreboards scoreboards;
+
+    /**
+     * Current user
+     */
     private User user;
 
+    /**
+     * Constructor for PongFileSaverModel
+     * @param context from the class that calls this constructor
+     */
     public PongFileSaverModel(Context context) {
         this.context = context;
     }
@@ -37,28 +52,43 @@ public class PongFileSaverModel {
         return user;
     }
 
-    public void saveButtonListener(PongGameInfo gameInfo, User user) {
+//    /**
+//     * Save button for the game
+//     * @param gameInfo the gameInfo you want to save
+//     * @param user the user that played the game
+//     */
+//    public void saveButtonListener(PongGameInfo gameInfo, User user) {
+//
+//        if (gameInfo.getScore() == 0) {
+//            makeToastNothingToSave(); // if the player hasn't played yet
+//        } else {
+//            // get the current time
+//            String currentTime = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new
+//                    Date());
+//            user.addSave(gameInfo.getGame(), currentTime, gameInfo);
+//            saveToFile(SAVE_FILENAME);
+//            makeToastSavedText();
+//        }
+//    }
 
-        if (gameInfo.getScore() == 0) {
-            makeToastNothingToSave(); // if the player hasn't played yet
-        } else {
-            // get the current time
-            String currentTime = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new
-                    Date());
-            user.addSave(gameInfo.getGame(), currentTime, gameInfo);
-            saveToFile(SAVE_FILENAME);
-            makeToastSavedText();
-        }
-    }
-
+    /**
+     * Toast for nothing to save
+     */
     private void makeToastNothingToSave() {
         Toast.makeText(context, "Nothing to Save", Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Toast for saying file is saved
+     */
     private void makeToastSavedText() {
         Toast.makeText(context, "Game Saved", Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Updates scoreboard when a game is finished
+     * @param controller the controller that is controlling that game.
+     */
     public void updateAndSaveScoreboardIfGameOver(PongGameController controller) {
 
         if (controller.isOver()) {
@@ -86,6 +116,10 @@ public class PongFileSaverModel {
         }
     }
 
+    /**
+     * Saves the scoreboard to the save file.
+     * @param scoreboards the scoreboards we are trying to save
+     */
     public void saveScoreboards(GameScoreboards scoreboards) {
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
@@ -97,17 +131,24 @@ public class PongFileSaverModel {
         }
     }
 
-    public void saveToFile(String fileName) {
-        try {
-            ObjectOutputStream outputStream = new ObjectOutputStream(
-                    context.openFileOutput(fileName, context.MODE_PRIVATE));
-            outputStream.writeObject(User.usernameToUser);
-            outputStream.close();
-        } catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
-    }
+//    /**
+//     * saves the
+//     * @param fileName
+//     */
+//    public void saveToFile(String fileName) {
+//        try {
+//            ObjectOutputStream outputStream = new ObjectOutputStream(
+//                    context.openFileOutput(fileName, context.MODE_PRIVATE));
+//            outputStream.writeObject(User.usernameToUser);
+//            outputStream.close();
+//        } catch (IOException e) {
+//            Log.e("Exception", "File write failed: " + e.toString());
+//        }
+//    }
 
+    /**
+     * Loads the scoreboard from the save file.
+     */
     public void loadScoreboards() {
         try {
             InputStream inputStream = context.openFileInput("SAVED_PONG_SCOREBOARDS");

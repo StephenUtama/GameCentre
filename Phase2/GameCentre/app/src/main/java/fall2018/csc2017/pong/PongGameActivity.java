@@ -40,6 +40,9 @@ public class PongGameActivity extends AppCompatActivity {
      */
     private String username;
 
+    /**
+     * Controller for Pong
+     */
     private PongGameController controller;
 
     /**
@@ -52,6 +55,9 @@ public class PongGameActivity extends AppCompatActivity {
      */
     private PongGameInfo gameInfo;
 
+    /**
+     * Save File and it's logic for Pong
+     */
     public static PongFileSaverModel pongSaver;
 
     public static final String SAVE_FILENAME = "master_save_file.ser";
@@ -134,6 +140,9 @@ public class PongGameActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Save button
+     */
     private void addSaveButtonListener() {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
