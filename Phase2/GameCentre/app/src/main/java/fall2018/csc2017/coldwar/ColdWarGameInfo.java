@@ -17,6 +17,32 @@ public class ColdWarGameInfo extends GameInfo {
     private Integer userScore = 0;
 
     /**
+     * A list of two integers used to store the last move made.
+     * For example, if player moved a piece from 5 to 6, then the list would contain the integers
+     * 5 and 6.
+     */
+    private List<Integer> lastMove;
+
+    public List<Integer> getLastMove() {
+        return lastMove;
+    }
+
+    public void setLastMove(List<Integer> lastMove) {
+        this.lastMove = lastMove;
+    }
+
+    /**
+     * @return A human-readable string that informs the current player about the last player's move.
+     */
+     String getLastMoveString() {
+        if (lastMove != null) {
+            return "Your opponent moved a piece from " + getLastMove().get(0)
+                    + " to " + getLastMove().get(1);
+        }
+        return "";
+    }
+
+    /**
      * Used to determine whether the game is over.
      */
     private boolean isPlayer1BaseInfiltrated = false;

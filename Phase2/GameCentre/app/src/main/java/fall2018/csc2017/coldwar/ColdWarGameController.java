@@ -16,6 +16,7 @@ class ColdWarGameController {
     private Button endButton;
     private TextView guestReputationText;
     private TextView userReputationText;
+    private TextView selectedPositionText;
     private Context context;
 
     ColdWarGameController(Context context) {
@@ -25,6 +26,7 @@ class ColdWarGameController {
     void touchMove(ColdWarGameInfo coldWarGameInfo, int selectedPosition, int position) {
         if (selectedPosition == -1) {
             this.selectedPosition = position;
+            updateUserDisplay(coldWarGameInfo);
         } else {
             if (MovementUtility.makeMove(coldWarGameInfo, selectedPosition, position)) {
                 endButton.setEnabled(true);
@@ -36,13 +38,25 @@ class ColdWarGameController {
         }
     }
 
+    /**
+     * Update the information shown to players in the game view.
+     * @param coldWarGameInfo The information about the current game
+     */
     private void updateUserDisplay(ColdWarGameInfo coldWarGameInfo) {
         String guestReputationString = "Guest Global Reputation: " +
                 coldWarGameInfo.getPlayer2Reputation().toString();
         String userReputationString = "User Global Reputation: " +
                 coldWarGameInfo.getPlayer1Reputation().toString();
+        String selectedPositionString;
+        if (selectedPosition == -1) {
+            selectedPositionString = "No position is selected.";
+        } else {
+            selectedPositionString = "Current Selected Position is: " + selectedPosition;
+        }
+
         guestReputationText.setText(guestReputationString);
         userReputationText.setText(userReputationString);
+        selectedPositionText.setText(selectedPositionString);
     }
 
     void updateGridView(GridView gridView, ColdWarGameInfo coldWarGameInfo) {
@@ -50,10 +64,12 @@ class ColdWarGameController {
         gridView.setAdapter(new ImageAdapterGridView(context, imageIDs));
     }
 
-    void setViews(Button endButton, TextView guestReputationText, TextView userReputationText) {
+    void setViews(Button endButton, TextView guestReputationText, TextView userReputationText,
+                  TextView selectedPositionText) {
         this.endButton = endButton;
         this.guestReputationText = guestReputationText;
         this.userReputationText = userReputationText;
+        this.selectedPositionText = selectedPositionText;
     }
 
     int getSelectedPosition() {

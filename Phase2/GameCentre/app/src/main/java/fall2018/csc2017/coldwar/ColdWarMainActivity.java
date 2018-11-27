@@ -24,9 +24,11 @@ public class ColdWarMainActivity extends AppCompatActivity {
     private GridView gridView;
     private TextView userReputationText;
     private TextView guestReputationText;
+    private TextView selectedPositionText;
+    private TextView lastMoveText;
     private Button endButton, readyButton, saveButton;
 
-    private int selectedPosition = -1; // this is "unselected" by default
+    static int selectedPosition = -1; // this is "unselected" by default
     private ColdWarGameInfo coldWarGameInfo;
     private ColdWarSaverModel mSaver;
     private ColdWarGameController controller;
@@ -51,8 +53,12 @@ public class ColdWarMainActivity extends AppCompatActivity {
                 coldWarGameInfo.getPlayer2Reputation().toString();
         String userReputationString = "User Global Reputation: " +
                 coldWarGameInfo.getPlayer1Reputation().toString();
+        String selectedPositionString = "";
+        String lastMoveString = "";
         guestReputationText.setText(guestReputationString);
         userReputationText.setText(userReputationString);
+        selectedPositionText.setText(selectedPositionString);
+        lastMoveText.setText(lastMoveString);
     }
 
     /**
@@ -64,7 +70,8 @@ public class ColdWarMainActivity extends AppCompatActivity {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                controller.setViews(endButton, guestReputationText, userReputationText);
+                controller.setViews(endButton, guestReputationText, userReputationText,
+                        selectedPositionText);
                 controller.touchMove(coldWarGameInfo, selectedPosition, position);
                 selectedPosition = controller.getSelectedPosition();
                 controller.updateGridView(gridView, coldWarGameInfo);
@@ -87,6 +94,8 @@ public class ColdWarMainActivity extends AppCompatActivity {
 
         userReputationText = findViewById(R.id.userReputation);
         guestReputationText = findViewById(R.id.guestReputation);
+        selectedPositionText = findViewById(R.id.selectedPositionText);
+        lastMoveText = findViewById(R.id.lastMoveText);
 
         controller = new ColdWarGameController(this);
 
@@ -102,6 +111,9 @@ public class ColdWarMainActivity extends AppCompatActivity {
         readyButton.setEnabled(true);
         saveButton.setEnabled(true);
         executeWhenGameOver();
+
+        // reset lastMoveText
+        lastMoveText.setText("");
     }
 
     /**
@@ -162,6 +174,9 @@ public class ColdWarMainActivity extends AppCompatActivity {
         readyButton.setEnabled(false);
         // disable save button to make it impossible to save when pieces are visible
         saveButton.setEnabled(false);
+
+        // tell the current player his/her opponent's last move
+        lastMoveText.setText(coldWarGameInfo.getLastMoveString());
     }
 
     public void save(View view) {
