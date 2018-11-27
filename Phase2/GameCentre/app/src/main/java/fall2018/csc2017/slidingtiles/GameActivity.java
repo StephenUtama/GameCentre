@@ -14,7 +14,7 @@ import generalclasses.User;
 
 import static fall2018.csc2017.slidingtiles.StartingActivity.SAVE_FILENAME;
 
-//View Class, not tested.
+//View Class for the main sliding tiles game, not tested.
 /**
  * The game activity, also the View.
  */
@@ -50,6 +50,10 @@ public class GameActivity extends AppCompatActivity implements Observer {
     private GameActivityController mController;
     private SlidingTilesFileSaverModel mSaver;
 
+    /**
+     * Returns User.
+     * @return User
+     */
     public User getUser() {
         return user;
     }
@@ -124,7 +128,9 @@ public class GameActivity extends AppCompatActivity implements Observer {
         updateAndSaveScoreboardIfGameOver();
     }
 
-
+    /**
+     * Update and save the user's score to a scoreboard if the game is over.
+     */
     private void updateAndSaveScoreboardIfGameOver() {
         mController.updateAndSaveScoreboardIfGameOver(slidingTilesManager);
     }

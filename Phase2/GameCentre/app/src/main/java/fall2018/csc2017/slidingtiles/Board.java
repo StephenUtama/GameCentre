@@ -45,15 +45,6 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
         }
     }
 
-//    /**
-//     * Return the number of tiles on the board.
-//     *
-//     * @return the number of tiles on the board
-//     */
-//    int numTiles() {
-//        return Board.NUM_COLS * Board.NUM_ROWS;
-//    }
-
     /**
      * Return the tile at (row, col)
      *
