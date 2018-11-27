@@ -176,4 +176,9 @@ class MovementUtility {
             }
         }
     }
+
+    static int[] positionToCoordinates(int position) {
+        int[] coordinates = {position / 6, position % 6};
+        return coordinates;
+    }
 }
