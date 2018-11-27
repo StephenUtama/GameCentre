@@ -54,17 +54,6 @@ public class PongGameController implements GameController, Serializable {
 //    int beep2ID = -1;
 //    int beep3ID = -1;
 //    int loseLifeID = -1;
-
-
-    /**
-     * Initializes PongGameController
-     */
-    public PongGameController(PongGameInfo gameInfo) {
-        // Initialize a PongGameInfo
-        this.gameInfo = gameInfo;
-
-    }
-
     /**
      * Returns true iff the two specified rectangles intersect. In no event are
      * either of the rectangles modified. To record the intersection,
@@ -78,6 +67,15 @@ public class PongGameController implements GameController, Serializable {
     public static boolean intersects(RectF a, RectF b) {
         return a.left < b.right && b.left < a.right
                 && a.top < b.bottom && b.top < a.bottom;
+    }
+
+    /**
+     * Initializes PongGameController
+     */
+    public PongGameController(PongGameInfo gameInfo) {
+        // Initialize a PongGameInfo
+        this.gameInfo = gameInfo;
+
     }
 
     /**

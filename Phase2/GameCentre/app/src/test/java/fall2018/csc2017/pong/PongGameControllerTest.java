@@ -34,9 +34,6 @@ public class PongGameControllerTest {
 
     @Before
     public void setUp(){
-//        testInfo = new PongGameInfo(1080,1920,"tester");
-//        //testInfo.setFps((long)0.25); // So that it will for sure collide with walls
-//        testController = new PongGameController(testInfo);
         testInfo = mock(PongGameInfo.class);
         testInfo.lives = 2;
         racket = mock(Racket.class);
@@ -79,15 +76,6 @@ public class PongGameControllerTest {
         verify(ball).clearObstacleY(8);
         verify(testInfo).updateScore();
         verify(ball).increaseVelocity();
-        //        // Setting coordinates to force the collision
-//        testInfo.getRacket().getRectF().left = 5;
-//        testInfo.getRacket().getRectF().right = 30;
-//        testInfo.getRacket().getRectF().top = 10;
-//        testInfo.getRacket().getRectF().bottom = 90;
-//        testInfo.getBall().getRectF().left = 20;
-//        testInfo.getBall().getRectF().right = 100;
-//        testInfo.getBall().getRectF().top = 30;
-//        testInfo.getBall().getRectF().bottom = 20;
     }
 
     @Test
