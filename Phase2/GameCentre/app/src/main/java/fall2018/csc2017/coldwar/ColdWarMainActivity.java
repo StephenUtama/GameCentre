@@ -76,7 +76,7 @@ public class ColdWarMainActivity extends AppCompatActivity {
      * Make appropriate assignments for the game play view.
      */
     private void assignments() {
-        endButton = findViewById(R.id.endMoveButton);
+        endButton = findViewById(R.id.endTurnButton);
         readyButton = findViewById(R.id.beginMoveButton);
         saveButton = findViewById(R.id.saveButton);
 
@@ -92,7 +92,7 @@ public class ColdWarMainActivity extends AppCompatActivity {
 
     }
 
-    public void endMoveButtonClicked(View view) {
+    public void endTurnButtonClicked(View view) {
         TurnManagementUtility.endTurn(coldWarGameInfo);
         List<Integer> imageIDs = ColdWarGameController.getImageIDs(coldWarGameInfo);
         gridView.setAdapter(new ImageAdapterGridView(getBaseContext(), imageIDs));
