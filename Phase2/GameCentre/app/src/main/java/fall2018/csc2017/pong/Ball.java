@@ -67,7 +67,6 @@ public class Ball implements Serializable {
         rect.getRectF().top = screenY / 10;
         rect.getRectF().right = screenX / 2 + BallWidth;
         rect.getRectF().bottom = screenY / 10 - BallHeight;
-
     }
 
     /**

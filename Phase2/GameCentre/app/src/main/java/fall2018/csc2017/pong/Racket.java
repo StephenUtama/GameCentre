@@ -65,7 +65,7 @@ public class Racket implements Serializable {
         this.y = screenHeight - 150;
 
 
-        RectF temp = new RectF( this.x, this.y, this.x + this.length, this.y + this.height);
+        RectF temp = new RectF(this.x, this.y, this.x + this.length, this.y + this.height);
         this.rect = new SerializableRectF(temp);
 
         this.rectSpeed = screenWidth;

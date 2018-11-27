@@ -71,7 +71,7 @@ public class PongGameInfo extends GameInfo implements Serializable {
         this.fps = fps;
     }
 
-    public long getFps() { return fps; }
+    public long getFps() { return this.fps; }
 
     public int getLives() {
         return lives;
@@ -82,7 +82,7 @@ public class PongGameInfo extends GameInfo implements Serializable {
     }
 
     public Ball getBall() {
-        return ball;
+        return this.ball;
     }
 
     public void setScore(int score) {

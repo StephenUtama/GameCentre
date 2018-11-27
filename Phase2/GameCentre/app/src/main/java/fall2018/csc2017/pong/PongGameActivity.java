@@ -148,6 +148,9 @@ public class PongGameActivity extends AppCompatActivity {
         });
     }
 
+    public static PongFileSaverModel getPongSaver() {
+        return pongSaver;
+    }
 
     /**
      * Activates when game is started/resumed.

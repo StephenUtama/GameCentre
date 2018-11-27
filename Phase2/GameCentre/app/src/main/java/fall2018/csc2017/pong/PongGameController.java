@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.support.v4.widget.TextViewCompat.AutoSizeTextType;
 import android.view.SurfaceHolder;
 
 import java.io.Serializable;
@@ -22,11 +23,6 @@ public class PongGameController implements GameController, Serializable {
     PongGameInfo gameInfo;
 
     /**
-     * A SurfaceHolder allows us to draw.
-     */
-    SurfaceHolder surfaceHolder;
-
-    /**
      * Whether or not game is running (from thread).
      * Volatile because it is accessed from inside and outside the thread
      */
@@ -36,16 +32,6 @@ public class PongGameController implements GameController, Serializable {
      * Whether or not the game is paused.
      */
     static boolean paused = true;
-
-    /**
-     * Canvas to draw on.
-     */
-    Canvas canvas;
-
-    /**
-     * Paint to draw with.
-     */
-    Paint paint;
 
 
 //     Sound FX
@@ -82,7 +68,6 @@ public class PongGameController implements GameController, Serializable {
      * Updates the rect of the ball and racket (Make move pretty much)
      */
     public void update() {
-
         // Move the racket if required
         gameInfo.getRacket().update(gameInfo.getFps());
         gameInfo.getBall().update(gameInfo.getFps());
@@ -131,10 +116,11 @@ public class PongGameController implements GameController, Serializable {
 
             // sp.play(beep3ID, 1, 1, 0, 0, 1);
         }
+
         if (isOver()) {
             paused = true;
             playing = false;
-            PongGameActivity.pongSaver.updateAndSaveScoreboardIfGameOver(this);
+            PongGameActivity.getPongSaver().updateAndSaveScoreboardIfGameOver(this);
         }
     }
 
@@ -151,6 +137,9 @@ public class PongGameController implements GameController, Serializable {
         }
     }
 
+    public PongGameInfo getGameInfo() {
+        return gameInfo;
+    }
 
     public boolean isOver() {
         return gameInfo.lives == 0;
