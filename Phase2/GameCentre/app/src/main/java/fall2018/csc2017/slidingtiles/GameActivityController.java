@@ -6,6 +6,8 @@ import android.widget.Button;
 
 import java.util.ArrayList;
 
+import generalclasses.ScoreBoard;
+
 /**
  * Controller for GameActivity
  */
@@ -17,9 +19,16 @@ public class GameActivityController {
      */
     private ArrayList<Button> tileButtons;
 
+    private SlidingTilesFileSaverModel mSaver;
+
+    public void setmSaver(SlidingTilesFileSaverModel mSaver) {
+        this.mSaver = mSaver;
+    }
 
     public GameActivityController(Context context) {
         this.context = context;
+        SlidingTilesFileSaverModel saver = new SlidingTilesFileSaverModel(context);
+        setmSaver(saver);
     }
 
     public ArrayList<Button> createTileButtons(boolean image_game, Board board) {
@@ -113,6 +122,43 @@ public class GameActivityController {
         if ((numPreviousMoves) != 0) { // check whether any moves were made
             int previousMove = slidingTilesManager.returnPreviousMove();
             slidingTilesManager.makeMove(previousMove);
+        }
+    }
+
+    public void updateAndSaveScoreboardIfGameOver(SlidingTilesManager slidingTilesManager) {
+
+        if (slidingTilesManager.isOver()) {
+            // Getting the info needed to display on scoreboard
+            String username = slidingTilesManager.getInfo().getUserName();
+            int score = slidingTilesManager.getInfo().getScore();
+            String complexity = slidingTilesManager.getInfo().getComplexity();
+
+            // assume we have loaded scoreboards and have the correct scoreboard
+            mSaver.loadScoreboards("SAVED_SCOREBOARDS");
+            ScoreBoard scoreboard = mSaver.scoreboards.getScoreboard(complexity);
+
+            if (scoreboard.getScoreMap().containsKey(username)) {
+                // if user already has a score
+                scoreboard.addScore(username, score);
+            } else { // if user doesn't have a score
+                scoreboard.addUserAndScore(username, score);
+            }
+            // save scoreboard
+            mSaver.scoreboards.addScoreboard(complexity, scoreboard);
+            mSaver.saveScoreboards(mSaver.scoreboards, "SAVED_SCOREBOARDS");
+        }
+    }
+
+
+    public void instantiateGameandBegin(String complexity) {
+        mSaver.loadScoreboards("SAVED_SCOREBOARDS");
+        if (mSaver.scoreboards == null) {
+            mSaver.scoreboards = new SlidingTileScoreboards();
+        }
+        if (mSaver.scoreboards.getScoreboard(complexity) == null) { // if no one has won a game
+            mSaver.scoreboards.addScoreboard(complexity, new ScoreBoard());
+            mSaver.saveScoreboards(mSaver.scoreboards, "SAVED_SCOREBOARDS");
+            // in subsequent games, however, there is no need for this
         }
     }
 }

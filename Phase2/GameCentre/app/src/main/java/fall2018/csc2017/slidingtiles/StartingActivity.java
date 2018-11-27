@@ -46,6 +46,7 @@ public class StartingActivity extends AppCompatActivity {
     private String complexity;
     private GameScoreboards scoreboards;
     private SlidingTilesFileSaverModel mSaver;
+    private GameActivityController mController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,7 @@ public class StartingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         mSaver = new SlidingTilesFileSaverModel(this);
+        mController = new GameActivityController(this);
         complexity = getIntent().getStringExtra("complexity");
         SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("my_prefs", Context.MODE_PRIVATE);
         int bg = sharedPref.getInt("background_resources", android.R.color.white); // the second parameter will be fallback if the preference is not found
@@ -103,7 +105,7 @@ public class StartingActivity extends AppCompatActivity {
         newGameInfo.setComplexity(complexity);
         newGameInfo.setUserName(username);
 
-        mSaver.instantiateGameandBegin(complexity);
+        mController.instantiateGameandBegin(complexity);
 
         Intent intent = new Intent(StartingActivity.this, GameActivity.class);
         intent.putExtra("saveToLoad", newGameInfo);

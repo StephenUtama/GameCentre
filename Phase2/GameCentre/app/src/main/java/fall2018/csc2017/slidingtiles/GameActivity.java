@@ -126,7 +126,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
 
 
     private void updateAndSaveScoreboardIfGameOver() {
-        mSaver.updateAndSaveScoreboardIfGameOver(slidingTilesManager);
+        mController.updateAndSaveScoreboardIfGameOver(slidingTilesManager);
     }
 
 
@@ -135,7 +135,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
      */
     private void autosave() {
         String game = slidingTilesManager.getInfo().getGame();
-        user.addSave(game, "Autosave", gameInfo);
+        user.addSave(game, "Autosave", gameInfo); //gameInfo contains the state of sliding tiles.
         mSaver.saveToFile(SAVE_FILENAME);
     }
 
