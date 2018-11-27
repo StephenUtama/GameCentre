@@ -134,6 +134,7 @@ class MovementUtility {
      */
     static boolean makeMove(ColdWarGameInfo info, int selectedPosition, int positionToMove) {
         List<Tile> board = info.getBoard();
+
         Agent fromOccupant = board.get(selectedPosition).getAgent();
         Agent toOccupant = board.get(positionToMove).getAgent();
 
@@ -150,6 +151,12 @@ class MovementUtility {
 
             // set all pieces to be unmovable
             toggleMovability(info);
+
+            // record the move made
+            List<Integer> movedPositions = new ArrayList<>();
+            movedPositions.add(selectedPosition);
+            movedPositions.add(positionToMove);
+            info.setLastMove(movedPositions);
 
             return true;
         }
@@ -176,4 +183,10 @@ class MovementUtility {
             }
         }
     }
+
+    static int[] positionToCoordinates(int position) {
+        int[] coordinates = {position / 6, position % 6};
+        return coordinates;
+    }
+
 }

@@ -6,47 +6,47 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 tools:context="fall2018.csc2017.coldwar.ColdWarMainActivity">
 
-<GridView
-    android:id="@+id/coldWarGridView"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:numColumns="6"/>
+    <GridView
+        android:id="@+id/coldWarGridView"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:numColumns="6" />
 
     <Button
-        android:onClick="endTurnButtonClicked"
         android:id="@+id/endTurnButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="132dp"
-        android:layout_marginBottom="81dp"
-        android:text="End Turn"
-        android:enabled="false"/>
+        android:layout_marginStart="123dp"
+        android:layout_marginBottom="9dp"
+        android:enabled="false"
+        android:onClick="endTurnButtonClicked"
+        android:text="End Turn" />
 
     <Button
-        android:onClick="readyButtonClicked"
         android:id="@+id/beginMoveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/endTurnButton"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="-7dp"
-        android:layout_marginBottom="29dp"
-        android:text="Ready"
-        android:enabled="true"/>
+        android:layout_marginStart="-120dp"
+        android:layout_marginBottom="11dp"
+        android:enabled="true"
+        android:onClick="readyButtonClicked"
+        android:text="Ready" />
 
     <Button
         android:id="@+id/saveButton"
-        android:onClick="save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="60dp"
-        android:layout_marginEnd="21dp"
-        android:text="Save"
-        android:enabled="false"/>
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="27dp"
+        android:layout_marginBottom="7dp"
+        android:enabled="false"
+        android:onClick="save"
+        android:text="Save" />
 
     <TextView
         android:id="@+id/userReputation"
@@ -69,5 +69,25 @@ tools:context="fall2018.csc2017.coldwar.ColdWarMainActivity">
         android:layout_marginBottom="181dp"
         android:ems="10"
         android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/selectedPositionText"
+        android:layout_width="275dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="137dp"
+        android:text="Select Position: " />
+
+    <TextView
+        android:id="@+id/lastMoveText"
+        android:layout_width="339dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/selectedPositionText"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="93dp"
+        android:text="lastMoveText" />
+
 
 </RelativeLayout>
