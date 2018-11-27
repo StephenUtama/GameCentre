@@ -189,9 +189,11 @@ class MovementUtility {
      * @param position
      * @return
      */
-    static int[] positionToCoordinates(int position) {
-        int[] coordinates = {position / 6, position % 6};
-        return coordinates;
+    static String positionToCoordinates(int position) {
+        String row = String.valueOf(((char) (position / 6 + 65))) ;
+        String col = Integer.toString(1 + (position % 6));
+
+        return row + col;
     }
 
 }
