@@ -32,8 +32,10 @@ public class ColdWarGameInfo extends GameInfo {
      */
      String getLastMoveString() {
         if (lastMove != null) {
-            return "Your opponent moved a piece from " + lastMove.get(0)
-                    + " to " + lastMove.get(1); // TODO: translate to coordinate format
+            String fromCoordinate = MovementUtility.positionToCoordinates(lastMove.get(0));
+            String toCoordinate = MovementUtility.positionToCoordinates(lastMove.get(1));
+            return "Your opponent moved a piece from " + fromCoordinate
+                    + " to " + toCoordinate;
         }
         return "";
     }
@@ -182,19 +184,13 @@ public class ColdWarGameInfo extends GameInfo {
 
     public int getScore(ScoreBoard scoreBoard) {
         // we get to assume game is over
-        int currentScore = 0;
         LinkedHashMap<String, ArrayList<Integer>> scoreMap = scoreBoard.getScoreMap();
         if (scoreMap.containsKey(userName)) {
-            currentScore = scoreMap.get(userName).get(0);
+            userScore = scoreMap.get(userName).get(0);
         }
 
-        if (GameOverUtility.getWinner(this).equals(PLAYER1)) {
-            currentScore += 1;
-        } else {
-            currentScore -= 1;
-        }
-
-        return currentScore;
+        updateScore();
+        return getScore();
     }
 
     @Override
@@ -206,9 +202,9 @@ public class ColdWarGameInfo extends GameInfo {
     public void updateScore() {
         if (GameOverUtility.isOver(this)) {
             if (GameOverUtility.getWinner(this).equals(PLAYER1)) {
-                userScore = 2;
-            } else {
-                userScore = -1;
+                userScore += 2;
+            } else if (userScore > 0) {
+                userScore -= 1;
             }
         }
     }
