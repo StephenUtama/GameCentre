@@ -181,4 +181,5 @@ class MovementUtility {
         int[] coordinates = {position / 6, position % 6};
         return coordinates;
     }
+
 }
