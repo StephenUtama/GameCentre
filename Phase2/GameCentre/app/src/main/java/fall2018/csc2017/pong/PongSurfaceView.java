@@ -25,32 +25,32 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
     /**
      * Size of vertical screen in pixels.
      */
-    int screenWidth;
+    public int screenWidth;
 
     /**
      * Size of horizontal screen in pixels.
      */
-    int screenHeight;
+    public int screenHeight;
 
     /**
      * Controller for this view
      */
-    PongGameController controller;
+    public PongGameController controller;
 
-    SurfaceHolder surfaceHolder;
+    public SurfaceHolder surfaceHolder;
 
     /**
      * GameInfo for the game
      */
-    PongGameInfo gameInfo;
+    public PongGameInfo gameInfo;
 
     Canvas canvas;
-    Paint paint;
+    public Paint paint;
 
     /**
      * The current context
      */
-    Context context;
+    public Context context;
 
     /**
      * Constructor for PongSurfaceView.
