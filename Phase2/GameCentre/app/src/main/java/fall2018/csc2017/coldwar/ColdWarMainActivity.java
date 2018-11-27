@@ -1,9 +1,12 @@
 package fall2018.csc2017.coldwar;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -96,10 +99,40 @@ public class ColdWarMainActivity extends AppCompatActivity {
 
     private void executeWhenGameOver() {
         if (ColdWarManager.isOver(coldWarGameInfo)) {
-            String message = ColdWarManager.getWinText(coldWarGameInfo);
-            ColdWarManager.showAlert(message, this);
             saveScoreBoardIfGameOver();
+            String message = ColdWarManager.getWinText(coldWarGameInfo);
+            showAlert(message);
         }
+    }
+
+    /**
+     * Show a popup with message.
+     *
+     * @param message Message to show
+     */
+    public void showAlert(String message) {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        TextView myMessage = new TextView(this);
+        myMessage.setText(message);
+        myMessage.setTextSize(20);
+        myMessage.setGravity(Gravity.CENTER_HORIZONTAL);
+        dialog.setView(myMessage);
+        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                finish();
+            }
+        });
+        dialog.show();
+
+//        Dialog d = dialog.setView(new View(con)).create();
+//
+//        dialog.setTitle(message);
+//        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+//        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+//        lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+//        dialog.show();
+//        d.getWindow().setAttributes(lp);
     }
 
     private void saveScoreBoardIfGameOver() {

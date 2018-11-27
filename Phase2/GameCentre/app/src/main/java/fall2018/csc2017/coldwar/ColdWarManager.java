@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
@@ -372,28 +373,4 @@ public class ColdWarManager {
         }
     }
 
-    /**
-     * Show a popup with message.
-     * @param message Message to show
-     * @param con The context
-     */
-    public static void showAlert(String message, Context con) {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(con);
-        TextView myMessage = new TextView(con);
-        myMessage.setText(message);
-        myMessage.setTextSize(20);
-        myMessage.setGravity(Gravity.CENTER_HORIZONTAL);
-        dialog.setView(myMessage);
-        dialog.show();
-
-
-//        Dialog d = dialog.setView(new View(con)).create();
-//
-//        dialog.setTitle(message);
-//        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-//        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-//        lp.height = WindowManager.LayoutParams.MATCH_PARENT;
-//        dialog.show();
-//        d.getWindow().setAttributes(lp);
-    }
 }
