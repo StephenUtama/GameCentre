@@ -27,6 +27,9 @@ public class GameActivityControllerTest {
     private GameActivity mActivity;
     private SlidingTilesFileSaverModel mSaver;
     private SlidingTilesManager mManager;
+    private SlidingTileScoreboards scoreboards;
+    private ScoreBoard scoreboard;
+
 
     /**
      * Make a set of tiles that are in order.
@@ -48,6 +51,8 @@ public class GameActivityControllerTest {
     public void setUpMock() {
         mActivity = mock(GameActivity.class);
         mController = new GameActivityController(mActivity);
+        scoreboards = mock(SlidingTileScoreboards.class);
+        scoreboard = mock(ScoreBoard.class);
         Board.NUM_COLS = 4;
         Board.NUM_ROWS = 4;
         mSaver = mock(SlidingTilesFileSaverModel.class);
@@ -75,6 +80,7 @@ public class GameActivityControllerTest {
         Board board = new Board(makeTiles());
         boolean image_game = false;
         ArrayList<Button> tilebuttons = mController.createTileButtons(image_game, board);
+        mController.updateTileButtons(tilebuttons, image_game, board);
         assertEquals(16, tilebuttons.size());
     }
 
@@ -84,8 +90,6 @@ public class GameActivityControllerTest {
         mManager.getInfo().setComplexity("3 x 3");
         when(mManager.isOver()).thenReturn(true);
         doNothing().when(mSaver).loadScoreboards(isA(String.class));
-        SlidingTileScoreboards scoreboards = mock(SlidingTileScoreboards.class);
-        ScoreBoard scoreboard = mock(ScoreBoard.class);
         LinkedHashMap<String, ArrayList<Integer>> scores = new LinkedHashMap<>();
         scores.put("0601", new ArrayList<Integer>());
         when(scoreboard.getScoreMap()).thenReturn(scores);
@@ -104,5 +108,28 @@ public class GameActivityControllerTest {
         verify(scoreboard, times(0)).addUserAndScore("0601", 0);
         verify(scoreboards).addScoreboard("3 x 3", scoreboard);
         verify(mSaver).saveScoreboards(scoreboards, "SAVED_SCOREBOARDS");
+    }
+
+    @Test
+    public void testInstantiateGameAndBegin() {
+        doNothing().when(mSaver).loadScoreboards(isA(String.class));
+
+        when(scoreboards.getScoreboard("3 x 3")).thenReturn(null);
+        doNothing().when(scoreboards).addScoreboard(isA(String.class), isA(ScoreBoard.class));
+        mSaver.scoreboards = scoreboards;
+        doNothing().when(mSaver).saveScoreboards(isA(SlidingTileScoreboards.class), isA(String.class));
+
+        mController.instantiateGameandBegin("3 x 3");
+        verify(mSaver).loadScoreboards("SAVED_SCOREBOARDS");
+        verify(scoreboards).getScoreboard("3 x 3");
+        verify(scoreboards).addScoreboard(isA(String.class), isA(ScoreBoard.class));
+        verify(mSaver).saveScoreboards(scoreboards, "SAVED_SCOREBOARDS");
+    }
+
+    @Test
+    public void testInstantiateGameAndBeginScoreBoardsNull() {
+        doNothing().when(mSaver).loadScoreboards(isA(String.class));
+        mController.instantiateGameandBegin("3 x 3"); //mSaver.scoreboard == null
+        assertTrue(mSaver.scoreboards instanceof SlidingTileScoreboards);
     }
 }
