@@ -1,7 +1,6 @@
 package fall2018.csc2017.coldwar;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -26,7 +24,7 @@ public class ColdWarMainActivity extends AppCompatActivity {
     private GridView gridView;
     private TextView userReputationText;
     private TextView guestReputationText;
-    private Button endButton, beginButton, saveButton;
+    private Button endButton, readyButton, saveButton;
 
     private int selectedPosition = -1; // this is "unselected" by default
     private ColdWarGameInfo coldWarGameInfo;
@@ -44,6 +42,9 @@ public class ColdWarMainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Set up displays related to game information that needs to be displayed to the players.
+     */
     private void setUpDisplays() {
         // set up some displays
         String guestReputationString = "Guest Global Reputation: " +
@@ -54,9 +55,12 @@ public class ColdWarMainActivity extends AppCompatActivity {
         userReputationText.setText(userReputationString);
     }
 
+    /**
+     * Set up the grid view that acts as the visualization of the playing board.
+     */
     private void setUpGridView() {
         gridView = findViewById(R.id.coldWarGridView);
-        gridView.setAdapter(new ImageAdapterGridView(this, ColdWarManager.getImageIDs(coldWarGameInfo)));
+        gridView.setAdapter(new ImageAdapterGridView(this, ColdWarGameController.getImageIDs(coldWarGameInfo)));
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -68,39 +72,45 @@ public class ColdWarMainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Make appropriate assignments for the game play view.
+     */
     private void assignments() {
         endButton = findViewById(R.id.endMoveButton);
-        beginButton = findViewById(R.id.beginMoveButton);
+        readyButton = findViewById(R.id.beginMoveButton);
         saveButton = findViewById(R.id.saveButton);
 
         Intent intent = getIntent();
         coldWarGameInfo = (ColdWarGameInfo) intent.getSerializableExtra("gameInfo");
-//        coldWarGameInfo = new ColdWarGameInfo("");
-        List<Integer> imageIDs = ColdWarManager.getImageIDs(coldWarGameInfo);
 
         mSaver = new ColdWarSaverModel(this);
 
-        userReputationText = (TextView) findViewById(R.id.userReputation);
-        guestReputationText = (TextView) findViewById(R.id.guestReputation);
+        userReputationText = findViewById(R.id.userReputation);
+        guestReputationText = findViewById(R.id.guestReputation);
 
         controller = new ColdWarGameController(this);
 
     }
 
     public void endMoveButtonClicked(View view) {
-        ColdWarManager.endTurn(coldWarGameInfo);
-        List<Integer> imageIDs = ColdWarManager.getImageIDs(coldWarGameInfo);
+        TurnManagementUtility.endTurn(coldWarGameInfo);
+        List<Integer> imageIDs = ColdWarGameController.getImageIDs(coldWarGameInfo);
         gridView.setAdapter(new ImageAdapterGridView(getBaseContext(), imageIDs));
+
+        // disable end button to prevent player from ending turn before making a move
         endButton.setEnabled(false);
-        beginButton.setEnabled(true);
+        readyButton.setEnabled(true);
         saveButton.setEnabled(true);
         executeWhenGameOver();
     }
 
+    /**
+     * Check if game over and initiate appropriate Game Over sequence if needed.
+     */
     private void executeWhenGameOver() {
-        if (ColdWarManager.isOver(coldWarGameInfo)) {
+        if (GameOverUtility.isOver(coldWarGameInfo)) {
             saveScoreBoardIfGameOver();
-            String message = ColdWarManager.getWinText(coldWarGameInfo);
+            String message = GameOverUtility.getWinText(coldWarGameInfo);
             showAlert(message);
         }
     }
@@ -120,21 +130,15 @@ public class ColdWarMainActivity extends AppCompatActivity {
         dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialog) {
-                finish();
+                finish(); // exit the activity when game is over/**/
             }
         });
         dialog.show();
-
-//        Dialog d = dialog.setView(new View(con)).create();
-//
-//        dialog.setTitle(message);
-//        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-//        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-//        lp.height = WindowManager.LayoutParams.MATCH_PARENT;
-//        dialog.show();
-//        d.getWindow().setAttributes(lp);
     }
 
+    /**
+     * Save the game information of the current game to the scoreboard if game is over.
+     */
     private void saveScoreBoardIfGameOver() {
         mSaver.loadScoreboards("COLD_WAR_SAVED_SCOREBOARDS");
         // get the correct scoreboard
@@ -149,11 +153,14 @@ public class ColdWarMainActivity extends AppCompatActivity {
         mSaver.saveScoreboards(gameScoreboards, "COLD_WAR_SAVED_SCOREBOARDS");
     }
 
-    public void beginMoveButtonClicked(View view) {
-        ColdWarManager.beginTurn(coldWarGameInfo);
-        List<Integer> imageIDs = ColdWarManager.getImageIDs(coldWarGameInfo);
+    public void readyButtonClicked(View view) {
+        TurnManagementUtility.beginTurn(coldWarGameInfo);
+        List<Integer> imageIDs = ColdWarGameController.getImageIDs(coldWarGameInfo);
         gridView.setAdapter(new ImageAdapterGridView(getBaseContext(), imageIDs));
-        beginButton.setEnabled(false);
+
+        // disable ready button to prevent player from initiating ready move sequence repeatedly
+        readyButton.setEnabled(false);
+        // disable save button to make it impossible to save when pieces are visible
         saveButton.setEnabled(false);
     }
 

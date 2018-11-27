@@ -1,23 +1,20 @@
 package fall2018.csc2017.coldwar;
 
-import android.view.View;
-
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
 import generalclasses.GameInfo;
 import generalclasses.ScoreBoard;
-import generalclasses.User;
 
 public class ColdWarGameInfo extends GameInfo {
-    private Integer START_REPUTATION = 4;
 
+    private Integer STARTING_REPUTATION = 4;
 
-    /**
-     * Used to determine whether the game is over.
-     */
-    private boolean isBaseInfiltrated = false;
+    static String PLAYER1 = "p1";
+    static String PLAYER2 = "p2";
+
+    private Integer userScore = 0;
 
     /**
      * Used to determine whether the game is over.
@@ -29,24 +26,21 @@ public class ColdWarGameInfo extends GameInfo {
      */
     private boolean isPlayer2BaseInfiltrated = false;
 
-    public boolean isPlayer1BaseInfiltrated() {
+    boolean isPlayer1BaseInfiltrated() {
         return isPlayer1BaseInfiltrated;
     }
 
-    public void setPlayer1BaseInfiltrated(boolean player1BaseInfiltrated) {
+    void setPlayer1BaseInfiltrated(boolean player1BaseInfiltrated) { // intelliJ warning incorrect
         isPlayer1BaseInfiltrated = player1BaseInfiltrated;
     }
 
-    public boolean isPlayer2BaseInfiltrated() {
+    boolean isPlayer2BaseInfiltrated() {
         return isPlayer2BaseInfiltrated;
     }
 
-    public void setPlayer2BaseInfiltrated(boolean player2BaseInfiltrated) {
+    void setPlayer2BaseInfiltrated(boolean player2BaseInfiltrated) { // intelliJ warning incorrect
         isPlayer2BaseInfiltrated = player2BaseInfiltrated;
     }
-
-    public static String PLAYER1 = "p1";
-    public static String PLAYER2 = "p2";
 
     /**
      * A list of tiles to represent the current state of the game board.
@@ -56,12 +50,12 @@ public class ColdWarGameInfo extends GameInfo {
     /**
      * The "International Reputation" of the signed in user. Used by the win/lose condition.
      */
-    private Integer Player1Reputation = START_REPUTATION;
+    private Integer Player1Reputation = STARTING_REPUTATION;
 
     /**
      * The "International Reputation" of the guest user. Used by the win/lose condition.
      */
-    private Integer Player2Reputation = START_REPUTATION;
+    private Integer Player2Reputation = STARTING_REPUTATION;
 
     /**
      * The number of spies of the signed in user. Used by the win/lose condition.
@@ -73,19 +67,19 @@ public class ColdWarGameInfo extends GameInfo {
      */
     private Integer Player2NumSpies = 4;
 
-    public Integer getPlayer1NumSpies() {
+    Integer getPlayer1NumSpies() {
         return Player1NumSpies;
     }
 
-    public void setPlayer1NumSpies(Integer player1NumSpies) {
+    void setPlayer1NumSpies(Integer player1NumSpies) {
         Player1NumSpies = player1NumSpies;
     }
 
-    public Integer getPlayer2NumSpies() {
+    Integer getPlayer2NumSpies() {
         return Player2NumSpies;
     }
 
-    public void setPlayer2NumSpies(Integer player2NumSpies) {
+    void setPlayer2NumSpies(Integer player2NumSpies) {
         Player2NumSpies = player2NumSpies;
     }
 
@@ -98,41 +92,40 @@ public class ColdWarGameInfo extends GameInfo {
     /**
      * The current player.
      */
-    private String currentPlayer = PLAYER1;
+    private String currentPlayer = PLAYER1; // set to PLAYER1 by default.
 
-    public String getCurrentPlayer() {
+    String getCurrentPlayer() {
         return currentPlayer;
     }
 
-    public void setCurrentPlayer(String currentPlayer) {
+    void setCurrentPlayer(String currentPlayer) {
         this.currentPlayer = currentPlayer;
     }
 
-    public List<Tile> getBoard(){
+    public List<Tile> getBoard() {
         return this.board;
     }
 
-    public Integer getPlayer1Reputation(){
+    Integer getPlayer1Reputation() {
         return this.Player1Reputation;
     }
 
-    public Integer getPlayer2Reputation(){
+    Integer getPlayer2Reputation() {
         return this.Player2Reputation;
     }
 
-    public void setPlayer1Reputation(int player1Reputation) {
+    void setPlayer1Reputation(int player1Reputation) {
         this.Player1Reputation = player1Reputation;
     }
 
-    public void setPlayer2Reputation(int player2Reputation){
+    void setPlayer2Reputation(int player2Reputation) {
         this.Player2Reputation = player2Reputation;
     }
 
     public ColdWarGameInfo(String userName) {
         this.userName = userName;
         board = new ArrayList<>();
-        setUpDefaultBoard();
-//        setUpTestBoard();
+        setUpBlankBoard();
     }
 
     public String getUserName() {
@@ -140,9 +133,9 @@ public class ColdWarGameInfo extends GameInfo {
     }
 
     /**
-     * Set up a blank board with no pieces.
+     * Set up a blank board with bases positioned correctly and no pieces.
      */
-    private void setUpDefaultBoard() {
+    private void setUpBlankBoard() {
         for (int i = 0; i < 36; i++) {
             Tile newTile = new Tile(null);
             board.add(newTile);
@@ -154,7 +147,13 @@ public class ColdWarGameInfo extends GameInfo {
         board.get(35).setAgent(new USBase(PLAYER1));
     }
 
-    public void setTile(Agent agent, int position) {
+    /**
+     * Set agent to the tile at position.
+     *
+     * @param agent    The agent to set
+     * @param position The position to set
+     */
+    void setTile(Agent agent, int position) {
         Tile tileToSet = this.board.get(position);
         tileToSet.setAgent(agent);
     }
@@ -167,7 +166,7 @@ public class ColdWarGameInfo extends GameInfo {
             currentScore = scoreMap.get(userName).get(0);
         }
 
-        if (ColdWarManager.getWinner(this).equals(PLAYER1)) {
+        if (GameOverUtility.getWinner(this).equals(PLAYER1)) {
             currentScore += 1;
         } else {
             currentScore -= 1;
@@ -178,20 +177,22 @@ public class ColdWarGameInfo extends GameInfo {
 
     @Override
     public int getScore() {
-        return 0;
+        return userScore;
     }
 
     @Override
     public void updateScore() {
-
+        if (GameOverUtility.isOver(this)) {
+            if (GameOverUtility.getWinner(this).equals(PLAYER1)) {
+                userScore = 2;
+            } else {
+                userScore = -1;
+            }
+        }
     }
 
     @Override
     public String getGame() {
         return "Cold War";
     }
-
-
 }
-
-

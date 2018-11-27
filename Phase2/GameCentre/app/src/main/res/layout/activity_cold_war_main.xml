@@ -25,7 +25,7 @@ tools:context="fall2018.csc2017.coldwar.ColdWarMainActivity">
         android:enabled="false"/>
 
     <Button
-        android:onClick="beginMoveButtonClicked"
+        android:onClick="readyButtonClicked"
         android:id="@+id/beginMoveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
