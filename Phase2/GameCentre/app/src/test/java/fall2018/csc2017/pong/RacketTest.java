@@ -1,4 +1,4 @@
-package pong;
+package fall2018.csc2017.pong;
 
 import android.graphics.RectF;
 

@@ -1,4 +1,4 @@
-package pong;
+package fall2018.csc2017.pong;
 
 import android.graphics.RectF;
 
@@ -75,7 +75,7 @@ public class PongGameControllerTest {
         assertEquals(true, tempScore + 1 == testInfo.getScore());
         //testing both increase and random
         assertEquals(true, previousXVelocity + previousXVelocity/10 == testInfo.getBall().getXVelocity()
-        || -previousXVelocity + previousXVelocity/10 == -testInfo.getBall().getXVelocity());
+                || -previousXVelocity + previousXVelocity/10 == -testInfo.getBall().getXVelocity());
         //testing increase velocity, reverse direction
         assertEquals(true, -(previousYVelocity + previousYVelocity/10) == -testInfo.getBall().getYVelocity());
         //test the position of the ball (clearObstacleY)

@@ -1,4 +1,5 @@
-package pong;
+package fall2018.csc2017.pong;
+
 
 import org.junit.Before;
 import org.junit.Test;
