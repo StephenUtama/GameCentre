@@ -49,40 +49,39 @@ public class PongGameControllerTest {
     }
     @Test
     public void updateRacketCollision() {
-//        int tempScore = testInfo.getScore();
-//        PongGameInfo tempInfo = testInfo;
-//        float previousXVelocity = testInfo.getBall().getXVelocity();
-//        float previousYVelocity = testInfo.getBall().getYVelocity();
-
+        int tempScore = testInfo.getScore();
+        PongGameInfo tempInfo = testInfo;
+        float previousXVelocity = testInfo.getBall().getXVelocity();
+        float previousYVelocity = testInfo.getBall().getYVelocity();
         // testInfo.getBall().reset(1020, 1080);
 
         // Setting coordinates to force the collision
-        testInfo.getBall().getRectF().left = 5;
-        testInfo.getBall().getRectF().right = 30;
-        testInfo.getBall().getRectF().top = 10;
-        testInfo.getBall().getRectF().bottom = 90;
-        testInfo.getRacket().getRectF().left = 20;
-        testInfo.getRacket().getRectF().right = 100;
-        testInfo.getRacket().getRectF().top = 30;
-        testInfo.getRacket().getRectF().bottom = 20;
+        testInfo.getRacket().getRectF().left = 5;
+        testInfo.getRacket().getRectF().right = 30;
+        testInfo.getRacket().getRectF().top = 10;
+        testInfo.getRacket().getRectF().bottom = 90;
+        testInfo.getBall().getRectF().left = 20;
+        testInfo.getBall().getRectF().right = 100;
+        testInfo.getBall().getRectF().top = 30;
+        testInfo.getBall().getRectF().bottom = 20;
 
-        assertTrue(intersects(testInfo.getBall().getRectF(), testInfo.getRacket().getRectF()));
+        assertTrue(intersects(testInfo.getRacket().getRectF(), testInfo.getBall().getRectF()));
 
 //        testInfo.getRacket().getRectF().bottom = testInfo.getBall().getRectF().bottom;
-//        testController.update();
-//        // Check whether the ball's coordinate was updated properly
-//        System.out.println("Post Score is: " + testInfo.getScore());
-//
-//        assertEquals(true, tempScore + 1 == testInfo.getScore());
-//        //testing both increase and random
-//        assertEquals(true, previousXVelocity + previousXVelocity/10 == testInfo.getBall().getXVelocity()
-//        || -previousXVelocity + previousXVelocity/10 == -testInfo.getBall().getXVelocity());
-//        //testing increase velocity, reverse direction
-//        assertEquals(true, -(previousYVelocity + previousYVelocity/10) == -testInfo.getBall().getYVelocity());
-//        //test the position of the ball (clearObstacleY)
-//        assertEquals(true, testInfo.getBall().getRectF().bottom == tempInfo.getBall().getRectF().bottom - 2);
-//        assertEquals(true, testInfo.getBall().getRectF().top ==
-//                testInfo.getBall().getRectF().bottom - tempInfo.getBall().getBallHeight());
+        testController.update();
+        // Check whether the ball's coordinate was updated properly
+        System.out.println("Post Score is: " + testInfo.getScore());
+
+        assertEquals(true, tempScore + 1 == testInfo.getScore());
+        //testing both increase and random
+        assertEquals(true, previousXVelocity + previousXVelocity/10 == testInfo.getBall().getXVelocity()
+        || -previousXVelocity + previousXVelocity/10 == -testInfo.getBall().getXVelocity());
+        //testing increase velocity, reverse direction
+        assertEquals(true, -(previousYVelocity + previousYVelocity/10) == -testInfo.getBall().getYVelocity());
+        //test the position of the ball (clearObstacleY)
+        assertEquals(true, testInfo.getBall().getRectF().bottom == tempInfo.getBall().getRectF().bottom - 2);
+        assertEquals(true, testInfo.getBall().getRectF().top ==
+                testInfo.getBall().getRectF().bottom - tempInfo.getBall().getBallHeight());
 
     }
 
