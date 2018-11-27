@@ -24,6 +24,7 @@ import generalclasses.GameScoreboards;
 import generalclasses.ScoreBoard;
 import generalclasses.User;
 
+//View class for ScoreBoard, not tested.
 /**
  * The Activity for the Scoreboard.
  */

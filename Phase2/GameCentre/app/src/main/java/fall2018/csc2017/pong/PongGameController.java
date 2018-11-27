@@ -66,6 +66,21 @@ public class PongGameController implements GameController, Serializable {
     }
 
     /**
+     * Returns true iff the two specified rectangles intersect. In no event are
+     * either of the rectangles modified. To record the intersection,
+     * use intersect() or setIntersect().
+     *
+     * @param a The first rectangle being tested for intersection
+     * @param b The second rectangle being tested for intersection
+     * @return true iff the two specified rectangles intersect. In no event are
+     *              either of the rectangles modified.
+     */
+    public static boolean intersects(RectF a, RectF b) {
+        return a.left < b.right && b.left < a.right
+                && a.top < b.bottom && b.top < a.bottom;
+    }
+
+    /**
      * Updates the rect of the ball and racket (Make move pretty much)
      */
     public void update() {
@@ -75,7 +90,7 @@ public class PongGameController implements GameController, Serializable {
         gameInfo.getBall().update(gameInfo.getFps());
 
         // If ball colliding with racket
-        if (RectF.intersects(gameInfo.getRacket().getRectF(), gameInfo.getBall().getRectF())) {
+        if (intersects(gameInfo.getRacket().getRectF(), gameInfo.getBall().getRectF())) {
             gameInfo.getBall().setRandomXVelocity();
             gameInfo.getBall().reverseYVelocity();
             gameInfo.getBall().clearObstacleY(gameInfo.getRacket().getRectF().top - 2);
