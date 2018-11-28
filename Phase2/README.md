@@ -91,36 +91,6 @@ to a file should a user decide to save their game. A user may choose to load a p
 * **Class SlidingTilesGameController:** This class contains all the logic involving processing a user's 
 touch for the game.
 
-* **Class SignUpActivity:** New users are required to make an account before playing. It uses 
-SharedPreferences to store the user's username and password.
-
-* **Class SignUpSignInActivity** This is the interface where users have to sign in into their accounts before 
-getting access to the sliding tiles puzzle game. New users can click on register to create an account. Account
-holders may choose to change their password as well.
-
-* **Class PasswordChangeActivity:** A user may choose to change their password at any given time. It uses 
-SharedPreferences delete the old password and store the new password.(Bonus)
-
-* **Class Session:** A singleton model that stores a specific user's information such as their username, 
-password and game scores. There can only be one user logged in at a time. A session ends when a user sign out.
-
-* **Class UserManager:** A class that uses SharedPreferences to store users' usernames and passwords. It
-can then use this information to check whether a user has provided the correct information when signing in,
-whether a username has already been taken when a new user creates an account and if a user is eligible to 
-change their password.
-
-* **Class ScoreActivity:** This screen shows a user's game score after completing a game of sliding tiles. 
-It also shows their best score as well as a ranking board that lists the top three people with the highest 
-scores in the game.
-
-* **Class ScoreBoardActivity:** This screen shows the ranking of the top 10 players of the game at all time with their
-username, top score and ranking. Note that if two players have the same scores, the player who achieved that score
-earlier is ranked higher.
-
-* **Class ScoreBoardManager:** Extends the BoardManager class and uses HashMaps to keep record of users' 
-best scores. Additional features include getting a list of high scores paired with the respective users who 
-obtained the scores. 
-
 * **Class DownloadingActivity:** This screen allows the user copy and paste an URL link to download an images as the tiles 
 background when playing the sliding tiles game.(Bonus)  
 
