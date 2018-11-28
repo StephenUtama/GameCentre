@@ -22,6 +22,11 @@ class SlidingTilesManager extends Manager implements Serializable {
     }
 
 
+    /**
+     * Sets a SlidingTilesGameInfo object.
+     *
+     * @param info the manager's game information.
+     */
     public void setInfo(SlidingTilesGameInfo info) {
         this.info = info;
     }
@@ -64,7 +69,7 @@ class SlidingTilesManager extends Manager implements Serializable {
      * @param position the tile to check
      * @return whether the tile at position is surrounded by a blank tile
      */
-    public boolean isValidMove(Object position) {
+    boolean isValidMove(Object position) {
 
         int row = (Integer) position / Board.NUM_COLS;
         int col = (Integer) position % Board.NUM_COLS;
@@ -87,7 +92,7 @@ class SlidingTilesManager extends Manager implements Serializable {
      * @param blankId is the id of the blank tile.
      * @return int[] where the row is at 0th index and col is at 1st index.
      */
-    public int[] findBlankTile(int blankId) {
+    int[] findBlankTile(int blankId) {
 
         int[] ret = new int[2];
         // looping through all of the tiles in board to find an id matching with blankId.
@@ -127,7 +132,7 @@ class SlidingTilesManager extends Manager implements Serializable {
      * Save the current state of GameInfo into its previousGameInfo list. This is necessary for the
      * undo functionality.
      */
-    public void savePreviousMovePosition(int position) {
+    void savePreviousMovePosition(int position) {
         info.previousMovesList.add(position);
     }
 
@@ -136,7 +141,7 @@ class SlidingTilesManager extends Manager implements Serializable {
      *
      * @return last index of info.previousGameInfosList.
      */
-    public Integer returnPreviousMove() {
+    Integer returnPreviousMove() {
         int numPreviousGames = info.previousMovesList.size();
         if (numPreviousGames != 0) {
             int ret = info.previousMovesList.get(numPreviousGames - 1); // save the last element

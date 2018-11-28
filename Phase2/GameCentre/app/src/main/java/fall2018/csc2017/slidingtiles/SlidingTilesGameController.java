@@ -6,18 +6,34 @@ import android.widget.Toast;
 import generalclasses.GameController;
 import generalclasses.User;
 
-
+/**
+ * A controller in charge of processing an action of a user.
+ */
 class SlidingTilesGameController implements GameController {
 
     private SlidingTilesManager slidingTilesManager = null;
 
+    /**
+     * Creates an instance of the controller.
+     */
     SlidingTilesGameController() {
     }
 
+    /**
+     * Sets a slidingTilesManager for this controller.
+     *
+     * @param slidingTilesManager manager responsible for the game grid.
+     */
     void setSlidingTilesManager(SlidingTilesManager slidingTilesManager) {
         this.slidingTilesManager = slidingTilesManager;
     }
 
+    /**
+     * Checks if a move is valid, and then proceeds to do so. If not, an invalid move message is shown.
+     *
+     * @param context  GameActivity context.
+     * @param position the position the user wants to swap the blank tile with.
+     */
     void processTapMovement(Context context, int position) {
         if (slidingTilesManager.isValidMove(position)) {
 
