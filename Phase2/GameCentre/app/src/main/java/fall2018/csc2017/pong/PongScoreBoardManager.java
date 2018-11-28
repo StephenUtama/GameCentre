@@ -15,8 +15,6 @@ public class PongScoreBoardManager {
     private PongScoreBoardActivity scoreActivity;
     private LinkedHashMap<String, ArrayList<Integer>> scores;
     private LinkedHashMap<String, Integer> highScores;
-    TextView currentUserText;
-    TextView currentScoreText;
 
     /**
      * Constructor of the manager of PongScoreBoard
@@ -56,11 +54,13 @@ public class PongScoreBoardManager {
      * @param scoreText the text you want to replace score + i with.
      */
     public void setTextValues(int i, String userText, String scoreText) {
-        currentUserText = scoreActivity.findViewById(scoreActivity.getResources().getIdentifier("User" + i,
+        TextView currentUserText = scoreActivity.findViewById(scoreActivity.getResources().getIdentifier("User" + i,
                 "id",
                 scoreActivity.getPackageName()));
+        System.out.println("The package name is " + scoreActivity.getPackageName());
         currentUserText.setText(userText);
-        currentScoreText = scoreActivity.findViewById(scoreActivity.getResources().getIdentifier("Score" + i,
+
+        TextView currentScoreText = scoreActivity.findViewById(scoreActivity.getResources().getIdentifier("Score" + i,
                 "id",
                 scoreActivity.getPackageName()));
         currentScoreText.setText(scoreText);
@@ -69,7 +69,7 @@ public class PongScoreBoardManager {
     /**
      * Updates 'highScores' LinkedHashMap with the current scores.
      */
-    public void updateHighScores() {
+    private void updateHighScores() {
         ArrayList<Object[]> highScoreArray = getHighScoreArray();
         for (Object[] set : highScoreArray) {
             highScores.put((String) set[0], (Integer) set[1]); // set[0] = user, set[1] = score
@@ -82,7 +82,7 @@ public class PongScoreBoardManager {
      *
      * @return a sorted ArrayList<[User, Score]> of the highest scoring players and their scores.
      */
-    public ArrayList<Object[]> getHighScoreArray() {
+    private ArrayList<Object[]> getHighScoreArray() {
 
         ArrayList<Object[]> highScoresArray = new ArrayList<>(); // max size: 9, contains [user, score]
         for (String user : scores.keySet()) {
@@ -110,7 +110,7 @@ public class PongScoreBoardManager {
      * Helper function used for getHighScoreArray.
      * It sorts highScoresArray based on the score.
      */
-    public void sortHighScoreArray(ArrayList<Object[]> highScoreArray) {
+    private void sortHighScoreArray(ArrayList<Object[]> highScoreArray) {
         Collections.sort(highScoreArray, new Comparator<Object[]>() {
             public int compare(Object[] temp1, Object[] temp2) {
                 return Integer.compare((int) temp1[1], (int) temp2[1]);
@@ -123,7 +123,7 @@ public class PongScoreBoardManager {
      *
      * @param username the username of the current user logged in.
      */
-    void displayLocalRankings(String username) {
+    public void displayLocalRankings(String username) {
         ArrayList localScores = scores.get(username);
         Collections.sort(localScores, Collections.reverseOrder());
         if (localScores.size() >= 9) {
@@ -147,9 +147,10 @@ public class PongScoreBoardManager {
     /**
      * Making the scoreboard display blank rankings where user is N/A and score is N/A
      */
-    public void displayBlankRankings() {
+    void displayBlankRankings() {
         for (int i = 0; i < 9; i++) {
             setTextValues(i, "N/A", "N/A");
         }
     }
+
 }

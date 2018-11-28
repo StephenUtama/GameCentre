@@ -1,15 +1,19 @@
 package fall2018.csc2017.coldwar;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 public class GameOverTest {
     private ColdWarGameInfo info; // Create a new ColdWarGameInfo variable
 
+    @Before
+    public void setUpBoard(){
+        info = BoardSetupTest.setUpTestBoard();
+    }
+
     @Test
     public void testIsGameOver() {
-        info = BoardSetupTest.setUpTestBoard();
-
         Assert.assertFalse(GameOverUtility.isOver(info));
 
         info.setPlayer2BaseInfiltrated(true);
@@ -39,8 +43,6 @@ public class GameOverTest {
 
     @Test
     public void testWinText(){
-        info = BoardSetupTest.setUpTestBoard();
-
         info.setPlayer2BaseInfiltrated(true);
         String scenario1Text = GameOverUtility.getWinText(info);
         info = BoardSetupTest.setUpTestBoard(); // reset board
@@ -83,8 +85,6 @@ public class GameOverTest {
 
     @Test
     public void testCorrectWinner() {
-        info = BoardSetupTest.setUpTestBoard();
-
         Assert.assertFalse(GameOverUtility.isOver(info));
 
         info.setPlayer2BaseInfiltrated(true);

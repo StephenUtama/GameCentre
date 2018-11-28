@@ -1,14 +1,19 @@
 package fall2018.csc2017.coldwar;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 public class MovementTest {
     private ColdWarGameInfo info; // create a new ColdWarGameInfo variable
 
+    @Before
+    public void setUpBoard(){
+        info = BoardSetupTest.setUpTestBoard();
+    }
+
     @Test
     public void testMoveToNeighbour() {
-        info = BoardSetupTest.setUpTestBoard(); // set up a sample board
         MovementUtility.toggleMovability(info);
 
         Integer from1 = 8, to1 = 9; // neighbouring on the same row
@@ -29,7 +34,6 @@ public class MovementTest {
 
     @Test
     public void testMovable() {
-        info = BoardSetupTest.setUpTestBoard();
         MovementUtility.toggleMovability(info); // make pieces movable (they are not by default)
 
         Integer from1 = 11, to1 = 10; // move a piece owned by player 1
@@ -48,7 +52,6 @@ public class MovementTest {
 
     @Test
     public void testPerformAction() {
-        info = BoardSetupTest.setUpTestBoard();
         MovementUtility.toggleMovability(info); // make pieces movable (they are not by default)
 
         Integer from1 = 16, to1 = 22; // piece legally perform action on diplomat
