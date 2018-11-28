@@ -26,7 +26,7 @@ public class PongSurfaceViewTest {
         testContext = mock(Context.class);
         testInfo = mock(PongGameInfo.class);
         testSurfaceHolder = mock(SurfaceHolder.class);
-        testController = mock(PongGameController.class);
+        testController = new PongGameController(testInfo);
         testSurfaceView = new PongSurfaceView(testContext, 1080, 1920, testInfo);
         testSurfaceView.controller = testController;
         testSurfaceView.surfaceHolder = testSurfaceHolder;
@@ -37,6 +37,8 @@ public class PongSurfaceViewTest {
 
     @Test
     public void getGameInfo() {
+        PongGameInfo temp = testSurfaceView.getGameInfo();
+        assertEquals(true,temp == testInfo);
     }
 
     @Test
