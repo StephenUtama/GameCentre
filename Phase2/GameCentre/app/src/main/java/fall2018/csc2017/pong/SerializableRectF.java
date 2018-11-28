@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 /**
  * RectF that is Serializable
- * Excluded from unit test since this is just a Model involving a file
+ * Excluded from unit test since this is just a Model
  */
 public class SerializableRectF extends RectF implements Serializable {
 

@@ -38,9 +38,9 @@ public class Racket implements Serializable {
     /**
      * These four variables represents the direction of the racket
      */
-    public final int STOPPED = 0;
-    public final int LEFT = 1;
-    public final int RIGHT = 2;
+    final int STOPPED = 0;
+    final int LEFT = 1;
+    final int RIGHT = 2;
     private int rectMove = STOPPED;
 
     /**

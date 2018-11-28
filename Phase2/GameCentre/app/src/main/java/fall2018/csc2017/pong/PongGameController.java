@@ -26,12 +26,12 @@ public class PongGameController implements GameController, Serializable {
      * Whether or not game is running (from thread).
      * Volatile because it is accessed from inside and outside the thread
      */
-    volatile static boolean playing;
+    public volatile static boolean playing;
 
     /**
      * Whether or not the game is paused.
      */
-    static boolean paused = true;
+    public static boolean paused = true;
 
 
 //     Sound FX

@@ -1,4 +1,4 @@
-package fall2018.csc2017.pong;
+package fall2018.csc2017.PongTest;
 
 import android.graphics.RectF;
 import android.os.PowerManager;
@@ -14,6 +14,8 @@ import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
 import fall2018.csc2017.pong.Ball;
+import fall2018.csc2017.pong.PongFileSaverModel;
+import fall2018.csc2017.pong.PongGameActivity;
 import fall2018.csc2017.pong.PongGameController;
 import fall2018.csc2017.pong.PongGameInfo;
 import fall2018.csc2017.pong.Racket;
