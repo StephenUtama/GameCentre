@@ -67,7 +67,6 @@ public class Ball implements Serializable {
         rect.getRectF().top = screenY / 10;
         rect.getRectF().right = screenX / 2 + BallWidth;
         rect.getRectF().bottom = screenY / 10 - BallHeight;
-
     }
 
     /**
@@ -76,19 +75,6 @@ public class Ball implements Serializable {
      */
     public RectF getRectF() {
         return rect.getRectF();
-    }
-
-    public void setmRectLeft(float left) {
-        rect.getRectF().left = left;
-    }
-    public void setmRectRight(float right) {
-        rect.getRectF().right = right;
-    }
-    public void setmRectTop(float top) {
-        rect.getRectF().top = top;
-    }
-    public void setmRectBottom(float bottom) {
-        rect.getRectF().bottom = bottom;
     }
 
     public float getXVelocity() {
@@ -154,14 +140,6 @@ public class Ball implements Serializable {
     public void clearObstacleY(float y){
         rect.getRectF().bottom = y;
         rect.getRectF().top = y - BallHeight;
-    }
-
-    public float getBallWidth(){
-        return this.BallWidth;
-    }
-
-    public float getBallHeight(){
-        return this.getBallHeight();
     }
 
     /**

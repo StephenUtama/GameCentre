@@ -1,4 +1,4 @@
-package fall2018.csc2017.pong;
+package fall2018.csc2017.PongTest;
 
 import android.graphics.RectF;
 import android.os.PowerManager;
@@ -7,12 +7,15 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Answers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
 import fall2018.csc2017.pong.Ball;
+import fall2018.csc2017.pong.PongFileSaverModel;
+import fall2018.csc2017.pong.PongGameActivity;
 import fall2018.csc2017.pong.PongGameController;
 import fall2018.csc2017.pong.PongGameInfo;
 import fall2018.csc2017.pong.Racket;
@@ -25,7 +28,8 @@ import static org.mockito.Mockito.*;
 
 public class PongGameControllerTest {
     PongGameController testController;
-
+    PongFileSaverModel testSaver;
+    PongGameActivity testGameActivity;
     private PongGameInfo testInfo;
     private Racket racket;
     private Ball ball;
@@ -35,6 +39,9 @@ public class PongGameControllerTest {
     @Before
     public void setUp(){
         testInfo = mock(PongGameInfo.class);
+        testSaver = mock(PongFileSaverModel.class);
+        testGameActivity = mock(PongGameActivity.class);
+        testGameActivity.pongSaver = testSaver;
         testInfo.lives = 2;
         racket = mock(Racket.class);
         ball = mock(Ball.class);
@@ -51,6 +58,8 @@ public class PongGameControllerTest {
         doNothing().when(racket).update(isA(Long.class));
         when(testInfo.getScreenHeight()).thenReturn(30);
         when(testInfo.getScreenWidth()).thenReturn(110);
+        doNothing().when(testSaver).updateAndSaveScoreboardIfGameOver(testController);
+
     }
 
     @Test
@@ -190,45 +199,20 @@ public class PongGameControllerTest {
         verify(testInfo, times(0)).setLives(3);
     }
 
+    @Test
+    public void testIsOVer(){
+        testInfo.lives = 0;
+        testController.update();
 
-//    @Test
-//    public void updateRacketCollision() {
-//        int tempScore = testInfo.getScore();
-//        PongGameInfo tempInfo = testInfo;
-//        float previousXVelocity = testInfo.getBall().getXVelocity();
-//        float previousYVelocity = testInfo.getBall().getYVelocity();
-//        // testInfo.getBall().reset(1020, 1080);
-//
-//        // Setting coordinates to force the collision
-//        testInfo.getRacket().getRectF().left = 5;
-//        testInfo.getRacket().getRectF().right = 30;
-//        testInfo.getRacket().getRectF().top = 10;
-//        testInfo.getRacket().getRectF().bottom = 90;
-//        testInfo.getBall().getRectF().left = 20;
-//        testInfo.getBall().getRectF().right = 100;
-//        testInfo.getBall().getRectF().top = 30;
-//        testInfo.getBall().getRectF().bottom = 20;
-//
-//        assertTrue(intersects(testInfo.getRacket().getRectF(), testInfo.getBall().getRectF()));
-//
-////        testInfo.getRacket().getRectF().bottom = testInfo.getBall().getRectF().bottom;
-//        testController.update();
-//        // Check whether the ball's coordinate was updated properly
-//        System.out.println("Post Score is: " + testInfo.getScore());
-//
-//        assertEquals(true, tempScore + 1 == testInfo.getScore());
-//        //testing both increase and random
-//        assertEquals(true, previousXVelocity + previousXVelocity/10 == testInfo.getBall().getXVelocity()
-//                || -previousXVelocity + previousXVelocity/10 == -testInfo.getBall().getXVelocity());
-//        //testing increase velocity, reverse direction
-//        assertEquals(true, -(previousYVelocity + previousYVelocity/10) == -testInfo.getBall().getYVelocity());
-//        //test the position of the ball (clearObstacleY)
-//        assertEquals(true, testInfo.getBall().getRectF().bottom == tempInfo.getBall().getRectF().bottom - 2);
-//        assertEquals(true, testInfo.getBall().getRectF().top ==
-//                testInfo.getBall().getRectF().bottom - tempInfo.getBall().getBallHeight());
-//
-//    }
+        assertFalse(testController.playing);
+        assertTrue(testController.paused);
+    }
 
+    @Test
+    public void testGetGameInfo(){
+        PongGameInfo temp = testController.getGameInfo();
+        assertEquals(true, temp == testInfo);
+    }
 
     @Test
     public void setupAndRestart() {

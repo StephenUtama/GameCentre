@@ -38,9 +38,9 @@ public class Racket implements Serializable {
     /**
      * These four variables represents the direction of the racket
      */
-    public final int STOPPED = 0;
-    public final int LEFT = 1;
-    public final int RIGHT = 2;
+    final int STOPPED = 0;
+    final int LEFT = 1;
+    final int RIGHT = 2;
     private int rectMove = STOPPED;
 
     /**
@@ -65,7 +65,7 @@ public class Racket implements Serializable {
         this.y = screenHeight - 150;
 
 
-        RectF temp = new RectF( this.x, this.y, this.x + this.length, this.y + this.height);
+        RectF temp = new RectF(this.x, this.y, this.x + this.length, this.y + this.height);
         this.rect = new SerializableRectF(temp);
 
         this.rectSpeed = screenWidth;
@@ -77,20 +77,6 @@ public class Racket implements Serializable {
     public RectF getRectF(){
 
         return this.rect.getRectF();
-    }
-
-
-    public void setmRectLeft(float left) {
-        rect.getRectF().left = left;
-    }
-    public void setmRectRight(float right) {
-        rect.getRectF().right = right;
-    }
-    public void setmRectTop(float top) {
-        rect.getRectF().top = top;
-    }
-    public void setmRectBottom(float bottom) {
-        rect.getRectF().bottom = bottom;
     }
 
     /**

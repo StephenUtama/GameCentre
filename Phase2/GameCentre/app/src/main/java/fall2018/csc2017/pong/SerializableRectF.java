@@ -8,20 +8,24 @@ import java.io.Serializable;
 
 /**
  * RectF that is Serializable
- * Excluded from unit test since this is just a Model involving a file
+ * Excluded from unit test since this is just a Model
  */
-public class SerializableRectF implements Serializable {
+public class SerializableRectF extends RectF implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private RectF mRect;
 
     public SerializableRectF(RectF rect) {
-        mRect = rect;
+        this.mRect = rect;
+        this.mRect.left = rect.left;
+        this.mRect.top = rect.top;
+        this.mRect.right = rect.right;
+        this.mRect.bottom = rect.bottom;
     }
 
     public RectF getRectF() {
-        return mRect;
+        return this.mRect;
     }
 
     private void writeObject(java.io.ObjectOutputStream out) throws IOException {

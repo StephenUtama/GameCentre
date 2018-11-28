@@ -52,44 +52,6 @@ public class SlidingTilesFileSaverModel extends SaverModel {
     }
 
 
-//    public void updateAndSaveScoreboardIfGameOver(SlidingTilesManager slidingTilesManager) {
-//
-//        if (slidingTilesManager.isOver()) {
-//            // Getting the info needed to display on scoreboard
-//            String username = slidingTilesManager.getInfo().getUserName();
-//            int score = slidingTilesManager.getInfo().getScore();
-//            String complexity = slidingTilesManager.getInfo().getComplexity();
-//
-//            // assume we have loaded scoreboards and have the correct scoreboard
-//            loadScoreboards("SAVED_SCOREBOARDS");
-//            ScoreBoard scoreboard = scoreboards.getScoreboard(complexity);
-//
-//            if (scoreboard.getScoreMap().containsKey(username)) {
-//                // if user already has a score
-//                scoreboard.addScore(username, score);
-//            } else { // if user doesn't have a score
-//                scoreboard.addUserAndScore(username, score);
-//            }
-//            // save scoreboard
-//            scoreboards.addScoreboard(complexity, scoreboard);
-//            saveScoreboards(scoreboards, "SAVED_SCOREBOARDS");
-//        }
-//    }
-
-//
-//    public void instantiateGameandBegin(String complexity) {
-//        loadScoreboards("SAVED_SCOREBOARDS");
-//        if (scoreboards == null) {
-//            scoreboards = new SlidingTileScoreboards();
-//        }
-//        if (scoreboards.getScoreboard(complexity) == null) { // if no one has won a game
-//            scoreboards.addScoreboard(complexity, new ScoreBoard());
-//            saveScoreboards(scoreboards, "SAVED_SCOREBOARDS");
-//            // in subsequent games, however, there is no need for this
-//        }
-//    }
-
-
     public String[] getSaveNamesComplexity(String complexity, HashMap<String, GameInfo> saves) {
         ArrayList<String> tempResult = new ArrayList<>();
         for (String saveName : saves.keySet()) {

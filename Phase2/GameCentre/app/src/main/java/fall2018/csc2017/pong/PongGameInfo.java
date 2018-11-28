@@ -23,22 +23,22 @@ public class PongGameInfo extends GameInfo implements Serializable {
     /**
      * The player's racket.
      */
-    Racket racket;
+    private Racket racket;
 
     /**
      * The ball.
      */
-    Ball ball;
+    private Ball ball;
 
     /**
      * The player's score
      */
-    int score;
+    public int score;
 
     /**
      * The number of lives player has.
      */
-    int lives;
+    public int lives;
 
     /**
      * The game's fps.
@@ -71,7 +71,7 @@ public class PongGameInfo extends GameInfo implements Serializable {
         this.fps = fps;
     }
 
-    public long getFps() { return fps; }
+    public long getFps() { return this.fps; }
 
     public int getLives() {
         return lives;
@@ -82,7 +82,7 @@ public class PongGameInfo extends GameInfo implements Serializable {
     }
 
     public Ball getBall() {
-        return ball;
+        return this.ball;
     }
 
     public void setScore(int score) {
