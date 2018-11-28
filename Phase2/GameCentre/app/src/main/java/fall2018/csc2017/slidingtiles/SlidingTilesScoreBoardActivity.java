@@ -33,7 +33,6 @@ public class SlidingTilesScoreBoardActivity extends ScoreBoardActivity {
      * The current user
      */
     private User user;
-    private String complexity;
     private TextView display;
 
     @Override
@@ -45,7 +44,7 @@ public class SlidingTilesScoreBoardActivity extends ScoreBoardActivity {
         getWindow().setBackgroundDrawableResource(bg);
         // Getting the values
         user = (User) getIntent().getSerializableExtra("user");
-        complexity = getIntent().getStringExtra("complexity");
+        String complexity = getIntent().getStringExtra("complexity");
 
         // load the scoreboards from save file//
         loadScoreboards("SAVED_SCOREBOARDS");
