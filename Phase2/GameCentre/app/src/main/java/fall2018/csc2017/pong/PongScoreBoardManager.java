@@ -53,7 +53,7 @@ public class PongScoreBoardManager {
      * @param userText  the text you want to replace user + i with.
      * @param scoreText the text you want to replace score + i with.
      */
-    private void setTextValues(int i, String userText, String scoreText) {
+    public void setTextValues(int i, String userText, String scoreText) {
         TextView currentUserText = scoreActivity.findViewById(scoreActivity.getResources().getIdentifier("User" + i,
                 "id",
                 scoreActivity.getPackageName()));
@@ -123,7 +123,7 @@ public class PongScoreBoardManager {
      *
      * @param username the username of the current user logged in.
      */
-    void displayLocalRankings(String username) {
+    public void displayLocalRankings(String username) {
         ArrayList localScores = scores.get(username);
         Collections.sort(localScores, Collections.reverseOrder());
         if (localScores.size() >= 9) {
