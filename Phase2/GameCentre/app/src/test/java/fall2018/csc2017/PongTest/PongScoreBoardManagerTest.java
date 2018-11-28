@@ -1,5 +1,7 @@
 package fall2018.csc2017.PongTest;
 
+import android.widget.TextView;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -10,7 +12,9 @@ import fall2018.csc2017.pong.PongScoreBoardActivity;
 import fall2018.csc2017.pong.PongScoreBoardManager;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 public class PongScoreBoardManagerTest {
 
@@ -28,6 +32,28 @@ public class PongScoreBoardManagerTest {
     }
 
     @Test
+    public void testUpdateHighScores(){
+
+        //testManager.updateHighScores();
+
+    }
+
+    @Test
+    public void testGetHighScoreArray(){
+
+    }
+
+    @Test
+    public void testSortHighScoreArray(){
+
+    }
+
+    @Test
+    public void testDisplayBlankRankings(){
+
+    }
+
+    @Test
     public void displayGlobalRankings() {
     }
 
@@ -37,5 +63,13 @@ public class PongScoreBoardManagerTest {
 
     @Test
     public void displayBlankRankings() {
+
+        //testManager.displayBlankRankings();
+
+    }
+
+    @Test
+    public void setTextValues() {
+
     }
 }

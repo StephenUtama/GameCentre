@@ -54,6 +54,16 @@ to other members if this group member repeatedly fails to produce a working impl
 * Planned to finish the UnitTests for Pong, ColdWar and Sliding Tiles before our next meeting.
 * Planned to refactor the current way we save our games for Pong, ColdWar, SlidingTiles.
 
+## Meeting 4 (November 26)
+* During the lab we clarified our confusion about android studio and Unit test with our TA.
+* Agreed to finish all the work before Thursday (29th November) so that we can spend last day checking our final submission together.
+* Decided to spend this Saturday (1st December) for creating/practicing presentation.
+
+## Meeting 5 (November 28th)
+* Learned how to use Mockito together
+* Finished most of the part of Unit test
+* Refactored/Rechecked the entire Pong game
+
 #### Accomplishments
 
 ## Kelvin Fan
@@ -78,13 +88,15 @@ to other members if this group member repeatedly fails to produce a working impl
 
 ## Yuwa Yokohama
 * Login/Loading/Saving interface
-* User interface
+* General user interface of application
 * Game difficulty setting interface + logic
-* BONUS: implement feature to change background for tiles
+* BONUS: implement feature to download the image and change background of tiles
+* BONUS: Changing the background theme of the application
 * Implemented Pong Game
 * Implemented Save and Load for Pong Game
 * Implemented ScoreBoard for Pong Game
 * Created Unit Tests for Pong Game
+* Refactored Pong package to use MVC for the better design
 
 ## Kevin Lie
 * Scoreboard interface
