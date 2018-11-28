@@ -31,19 +31,19 @@
 
         <TextView
             android:id="@+id/userReputation"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
+            android:layout_width="191dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_margin="8dp"
             android:ems="10"
             android:inputType="textPersonName" />
 
         <TextView
             android:id="@+id/guestReputation"
-            android:layout_margin="8dp"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
+            android:layout_width="195dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="8dp"
             android:ems="10"
             android:inputType="textPersonName" />
 
