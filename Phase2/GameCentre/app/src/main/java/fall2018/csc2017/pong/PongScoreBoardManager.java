@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
+import java.util.*;
+
 
 /**
  * Manages the tasks in PongScoreBoardActivity.
@@ -117,7 +119,9 @@ public class PongScoreBoardManager {
             }
         });
     }
-
+    public void sortHelper(List<Integer> list) {
+        Collections.sort(list, Collections.reverseOrder());
+    }
     /**
      * Making the scoreboard display local rankings of the current user logged in.
      *
@@ -125,7 +129,8 @@ public class PongScoreBoardManager {
      */
     public void displayLocalRankings(String username) {
         ArrayList localScores = scores.get(username);
-        Collections.sort(localScores, Collections.reverseOrder());
+        sortHelper(localScores);
+//        Collections.sort(localScores, Collections.reverseOrder());
         if (localScores.size() >= 9) {
             // if >= 9 then you only want the 9 scores.
             localScores = new ArrayList<Object>(localScores.subList(0, 9));
