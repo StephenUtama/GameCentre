@@ -42,6 +42,7 @@ public class PongSurfaceViewTest {
         doNothing().when(testInfo).setFps(isA(long.class));
         doNothing().when(testSurfaceView).draw();
 
+
     }
 
     @Test
@@ -50,15 +51,15 @@ public class PongSurfaceViewTest {
         assertEquals(true,temp == testInfo);
     }
 
-//    @Test
-//    public void run() {
-//        testController.playing = true;
-//        testController.paused = false;
-//        testSurfaceView.run();
-//        verify(testSurfaceView.controller).update();
-//        verify(testSurfaceView).draw();
-//        verify(testInfo).setFps(isA(long.class));
-//    }
+    @Test
+    public void run() {
+        testSurfaceView.controller.playing = true;
+        testSurfaceView.controller.paused = false;
+        testSurfaceView.run();
+        verify(testSurfaceView.controller).update();
+        verify(testSurfaceView).draw();
+        verify(testInfo).setFps(isA(long.class));
+    }
 
     @Test
     public void draw() {
