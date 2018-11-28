@@ -11,7 +11,7 @@ import java.util.LinkedHashMap;
  * Manages the tasks in PongScoreBoardActivity.
  * Helps displaying the scores on scoreboard.
  */
-class PongScoreBoardManager {
+public class PongScoreBoardManager {
     private PongScoreBoardActivity scoreActivity;
     private LinkedHashMap<String, ArrayList<Integer>> scores;
     private LinkedHashMap<String, Integer> highScores;
@@ -22,7 +22,7 @@ class PongScoreBoardManager {
      * @param scores historical scores of the user
      * @param high_scores high scores from all the players
      */
-    PongScoreBoardManager(PongScoreBoardActivity activity, LinkedHashMap<String, ArrayList<Integer>> scores,
+    public PongScoreBoardManager(PongScoreBoardActivity activity, LinkedHashMap<String, ArrayList<Integer>> scores,
                           LinkedHashMap<String, Integer> high_scores) {
         scoreActivity = activity;
         this.scores = scores;
