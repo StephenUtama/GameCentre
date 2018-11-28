@@ -1,5 +1,5 @@
 package fall2018.csc2017.slidingtiles;
-
+//View class that creates the grid for the main game, not tested.
 /**
 Adapted from:
 https://github.com/DaveNOTDavid/sample-puzzle/blob/master/app/src/main/java/com/davenotdavid/samplepuzzle/GestureDetectGridView.java
@@ -15,10 +15,11 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.GridView;
 
+/**
+ * A grid containing tile buttons that can be swiped.
+ */
 public class GestureDetectGridView extends GridView {
     public static final int SWIPE_MIN_DISTANCE = 100;
-    public static final int SWIPE_MAX_OFF_PATH = 100;
-    public static final int SWIPE_THRESHOLD_VELOCITY = 100;
     private GestureDetector gDetector;
     private SlidingTilesGameController mController;
     private boolean mFlingConfirmed = false;

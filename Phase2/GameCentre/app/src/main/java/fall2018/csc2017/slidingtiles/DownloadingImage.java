@@ -99,7 +99,7 @@ public class DownloadingImage extends AsyncTask<String, Void, Bitmap>{
 
     /**
      * Set listener for this task of downloading
-     * @param listener
+     * @param listener a listen object
      */
     void setListener(Listener listener) {
         this.listener = listener;
