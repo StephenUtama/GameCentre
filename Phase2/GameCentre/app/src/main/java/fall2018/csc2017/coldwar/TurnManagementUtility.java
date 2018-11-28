@@ -1,7 +1,5 @@
 package fall2018.csc2017.coldwar;
 
-import android.widget.Toast;
-
 import java.util.List;
 
 class TurnManagementUtility {
