@@ -45,9 +45,9 @@ public class PongFileSaverModel {
 
         if (controller.isOver()) {
             // Getting the info needed to display on scoreboard
-            String username = controller.gameInfo.getPongGameInfo().getUserName();
-            int score = controller.gameInfo.getPongGameInfo().getScore();
-            String game = controller.gameInfo.getPongGameInfo().getGame();
+            String username = controller.getGameInfo().getPongGameInfo().getUserName();
+            int score = controller.getGameInfo().getPongGameInfo().getScore();
+            String game = controller.getGameInfo().getPongGameInfo().getGame();
             // assume we have loaded scoreboards and have the correct scoreboard
             loadScoreboards();
             if (scoreboards == null) {

@@ -67,7 +67,7 @@ public class PongGameInfo extends GameInfo implements Serializable {
         return screenHeight;
     }
 
-    void setFps(long fps) {
+    public void setFps(long fps) {
         this.fps = fps;
     }
 

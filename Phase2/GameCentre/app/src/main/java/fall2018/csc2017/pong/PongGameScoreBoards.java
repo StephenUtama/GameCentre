@@ -9,6 +9,7 @@ import generalclasses.ScoreBoard;
 /**
  * Holds the entire ScoreBoard of the Pong game itself.
  * Including each user's scoreboard, and global ranking.
+ * Excluded from Unit test since this is a Model.
  */
 public class PongGameScoreBoards extends GameScoreboards implements Serializable {
 

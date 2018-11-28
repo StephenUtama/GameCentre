@@ -196,4 +196,12 @@ public class PongSurfaceView extends SurfaceView implements Runnable {
         thread = new Thread(this);
         thread.start();
     }
+
+    public PongGameController getController(){
+        return controller;
+    }
+
+    public void setController(PongGameController controller){
+        this.controller = controller;
+    }
 }

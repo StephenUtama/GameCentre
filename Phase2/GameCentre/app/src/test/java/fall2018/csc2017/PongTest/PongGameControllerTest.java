@@ -41,14 +41,13 @@ public class PongGameControllerTest {
         testInfo = mock(PongGameInfo.class);
         testSaver = mock(PongFileSaverModel.class);
         testGameActivity = mock(PongGameActivity.class);
-        testGameActivity.pongSaver = testSaver;
         testInfo.lives = 2;
         racket = mock(Racket.class);
         ball = mock(Ball.class);
         rectr = mock(RectF.class);
         rectb = mock(RectF.class);
-
-        testController = new PongGameController(testInfo);
+        testController = new PongGameController(testInfo, testGameActivity.getApplicationContext());
+        testController.setPongSaver(testSaver);
         when(testInfo.getFps()).thenReturn(1L);
         when(testInfo.getBall()).thenReturn(ball);
         when(testInfo.getRacket()).thenReturn(racket);
@@ -212,6 +211,15 @@ public class PongGameControllerTest {
     public void testGetGameInfo(){
         PongGameInfo temp = testController.getGameInfo();
         assertEquals(true, temp == testInfo);
+    }
+
+    @Test
+    public void testPausedAdnPlaying(){
+        testController.setPaused(true);
+        testController.setPlaying(true);
+
+        assertTrue(testController.isPaused());
+        assertTrue(testController.isPlaying());
     }
 
     @Test

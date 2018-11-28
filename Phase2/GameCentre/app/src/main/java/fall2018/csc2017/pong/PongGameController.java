@@ -136,23 +136,30 @@ public class PongGameController implements GameController, Serializable {
         }
     }
 
+    public void setPongSaver(PongFileSaverModel saver){
+        this.pongSaver = saver;
+    }
+
+    public void setGameInfo(PongGameInfo info){
+        this.gameInfo = info;
+    }
     public PongGameInfo getGameInfo() {
         return gameInfo;
     }
 
-    boolean isPaused() {
+    public boolean isPaused() {
         return paused;
     }
 
-    boolean isPlaying(){
+    public boolean isPlaying(){
         return playing;
     }
 
-    void setPlaying(boolean playing) {
+    public void setPlaying(boolean playing) {
         this.playing = playing;
     }
 
-    void setPaused(boolean paused){
+    public void setPaused(boolean paused){
         this.paused = paused;
     }
 
