@@ -1,5 +1,6 @@
 package fall2018.csc2017.pong;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
@@ -35,15 +36,6 @@ public class PongGameActivity extends AppCompatActivity {
      */
     private Button saveButton;
 
-    /**
-     * username of current user
-     */
-    private String username;
-
-    /**
-     * Controller for Pong
-     */
-    private PongGameController controller;
 
     /**
      * User class of current user logged in
@@ -51,26 +43,22 @@ public class PongGameActivity extends AppCompatActivity {
     private User user;
 
     /**
-     * gameInfo for Pong
-     */
-    private PongGameInfo gameInfo;
-
-    /**
      * Save File and it's logic for Pong
      */
-    public static PongFileSaverModel pongSaver;
+    public PongFileSaverModel pongSaver;
 
     public static final String SAVE_FILENAME = "master_save_file.ser";
 
+    @SuppressLint({"SetTextI18n", "RtlHardcoded"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // Get existing GameInfo (might be null)
-        gameInfo = (PongGameInfo) getIntent().getSerializableExtra("saveToLoad");
+        PongGameInfo gameInfo = (PongGameInfo) getIntent().getSerializableExtra("saveToLoad");
 
         // Get the username
-        username = getIntent().getStringExtra("username");
+        String username = getIntent().getStringExtra("username");
 
         // Get the User
         user = User.usernameToUser.get(username);
@@ -90,8 +78,6 @@ public class PongGameActivity extends AppCompatActivity {
         else {
             pongView = new PongSurfaceView(this, size.x, size.y, gameInfo);
         }
-
-        this.controller = new PongGameController(gameInfo);
 
         pongSaver = new PongFileSaverModel(this);
 
@@ -119,7 +105,6 @@ public class PongGameActivity extends AppCompatActivity {
         //Adding saveButton to frameLayout
         frameLayout.addView(saveButton, params);
         setContentView(frameLayout);
-
     }
 
 
@@ -147,18 +132,14 @@ public class PongGameActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PongGameController.paused = true;
+                pongView.controller.setPaused(true);
                 Toast.makeText(PongGameActivity.this, "Paused and Saved!", Toast.LENGTH_SHORT).show();
-                String currentTime = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new
+                @SuppressLint("SimpleDateFormat") String currentTime = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new
                         Date());
                 user.addSave("Pong", currentTime, pongView.getGameInfo());
                 saveToFile(SAVE_FILENAME);
             }
         });
-    }
-
-    public static PongFileSaverModel getPongSaver() {
-        return pongSaver;
     }
 
     /**

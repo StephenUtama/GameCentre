@@ -31,10 +31,7 @@ public class Ball implements Serializable {
      */
     private float BallHeight;
 
-    /**
-     * Width of the screen
-     */
-    private int screenWidth;
+
 
     /**
      * Height of the screen
@@ -47,18 +44,15 @@ public class Ball implements Serializable {
      * @param screenY Height of screen
      */
     public Ball(int screenX, int screenY) {
-        screenWidth = screenX;
         screenHeight = screenY;
 
         // Make the ball size relative to the screen resolution
-        BallWidth = screenX / 100;
-        BallHeight = BallWidth;
+        BallHeight = BallWidth = screenX / 100;
 
         // Start the ball travelling straight up
         // at a quarter of the screen height per second
         YVelocity = screenY / 4;
-        XVelocity = YVelocity;
-
+        XVelocity = screenY / 4;
 
         // Initialize a SerializableRectF and set it's starting coordinates.
         RectF temp = new RectF();
@@ -86,8 +80,7 @@ public class Ball implements Serializable {
     }
 
     /**
-
-     * Updates the position of the ball in each frame
+     * Updates the position of the ball in each frame.
      * @param fps fps of device
      */
     public void update(long fps) {
@@ -161,7 +154,6 @@ public class Ball implements Serializable {
         rect.getRectF().top = y / 10;
         rect.getRectF().right = x / 2 + BallWidth;
         rect.getRectF().bottom = y / 10 - BallHeight;
-        YVelocity = screenHeight / 4;
-        XVelocity = YVelocity;
+        YVelocity = XVelocity = screenHeight / 4;
     }
 }

@@ -1,6 +1,4 @@
 package fall2018.csc2017.pong;
-
-import android.graphics.Rect;
 import android.graphics.RectF;
 
 import java.io.IOException;
@@ -16,7 +14,7 @@ public class SerializableRectF extends RectF implements Serializable {
 
     private RectF mRect;
 
-    public SerializableRectF(RectF rect) {
+    SerializableRectF(RectF rect) {
         this.mRect = rect;
         this.mRect.left = rect.left;
         this.mRect.top = rect.top;
@@ -24,7 +22,7 @@ public class SerializableRectF extends RectF implements Serializable {
         this.mRect.bottom = rect.bottom;
     }
 
-    public RectF getRectF() {
+    RectF getRectF() {
         return this.mRect;
     }
 

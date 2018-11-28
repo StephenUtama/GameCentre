@@ -43,9 +43,9 @@ public class PongGameInfo extends GameInfo implements Serializable {
     /**
      * The game's fps.
      */
-    long fps;
+    private long fps;
 
-    public PongGameInfo(int screenWidth, int screenHeight, String username) {
+    PongGameInfo(int screenWidth, int screenHeight, String username) {
         setUserName(username);
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
@@ -67,7 +67,7 @@ public class PongGameInfo extends GameInfo implements Serializable {
         return screenHeight;
     }
 
-    public void setFps(long fps) {
+    void setFps(long fps) {
         this.fps = fps;
     }
 
@@ -120,7 +120,7 @@ public class PongGameInfo extends GameInfo implements Serializable {
         return "Pong";
     }
 
-    public PongGameInfo getPongGameInfo(){
+    PongGameInfo getPongGameInfo(){
         return this;
     }
 }

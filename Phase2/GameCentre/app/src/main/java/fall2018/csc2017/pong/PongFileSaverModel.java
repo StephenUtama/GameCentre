@@ -2,22 +2,15 @@ package fall2018.csc2017.pong;
 
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import generalclasses.GameScoreboards;
-import generalclasses.SaverModel;
 import generalclasses.ScoreBoard;
-import generalclasses.User;
-
-import static fall2018.csc2017.pong.PongStartingActivity.SAVE_FILENAME;
 
 public class PongFileSaverModel {
 
@@ -32,15 +25,10 @@ public class PongFileSaverModel {
     private GameScoreboards scoreboards;
 
     /**
-     * Current user
-     */
-    private User user;
-
-    /**
      * Constructor for PongFileSaverModel
      * @param context from the class that calls this constructor
      */
-    public PongFileSaverModel(Context context) {
+    PongFileSaverModel(Context context) {
         this.context = context;
     }
 
@@ -48,42 +36,6 @@ public class PongFileSaverModel {
         return scoreboards;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-//    /**
-//     * Save button for the game
-//     * @param gameInfo the gameInfo you want to save
-//     * @param user the user that played the game
-//     */
-//    public void saveButtonListener(PongGameInfo gameInfo, User user) {
-//
-//        if (gameInfo.getScore() == 0) {
-//            makeToastNothingToSave(); // if the player hasn't played yet
-//        } else {
-//            // get the current time
-//            String currentTime = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new
-//                    Date());
-//            user.addSave(gameInfo.getGame(), currentTime, gameInfo);
-//            saveToFile(SAVE_FILENAME);
-//            makeToastSavedText();
-//        }
-//    }
-
-    /**
-     * Toast for nothing to save
-     */
-    private void makeToastNothingToSave() {
-        Toast.makeText(context, "Nothing to Save", Toast.LENGTH_SHORT).show();
-    }
-
-    /**
-     * Toast for saying file is saved
-     */
-    private void makeToastSavedText() {
-        Toast.makeText(context, "Game Saved", Toast.LENGTH_SHORT).show();
-    }
 
     /**
      * Updates scoreboard when a game is finished
@@ -120,31 +72,16 @@ public class PongFileSaverModel {
      * Saves the scoreboard to the save file.
      * @param scoreboards the scoreboards we are trying to save
      */
-    public void saveScoreboards(GameScoreboards scoreboards) {
+    private void saveScoreboards(GameScoreboards scoreboards) {
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
-                    context.openFileOutput("SAVED_PONG_SCOREBOARDS", context.MODE_PRIVATE));
+                    context.openFileOutput("SAVED_PONG_SCOREBOARDS", Context.MODE_PRIVATE));
             outputStream.writeObject(scoreboards);
             outputStream.close();
         } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
         }
     }
-
-//    /**
-//     * saves the
-//     * @param fileName
-//     */
-//    public void saveToFile(String fileName) {
-//        try {
-//            ObjectOutputStream outputStream = new ObjectOutputStream(
-//                    context.openFileOutput(fileName, context.MODE_PRIVATE));
-//            outputStream.writeObject(User.usernameToUser);
-//            outputStream.close();
-//        } catch (IOException e) {
-//            Log.e("Exception", "File write failed: " + e.toString());
-//        }
-//    }
 
     /**
      * Loads the scoreboard from the save file.

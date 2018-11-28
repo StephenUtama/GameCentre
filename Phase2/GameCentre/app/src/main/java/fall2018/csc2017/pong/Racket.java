@@ -20,15 +20,9 @@ public class Racket implements Serializable {
     private float length;
 
     /**
-     * height of the rectangle
-     */
-    private float height;
-
-    /**
      * x,y coordinate of the racket
      */
     private float x;
-    private float y;
 
     /**
      * speed of the racket
@@ -47,7 +41,6 @@ public class Racket implements Serializable {
      * Size of the screen
      */
     private int screenWidth;
-    private int screenHeight;
 
     /**
      * Constructor of the Racket.
@@ -56,16 +49,15 @@ public class Racket implements Serializable {
      */
     public Racket(int width, int height){
         this.screenWidth = width;
-        this.screenHeight = height;
 
         this.length = screenWidth/6;
-        this.height = screenHeight/25;
+        float height1 = height / 25;
 
         this.x = screenWidth/2;
-        this.y = screenHeight - 150;
+        float y = height - 150;
 
 
-        RectF temp = new RectF(this.x, this.y, this.x + this.length, this.y + this.height);
+        RectF temp = new RectF(this.x, y, this.x + this.length, y + height1);
         this.rect = new SerializableRectF(temp);
 
         this.rectSpeed = screenWidth;

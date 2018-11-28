@@ -1,8 +1,10 @@
 package fall2018.csc2017.pong;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -58,6 +60,7 @@ public class PongStartingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pong_main_menu);
+        setTheme();
         declarations();
         addPongGameButtonListener();
         user = User.usernameToUser.get(username);
@@ -65,11 +68,22 @@ public class PongStartingActivity extends AppCompatActivity {
         addPongScoreButtonListener();
     }
 
-    private void declarations(){
+    private void declarations() {
         pongGame = findViewById(R.id.new_pong);
         pongScore = findViewById(R.id.pong_score);
         pongLoad = findViewById(R.id.pong_load);
         username = getIntent().getStringExtra("username");
+    }
+
+    /**
+     * If there was a specific theme chosen by the user, set the background
+     * into that theme
+     */
+    private void setTheme() {
+        SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("my_prefs", Context.MODE_PRIVATE);
+        // the second parameter will be fallback if the preference is not found
+        int bg = sharedPref.getInt("background_resources", android.R.color.white);
+        getWindow().setBackgroundDrawableResource(bg);
     }
 
     /**
@@ -102,15 +116,12 @@ public class PongStartingActivity extends AppCompatActivity {
     /**
      * Get all the save names
      *
-     * @param saves      the hash map of all the existing saves
+     * @param saves the hash map of all the existing saves
      * @return a string array of save names
      */
     private String[] getSaveNames(HashMap<String, GameInfo> saves) {
-        ArrayList<String> tempResult = new ArrayList<>();
-        for (String saveName : saves.keySet()) {
-            tempResult.add(saveName);
-            }
-        return tempResult.toArray(new String[tempResult.size()]);
+        ArrayList<String> tempResult = new ArrayList<>(saves.keySet());
+        return tempResult.toArray(new String[0]);
     }
 
     /**
@@ -141,12 +152,12 @@ public class PongStartingActivity extends AppCompatActivity {
      * Get the save that corresponds to index i in saveNames, and load that
      * save to begin PongGameActivity.
      *
-     * @param saves                          the hash map that details all the user's saves.
+     * @param saves     the hash map that details all the user's saves.
      * @param saveNames string list of all save names with correct complexity.
-     * @param i                              the index used to get the desired save in
-     *                                       saveNamesWithCorrectComplexity.
+     * @param i         the index used to get the desired save in
+     *                  saveNamesWithCorrectComplexity.
      */
-    private void loadSaveAndBegin(HashMap<String, GameInfo> saves,String[] saveNames ,int i) {
+    private void loadSaveAndBegin(HashMap<String, GameInfo> saves, String[] saveNames, int i) {
         String saveName = saveNames[i];
 
         // get the corresponding save

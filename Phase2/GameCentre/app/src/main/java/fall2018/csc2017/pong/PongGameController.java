@@ -1,11 +1,7 @@
 package fall2018.csc2017.pong;
 
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
+import android.content.Context;
 import android.graphics.RectF;
-import android.support.v4.widget.TextViewCompat.AutoSizeTextType;
-import android.view.SurfaceHolder;
 
 import java.io.Serializable;
 
@@ -26,12 +22,14 @@ public class PongGameController implements GameController, Serializable {
      * Whether or not game is running (from thread).
      * Volatile because it is accessed from inside and outside the thread
      */
-    public volatile static boolean playing;
+    public volatile boolean playing;
 
     /**
      * Whether or not the game is paused.
      */
-    public static boolean paused = true;
+    public boolean paused = true;
+
+    private PongFileSaverModel pongSaver;
 
 
 //     Sound FX
@@ -50,7 +48,7 @@ public class PongGameController implements GameController, Serializable {
      * @return true iff the two specified rectangles intersect. In no event are
      *              either of the rectangles modified.
      */
-    public static boolean intersects(RectF a, RectF b) {
+    private boolean intersects(RectF a, RectF b) {
         return a.left < b.right && b.left < a.right
                 && a.top < b.bottom && b.top < a.bottom;
     }
@@ -58,9 +56,10 @@ public class PongGameController implements GameController, Serializable {
     /**
      * Initializes PongGameController
      */
-    public PongGameController(PongGameInfo gameInfo) {
+    public PongGameController(PongGameInfo gameInfo, Context context) {
         // Initialize a PongGameInfo
         this.gameInfo = gameInfo;
+        this.pongSaver = new PongFileSaverModel(context);
 
     }
 
@@ -120,7 +119,7 @@ public class PongGameController implements GameController, Serializable {
         if (isOver()) {
             paused = true;
             playing = false;
-            PongGameActivity.getPongSaver().updateAndSaveScoreboardIfGameOver(this);
+            pongSaver.updateAndSaveScoreboardIfGameOver(this);
         }
     }
 
@@ -139,6 +138,22 @@ public class PongGameController implements GameController, Serializable {
 
     public PongGameInfo getGameInfo() {
         return gameInfo;
+    }
+
+    boolean isPaused() {
+        return paused;
+    }
+
+    boolean isPlaying(){
+        return playing;
+    }
+
+    void setPlaying(boolean playing) {
+        this.playing = playing;
+    }
+
+    void setPaused(boolean paused){
+        this.paused = paused;
     }
 
     public boolean isOver() {
