@@ -11,8 +11,8 @@ import generalclasses.ScoreBoard;
 /**
  * Controller for GameActivity
  */
-public class GameActivityController {
-    Context context;
+class GameActivityController {
+    private Context context;
 
     /**
      * The buttons to display.
@@ -21,22 +21,39 @@ public class GameActivityController {
 
     private SlidingTilesFileSaverModel mSaver;
 
-    public void setmSaver(SlidingTilesFileSaverModel mSaver) {
+    /**
+     * Setting a SaverModel responsible for saving/loading files.
+     * @param mSaver a SaverModel object.
+     */
+    void setmSaver(SlidingTilesFileSaverModel mSaver) {
         this.mSaver = mSaver;
     }
 
-    public void setTileButtons(ArrayList<Button> tileButtons) {
+    /**
+     * Setting an array of Tile Buttons for the sliding tiles game.
+     * @param tileButtons an array of Tile Buttons.
+     */
+    void setTileButtons(ArrayList<Button> tileButtons) {
         this.tileButtons = tileButtons;
     }
 
-
-    public GameActivityController(Context context) {
+    /**
+     * A controller responsible for the logic of sliding tiles game activity.
+     * @param context the game activity.
+     */
+    GameActivityController(Context context) {
         this.context = context;
         SlidingTilesFileSaverModel saver = new SlidingTilesFileSaverModel(context);
         setmSaver(saver);
     }
 
-    public ArrayList<Button> createTileButtons(boolean image_game, Board board) {
+    /**
+     * Create the Tile Buttons of the grid view for the sliding game.
+     * @param image_game Whether the game is swapping images/tiles
+     * @param board A board object containing all the Tiles.
+     * @return an array of TileButtons.
+     */
+    ArrayList<Button> createTileButtons(boolean image_game, Board board) {
         tileButtons = new ArrayList<>();
 
         if (image_game) { // If the complexity is image, creates buttons differently
@@ -67,7 +84,7 @@ public class GameActivityController {
      * @param row row of the creating tile
      * @param col col of the creating tile
      */
-    public void helperCreatingButton(int num, int row, int col, Board board) {
+    void helperCreatingButton(int num, int row, int col, Board board) {
         Button tmp = new Button(context);
         if (num != 24) {
             BitmapDrawable bmp = new BitmapDrawable(GameActivity.backgrounds[num]);
@@ -86,7 +103,7 @@ public class GameActivityController {
      * @param image_game If game is Image game or not
      * @param board      The board of this game that we pug the buttons
      */
-    public void updateTileButtons(ArrayList<Button> tilesbtn, boolean image_game, Board board) {
+    void updateTileButtons(ArrayList<Button> tilesbtn, boolean image_game, Board board) {
 
         if (image_game) { // If the complexity is image, updates buttons differently
             int next = 0;
@@ -111,7 +128,7 @@ public class GameActivityController {
      * @param b    current button that is being updated
      * @param next the position of the tile that is being updated
      */
-    public void helperUpdate(Button b, int next, Board board) {
+    void helperUpdate(Button b, int next, Board board) {
         int row = next / Board.NUM_ROWS;
         int col = next % Board.NUM_COLS;
         int num = board.getTile(row, col).getId() - 1;
@@ -123,14 +140,23 @@ public class GameActivityController {
         }
     }
 
-    public void undoBtn(int numPreviousMoves, SlidingTilesManager slidingTilesManager) {
+    /**
+     * Undo functionality that allows user to go back to their previous position.
+     * @param numPreviousMoves number of undos a user can make.
+     * @param slidingTilesManager a SlidingTileManager helps to undo a move.
+     */
+    void undoBtn(int numPreviousMoves, SlidingTilesManager slidingTilesManager) {
         if ((numPreviousMoves) != 0) { // check whether any moves were made
             int previousMove = slidingTilesManager.returnPreviousMove();
             slidingTilesManager.makeMove(previousMove);
         }
     }
 
-    public void updateAndSaveScoreboardIfGameOver(SlidingTilesManager slidingTilesManager) {
+    /**
+     * Update and save a user's score once they win.
+     * @param slidingTilesManager a manager that provides this user's score and complexity of the game.
+     */
+    void updateAndSaveScoreboardIfGameOver(SlidingTilesManager slidingTilesManager) {
 
         if (slidingTilesManager.isOver()) {
             // Getting the info needed to display on scoreboard
@@ -154,8 +180,11 @@ public class GameActivityController {
         }
     }
 
-
-    public void instantiateGameandBegin(String complexity) {
+    /**
+     * Beginning of a new game, create a new user scoreboard.
+     * @param complexity the difficulty of the game.
+     */
+    void instantiateGameandBegin(String complexity) {
         mSaver.loadScoreboards("SAVED_SCOREBOARDS");
         if (mSaver.scoreboards == null) {
             mSaver.scoreboards = new SlidingTileScoreboards();

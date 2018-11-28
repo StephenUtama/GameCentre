@@ -14,11 +14,11 @@ public class PiecesSelectionManager {
      * @param agentToPositionList a hash map that maps an agent type to the positions
      *                            that will contain this agent
      */
-    protected void addAgents(String agent, HashMap<String, ArrayList<String>> agentToPositionList, ColdWarGameInfo gameInfo, String player) {
+    public void addAgents(String agent, HashMap<String, ArrayList<String>> agentToPositionList, ColdWarGameInfo gameInfo, String player) {
         // get position data >> then translate to array coordinates
         List<String> agentPositions = agentToPositionList.get(agent);
         for (String agentPosition : agentPositions) {
-            // make a new spy object >> then insert it to gameinfo, passing in the spy and the coodinates
+            // make a new spy object >> then insert it to gameinfo, passing in the spy and the coordinates
             int position = getPosition(agentPosition);
             if (agent.equals("spy")) {
                 Spy spy = new Spy(player);

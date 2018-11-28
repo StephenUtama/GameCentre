@@ -16,12 +16,22 @@ import android.widget.Button;
 
 import java.util.ArrayList;
 
-//View Aid Class, not tested
+//View Aid Class, not tested.
+
+/**
+ * Customized Adapter class that creates buttons according to grid's height, width.
+ */
 public class CustomAdapter extends BaseAdapter {
     private ArrayList<Button> mButtons = null;
     private int mColumnWidth, mColumnHeight;
 
-    public CustomAdapter(ArrayList<Button> buttons, int columnWidth, int columnHeight) {
+    /**
+     * An adapter containing information about the buttons, height, and width of a grid.
+     * @param buttons the buttons for the grid.
+     * @param columnWidth column width of the grid.
+     * @param columnHeight the column height of the grid.
+     */
+    CustomAdapter(ArrayList<Button> buttons, int columnWidth, int columnHeight) {
         mButtons = buttons;
         mColumnWidth = columnWidth;
         mColumnHeight = columnHeight;

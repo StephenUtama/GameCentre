@@ -1,5 +1,6 @@
 package fall2018.csc2017.slidingtiles;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -38,7 +39,8 @@ public class BoardAndTileTest {
     /**
      * Make a solved Board.
      */
-    private void setUpCorrect() {
+    @Before
+    public void setUpCorrect() {
         List<Tile> tiles = makeTiles();
         SlidingTilesGameInfo gameInfo = new SlidingTilesGameInfo(tiles);
         slidingTilesManager = new SlidingTilesManager();
@@ -57,7 +59,6 @@ public class BoardAndTileTest {
      */
     @Test
     public void testIsSolved() {
-        setUpCorrect();
         assertEquals(true, slidingTilesManager.getBoard().getTile(3,2).getId() < slidingTilesManager.getBoard().getTile(3,3).getId());
         assertEquals(true, slidingTilesManager.isOver());
         swapFirstTwoTiles();
@@ -69,7 +70,6 @@ public class BoardAndTileTest {
      */
     @Test
     public void testSwapFirstTwo() {
-        setUpCorrect();
         assertEquals(1, slidingTilesManager.getBoard().getTile(0, 0).getId());
         assertEquals(2, slidingTilesManager.getBoard().getTile(0, 1).getId());
         slidingTilesManager.getBoard().swapTiles(0, 0, 0, 1);
@@ -82,7 +82,6 @@ public class BoardAndTileTest {
      */
     @Test
     public void testSwapLastTwo() {
-        setUpCorrect();
         assertEquals(15, slidingTilesManager.getBoard().getTile(3, 2).getId());
         assertEquals(25, slidingTilesManager.getBoard().getTile(3, 3).getId());
         slidingTilesManager.getBoard().swapTiles(3, 3, 3, 2);
@@ -91,11 +90,10 @@ public class BoardAndTileTest {
     }
 
     /**
-     * Test whether isValidHelp works.
+     * Test whether isValidMove works.
      */
     @Test
     public void testIsValidTap() {
-        setUpCorrect();
         assertEquals(true, slidingTilesManager.isValidMove(11));
         assertEquals(true, slidingTilesManager.isValidMove(14));
         assertEquals(false, slidingTilesManager.isValidMove(10));
@@ -103,7 +101,6 @@ public class BoardAndTileTest {
 
     @Test
     public void testTileBackground() {
-        setUpCorrect();
         Tile default_tile = new Tile(26);
         assertEquals(R.drawable.tile_25, slidingTilesManager.getBoard().getTile(3,3).getBackground());
         assertEquals(R.drawable.tile_25, default_tile.getBackground());

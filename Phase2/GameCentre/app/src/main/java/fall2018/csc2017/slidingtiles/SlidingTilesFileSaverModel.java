@@ -20,24 +20,39 @@ import generalclasses.User;
 
 import static fall2018.csc2017.slidingtiles.StartingActivity.SAVE_FILENAME;
 
-//Model class for Slidingtiles GameActivity, not tested
+//Model class for Slidingtiles GameActivity, not tested.
+
 /**
  * The Model for Sliding Tiles.
  */
 public class SlidingTilesFileSaverModel extends SaverModel {
 
+    /**
+     * Return the most recent scoreboard containing users' score and corresponding game levels.
+     *
+     * @return the scoreboard of sliding tiles game.
+     */
     public GameScoreboards getScoreboards() {
         loadScoreboards("SAVED_SCOREBOARDS");
         return scoreboards;
     }
 
-
-    public SlidingTilesFileSaverModel(Context context) {
+    /**
+     * A FileSaver responsible for saving/loading game files/scoreboards.
+     *
+     * @param context game activity context.
+     */
+    SlidingTilesFileSaverModel(Context context) {
         super(context);
     }
 
-
-    public void saveButtonListener(SlidingTilesGameInfo gameInfo, User user) {
+    /**
+     * Saves the game state to a file.
+     *
+     * @param gameInfo information containing the state of this game.
+     * @param user     the user who saved the game.
+     */
+    void saveButtonListener(SlidingTilesGameInfo gameInfo, User user) {
 
         if (gameInfo.getScore() == 0) {
             makeToastNothingToSave(); // if the player hasn't played yet
@@ -51,46 +66,14 @@ public class SlidingTilesFileSaverModel extends SaverModel {
         }
     }
 
-
-//    public void updateAndSaveScoreboardIfGameOver(SlidingTilesManager slidingTilesManager) {
-//
-//        if (slidingTilesManager.isOver()) {
-//            // Getting the info needed to display on scoreboard
-//            String username = slidingTilesManager.getInfo().getUserName();
-//            int score = slidingTilesManager.getInfo().getScore();
-//            String complexity = slidingTilesManager.getInfo().getComplexity();
-//
-//            // assume we have loaded scoreboards and have the correct scoreboard
-//            loadScoreboards("SAVED_SCOREBOARDS");
-//            ScoreBoard scoreboard = scoreboards.getScoreboard(complexity);
-//
-//            if (scoreboard.getScoreMap().containsKey(username)) {
-//                // if user already has a score
-//                scoreboard.addScore(username, score);
-//            } else { // if user doesn't have a score
-//                scoreboard.addUserAndScore(username, score);
-//            }
-//            // save scoreboard
-//            scoreboards.addScoreboard(complexity, scoreboard);
-//            saveScoreboards(scoreboards, "SAVED_SCOREBOARDS");
-//        }
-//    }
-
-//
-//    public void instantiateGameandBegin(String complexity) {
-//        loadScoreboards("SAVED_SCOREBOARDS");
-//        if (scoreboards == null) {
-//            scoreboards = new SlidingTileScoreboards();
-//        }
-//        if (scoreboards.getScoreboard(complexity) == null) { // if no one has won a game
-//            scoreboards.addScoreboard(complexity, new ScoreBoard());
-//            saveScoreboards(scoreboards, "SAVED_SCOREBOARDS");
-//            // in subsequent games, however, there is no need for this
-//        }
-//    }
-
-
-    public String[] getSaveNamesComplexity(String complexity, HashMap<String, GameInfo> saves) {
+    /**
+     * Get all the save names that have a given complexity.
+     *
+     * @param complexity the complexity to search for
+     * @param saves      the hash map of all the existing saves
+     * @return a string array of save names that have complexity complexity
+     */
+    String[] getSaveNamesComplexity(String complexity, HashMap<String, GameInfo> saves) {
         ArrayList<String> tempResult = new ArrayList<>();
         for (String saveName : saves.keySet()) {
             SlidingTilesGameInfo info = (SlidingTilesGameInfo) saves.get(saveName);
@@ -101,7 +84,12 @@ public class SlidingTilesFileSaverModel extends SaverModel {
         return tempResult.toArray(new String[tempResult.size()]);
     }
 
-    public void startingResume(String username) {
+    /**
+     * Load the saved file containing the game state.
+     *
+     * @param username user of this loaded file.
+     */
+    void startingResume(String username) {
         try {
             InputStream inputStream = context.openFileInput(SAVE_FILENAME);
             if (inputStream != null) {

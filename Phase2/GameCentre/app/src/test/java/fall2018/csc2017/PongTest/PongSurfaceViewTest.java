@@ -12,7 +12,11 @@ import fall2018.csc2017.pong.PongGameInfo;
 import fall2018.csc2017.pong.PongSurfaceView;
 
 import static org.junit.Assert.*;
+import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class PongSurfaceViewTest {
     Context testContext;
@@ -27,21 +31,34 @@ public class PongSurfaceViewTest {
         testInfo = mock(PongGameInfo.class);
         testSurfaceHolder = mock(SurfaceHolder.class);
         testController = mock(PongGameController.class);
-        testSurfaceView = new PongSurfaceView(testContext, 1080, 1920, testInfo);
+        testSurfaceView = mock(PongSurfaceView.class);
+        testController.gameInfo = testInfo;
         testSurfaceView.controller = testController;
         testSurfaceView.surfaceHolder = testSurfaceHolder;
-        testSurfaceView.gameInfo = testInfo;
         testSurfaceView.context = testContext;
+        when(testSurfaceView.getGameInfo()).thenReturn(testInfo);
+        doNothing().when(testSurfaceView).run();
+        doNothing().when(testController).update();
+        doNothing().when(testInfo).setFps(isA(long.class));
+        doNothing().when(testSurfaceView).draw();
+
 
     }
 
     @Test
     public void getGameInfo() {
-
+        PongGameInfo temp = testSurfaceView.getGameInfo();
+        assertEquals(true,temp == testInfo);
     }
 
     @Test
     public void run() {
+        testSurfaceView.controller.playing = true;
+        testSurfaceView.controller.paused = false;
+        testSurfaceView.run();
+        verify(testSurfaceView.controller).update();
+        verify(testSurfaceView).draw();
+        verify(testInfo).setFps(isA(long.class));
     }
 
     @Test

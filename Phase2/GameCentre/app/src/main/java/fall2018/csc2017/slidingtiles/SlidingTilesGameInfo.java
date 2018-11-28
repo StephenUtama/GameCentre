@@ -29,7 +29,7 @@ public class SlidingTilesGameInfo extends GameInfo {
     /**
      * Constructor for SlidingTilesGameInfo.
      */
-    public SlidingTilesGameInfo() {
+    SlidingTilesGameInfo() {
 
         List<Tile> tiles = new ArrayList<>();
         // Add the tiles from 1 to the NUM_ROWS * NOM_COLS-1
@@ -48,12 +48,23 @@ public class SlidingTilesGameInfo extends GameInfo {
         this.board = new Board(tiles);
 
     }
-    public SlidingTilesGameInfo(List<Tile> tiles) {
+
+    /**
+     * Alternate constructor for SlidingTilesGameInfo.
+     *
+     * @param tiles an array of Tiles ready to be placed into position.
+     */
+    SlidingTilesGameInfo(List<Tile> tiles) {
         this.board = new Board(tiles);
     }
 
-
-    boolean check_solvable(List<Tile> tiles) {
+    /**
+     * Checks if the sliding tiles board is solvable/winnable.
+     *
+     * @param tiles the position of the tiles in the board.
+     * @return whether the array of tiles is solvable/winnable.
+     */
+    private boolean check_solvable(List<Tile> tiles) {
         int blankrow = 0;
         int blankindex = 0;
         for (int i = 0; i != (Board.NUM_COLS * Board.NUM_ROWS); i++) {
@@ -68,11 +79,18 @@ public class SlidingTilesGameInfo extends GameInfo {
         return oddgrid || evengrid;
     }
 
-    int calculate_inversions(List <Tile> tiles, int blankindex) {
+    /**
+     * Calculate the number of inversions(number of times a preceding tile is bigger than the next)
+     *
+     * @param tiles      the array of Tiles with their positions.
+     * @param blankindex the index of the blank tile.
+     * @return the number of inversions.
+     */
+    int calculate_inversions(List<Tile> tiles, int blankindex) {
         int sum = 0;
-        for (int i = 0; i != Board.NUM_COLS * Board.NUM_ROWS -1; i++) {
+        for (int i = 0; i != Board.NUM_COLS * Board.NUM_ROWS - 1; i++) {
             if (i != blankindex) {
-                for (int j = i + 1; j != Board.NUM_COLS * Board.NUM_ROWS; j++){
+                for (int j = i + 1; j != Board.NUM_COLS * Board.NUM_ROWS; j++) {
                     if (j != blankindex) {
                         if (tiles.get(i).getId() > tiles.get(j).getId()) {
                             sum++;
@@ -83,6 +101,7 @@ public class SlidingTilesGameInfo extends GameInfo {
         }
         return sum;
     }
+
     /**
      * @return the board for the corresponding sliding tiles game
      */

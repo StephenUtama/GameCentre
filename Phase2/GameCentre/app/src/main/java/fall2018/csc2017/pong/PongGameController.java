@@ -16,7 +16,7 @@ public class PongGameController implements GameController, Serializable {
     /**
      * PongGameInfo
      */
-    PongGameInfo gameInfo;
+    public PongGameInfo gameInfo;
 
     /**
      * Whether or not game is running (from thread).

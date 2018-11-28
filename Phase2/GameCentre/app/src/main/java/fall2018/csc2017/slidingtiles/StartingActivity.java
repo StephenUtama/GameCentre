@@ -25,7 +25,7 @@ import generalclasses.GameScoreboards;
 import generalclasses.ScoreBoard;
 import generalclasses.User;
 
-//View Class, not tested.
+//View Class for choosing game difficulty, not tested.
 /**
  * The initial activity for the sliding puzzle tile game.
  */
@@ -200,4 +200,3 @@ public class StartingActivity extends AppCompatActivity {
     }
 }
 
-//
