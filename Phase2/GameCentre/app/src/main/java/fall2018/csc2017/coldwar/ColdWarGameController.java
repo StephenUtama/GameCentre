@@ -23,6 +23,13 @@ class ColdWarGameController {
         this.context = context;
     }
 
+    /** Update the selected position if the user is selecting. Move the item at selectedPosition to
+     * position if the user has already selected a position.
+     * @param coldWarGameInfo the model for Cold War
+     * @param selectedPosition the position of the item the user wants to move
+     * @param position the posiiton the user wants to move the item at selectedPosition to
+     * @return whether or not the move was successful
+     */
     boolean touchMove(ColdWarGameInfo coldWarGameInfo, int selectedPosition, int position) {
         if (selectedPosition == -1) {
             this.selectedPosition = position;
@@ -61,10 +68,15 @@ class ColdWarGameController {
         selectedPositionText.setText(selectedPositionString);
     }
 
+    /** Update gridView with the latest data from coldWarGameInfo
+     * @param gridView the GridView that displays the game board
+     * @param coldWarGameInfo model for Cold War
+     */
     void updateGridView(GridView gridView, ColdWarGameInfo coldWarGameInfo) {
         List<Integer> imageIDs = getImageIDs(coldWarGameInfo);
         gridView.setAdapter(new ImageAdapterGridView(context, imageIDs));
     }
+
 
     void setViews(Button endButton, TextView guestReputationText, TextView userReputationText,
                   TextView selectedPositionText) {
