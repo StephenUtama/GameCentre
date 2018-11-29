@@ -12,8 +12,8 @@ public class ColdWarGameInfo extends GameInfo {
 
     private Integer STARTING_REPUTATION = 4;
 
-    static String PLAYER1 = "p1";
-    static String PLAYER2 = "p2";
+    static final String PLAYER1 = "p1";
+    static final String PLAYER2 = "p2";
 
     private Integer userScore = 0;
 
