@@ -95,7 +95,44 @@ touch for the game.
 background when playing the sliding tiles game.(Bonus)  
 
 * **Class StartingActivity:** This screen is where users can start a new game or load a previously saved game.
- 
+
+## Code Tour of Pong
+* **Class Ball:** Model for the Ball in the Pong Game. It keeps track of the position of the ball, size of the ball,
+speed of the ball and the movement of the ball (i.e how much does the ball move when the speed is X)
+
+* **Class Racket:** Model for the Racket in the Pong Game. It keeps track of the position of the racket, size of the racket,
+speed of the racket and the movement of the ball (i.e when you tap left how much does the racket move)
+
+* **Class PongGameController:** Controller for Pong. Contains the logic behind the pong game.
+i.e what happens when the ball bounces on the racket, when it hits the bottom screen, whether its paused/playing, etc.
+
+* **Class PongStartingActivity:** The main menu for pong. Displays the ScoreBoard, Load Game and New Game button
+for the user to click.
+
+* **Class PongSurfaceView:** The view for Pong. It extends SurfaceView and implements runnable to allow for
+animations. It draws the game on the screen and also as a run function that constantly runs and updates game.
+
+* **Class PongGameInfo:** Contains all the info for a game session. It contains their current lives, score
+speed of the ball, user playing, etc.
+
+* **Class SerializableRectF:** This is just a class that is basically a copy of the built in RectF android
+class however we made it Serializable because so that we could save the position of the ball and racket when
+loading the game.
+
+* **Class PongGameActivity:** This is the activity that is called when you click new game button from the PongStartingActivity.
+It sets up the View, gameInfo, Save Button, etc.
+
+* **Class PongGameScoreBoardActivity:**  This is the activity that is called when you click the scoreboard button from
+PongStartingActivity. It basically sets up the scoreboard and displays all the global/local scores using
+PongGameScoreBoardManager.
+
+* **Class PongGameScoreBoardManager:** This is the logic behind displaying the scores on PongGameScoreBoardActivity.
+It sets the text values (displays the score) in the PongGameScoreBoardActivity and also the logic in obtaining the High Scores
+from the list of scores that we saved.
+
+* **Class PongFileSaverModel:** This contains all the logic on saving the score to the scoreboard when the game is over.
+It also loads the scoreboard when there is an existing scoreboard.
+
 ## Code Tour of GeneralClasses
 
 * **Class GameSelectionActivity:** This screen allows the user to pick which game they wish to play.
