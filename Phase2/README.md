@@ -75,10 +75,10 @@ calculating the user's score using the number of moves and time taken.
 
 * **Class SlidingTilesComplexity Activity:** This screen allows a user to choose between the provided 3x3, 4x4, 5x5 game 
 modes for the number tiles puzzle game as well as allowing the user to change the number of steps they wish 
-to undo when they are playing the game(Bonus). A user may also choose to play download an image and slide
+to undo when they are playing the game(Bonus). A user may also choose to download an image and slide
 images instead of sliding number tiles.
 
-* **Class SlidingTilesInfo:** This class keeps track of the state of the board, the board complexity, the user's
+* **Class SlidingTilesGameInfo:** This class keeps track of the state of the board, the board complexity, the user's
 score, as well as making sure the board is always solvable. 
 
 * **Class GameActivity:** This is the main sliding tile puzzle. It uses a SlidingTilesInfo to keep track of the 
@@ -147,7 +147,17 @@ getting access to the menu selection screen. New users are required to sign up f
 shows the ranking of the top players of the game at all time with their username, top score and ranking.
 The user can also choose to display local rankings which shows their personal achievements.
 
-## How to test
+## UnitTests 
+We ask that you edit your configurations before running our unit tests.
+Please go to run, edit configurations, choose "fall2018.csc2017 in app" under Android Junit and go to 
+the Code coverage tab. Then click on + to add the classes we listed below. Uncheck the "Include/Exclude"
+to successfully exclude classes. Finally right-click on "fall2018.csc2017" and select "Run Tests in fall2018.csc2017 with Coverage"
+
+## Classes to exclude
+Under SlidingTiles: CustomAdapter, DownloadingActivity, GameActivity, GestureDetectGridView,
+SlidingTilesComplexityActivity, SlidingTilesFileSaverModel, SlidingTilesScoreBoardActivity, StartingActivity.
+
+## Some Details for GameCenter and SlidingTiles.
 Most of the things we have implemented are straight forward to test.
 In order to test Sign up/Sign in, please enter a username and password, and press the signup button if this is your first time launching the app. Press login to access the starting menu once you have done so with the sane username and password.
 
