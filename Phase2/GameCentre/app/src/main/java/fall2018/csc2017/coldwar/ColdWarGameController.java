@@ -31,19 +31,23 @@ class ColdWarGameController {
      * @return whether or not the move was successful
      */
     boolean touchMove(ColdWarGameInfo coldWarGameInfo, int selectedPosition, int position) {
-        if (selectedPosition == -1) {
-            this.selectedPosition = position;
-            updateUserDisplay(coldWarGameInfo);
-        } else {
-            if (MovementUtility.makeMove(coldWarGameInfo, selectedPosition, position)) {
-                endButton.setEnabled(true);
-            } else {
-                return false;
-            }
-            this.selectedPosition = -1; // this indicates that selectedPosition is reset to "unselected"
-            updateUserDisplay(coldWarGameInfo);
+        if (selectedPosition == -1) { // this means the user has not selected a piece to move yet
+            setPosition(position, coldWarGameInfo);
+            return true;
         }
+        // user has selected a piece to move, so makeMove if position is a valid position to move to
+        return executeMove(coldWarGameInfo, selectedPosition, position);
 
+    }
+
+    private boolean executeMove(ColdWarGameInfo coldWarGameInfo, int selectedPosition, int position) {
+        boolean validMove = MovementUtility.makeMove(coldWarGameInfo, selectedPosition, position);
+        this.selectedPosition = -1; // this indicates that selectedPosition is reset to "unselected"
+        updateUserDisplay(coldWarGameInfo);
+        if (!validMove) {
+            return false;
+        }
+        endButton.setEnabled(true);
         return true;
     }
 
@@ -118,5 +122,10 @@ class ColdWarGameController {
         }
 
         return IDs;
+    }
+
+    private void setPosition(int position, ColdWarGameInfo coldWarGameInfo) {
+        this.selectedPosition = position;
+        updateUserDisplay(coldWarGameInfo);
     }
 }
