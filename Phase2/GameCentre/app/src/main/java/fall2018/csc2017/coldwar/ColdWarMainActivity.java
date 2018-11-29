@@ -114,6 +114,10 @@ public class ColdWarMainActivity extends AppCompatActivity {
 
         // reset lastMoveText
         lastMoveText.setText("");
+
+        // autosave
+        User user = User.usernameToUser.get(coldWarGameInfo.getUserName());
+        mSaver.autoSave(coldWarGameInfo, user);
     }
 
     /**
@@ -182,6 +186,6 @@ public class ColdWarMainActivity extends AppCompatActivity {
     public void save(View view) {
         // determine current user
         User user = User.usernameToUser.get(coldWarGameInfo.getUserName());
-        mSaver.saveButtonListener(coldWarGameInfo, user);
+        mSaver.manualSave(coldWarGameInfo, user);
     }
 }
