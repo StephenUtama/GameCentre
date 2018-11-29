@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -72,7 +73,9 @@ public class ColdWarMainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 controller.setViews(endButton, guestReputationText, userReputationText,
                         selectedPositionText);
-                controller.touchMove(coldWarGameInfo, selectedPosition, position);
+                if (!controller.touchMove(coldWarGameInfo, selectedPosition, position))  {
+                    Toast.makeText(ColdWarMainActivity.this, "Invalid Move", Toast.LENGTH_SHORT).show();
+                }
                 selectedPosition = controller.getSelectedPosition();
                 controller.updateGridView(gridView, coldWarGameInfo);
             }

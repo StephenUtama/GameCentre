@@ -3,6 +3,7 @@ package fall2018.csc2017.slidingtiles;
 import org.junit.Before;
 
 import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Matchers.isA;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;

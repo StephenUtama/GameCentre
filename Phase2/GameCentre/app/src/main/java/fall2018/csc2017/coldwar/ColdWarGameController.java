@@ -23,7 +23,7 @@ class ColdWarGameController {
         this.context = context;
     }
 
-    void touchMove(ColdWarGameInfo coldWarGameInfo, int selectedPosition, int position) {
+    boolean touchMove(ColdWarGameInfo coldWarGameInfo, int selectedPosition, int position) {
         if (selectedPosition == -1) {
             this.selectedPosition = position;
             updateUserDisplay(coldWarGameInfo);
@@ -31,11 +31,13 @@ class ColdWarGameController {
             if (MovementUtility.makeMove(coldWarGameInfo, selectedPosition, position)) {
                 endButton.setEnabled(true);
             } else {
-                Toast.makeText(context, "Invalid Move", Toast.LENGTH_SHORT).show();
+                return false;
             }
             this.selectedPosition = -1; // this indicates that selectedPosition is reset to "unselected"
             updateUserDisplay(coldWarGameInfo);
         }
+
+        return true;
     }
 
     /**

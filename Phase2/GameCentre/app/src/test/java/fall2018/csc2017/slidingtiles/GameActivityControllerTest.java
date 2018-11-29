@@ -1,6 +1,7 @@
 package fall2018.csc2017.slidingtiles;
 
 import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Matchers.isA;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
