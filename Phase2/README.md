@@ -177,7 +177,7 @@ For slidingtiles: CustomAdapter, DownloadingActivity, GameActivity, GestureDetec
 SlidingTilesComplexityActivity, SlidingTilesFileSaverModel, SlidingTilesScoreBoardActivity, StartingActivity.
 
 For pong: PongFileSaverModel, PongGameActivity, PongGameInfo, PongGameScoreBoards, PongScoreBoardActivity
-PongStartingActivity, PongSurfaceView, SerializableRectF
+PongStartingActivity, PongSurfaceView, SerializableRectF, PongScoreBoardManager
 
 For coldwar: ColdWarMainActivity, ColdWarMenu, ColdWarSaverModel, ColdWarScoreBoardActivity, GuestPiecesSelectionActivity,
 ImageAdapterGridView, PiecesSelectionActivity, UserPiecesSelection Activity
