@@ -23,6 +23,14 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
         <Button
+            android:id="@+id/InstructionButton"
+            android:onClick="instructions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="How to Play It" />
+
+        <Button
             android:id="@+id/StartButton"
             android:onClick="startGame"
             android:layout_width="match_parent"
