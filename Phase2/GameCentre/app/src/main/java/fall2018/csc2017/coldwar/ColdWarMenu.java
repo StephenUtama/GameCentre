@@ -74,7 +74,12 @@ public class ColdWarMenu extends AppCompatActivity {
 
     public void loadScoreboard(View view) {
         Intent intent = new Intent(this, ColdWarScoreBoardActivity.class);
-        intent.putExtra("user", user);  // hmm.... maybe change this
+        intent.putExtra("user", user);
+        startActivity(intent);
+    }
+
+    public void instructions(View view) {
+        Intent intent = new Intent(this, InstructionActivity.class);
         startActivity(intent);
     }
 
