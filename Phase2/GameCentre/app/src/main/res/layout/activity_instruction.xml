@@ -19,7 +19,9 @@ tools:context="fall2018.csc2017.coldwar.InstructionActivity" >
             android:layout_height="wrap_content" />
 
         <TextView
+            android:id="@+id/instructions"
             android:layout_gravity="center"
+            android:scrollbars="vertical"
             android:text="insert_instructions_here"
             android:layout_margin="16dp"
             android:layout_width="wrap_content"
