@@ -29,7 +29,7 @@ https://markus.teach.cs.toronto.edu/git/csc207-2018-09-reg/group_0601
 Enter the correct directory;
 
 ```
-cd group_0601/Phase1/
+cd group_0601/Phase2/
 ```
 
 Open the project named *GameCentre* with Android Studio.
@@ -96,6 +96,25 @@ background when playing the sliding tiles game.(Bonus)
 
 * **Class StartingActivity:** This screen is where users can start a new game or load a previously saved game.
 
+## Code Tour of Cold War
+* **Class Agent** The abstract parent of all pieces in the game. Its subclasses include the 2 bases, Spy, and Diplomat.
+
+* **Class ColdWarGameController** The controller under the MVC model for the Cold War game. It manages inputs from the user
+and manipulates and reads from the model if necessary. 
+
+* **Class ColdWarGameInfo** The model under the MVC model for the Cold War game. It contains all relevant 
+information regarding the current state of the game, including the location of each piece, the number of 
+remaining pieces owned by each owner, etc.
+
+* **Class ColdWarMainActivity** The main view under the MVC model for the Cold War game. It contains what
+is shown to users.
+
+* **Class GameOverUtility** A utility class used by the controller for tasks related to game over handling.
+
+* **Class MovementUtility** A utilities package for handling move-making.
+
+* **Class TurnManagementUtility** A utilities package for handling tasks related to beginning, executing, and ending turns.
+
 ## Code Tour of Pong
 * **Class Ball:** Model for the Ball in the Pong Game. It keeps track of the position of the ball, size of the ball,
 speed of the ball and the movement of the ball (i.e how much does the ball move when the speed is X)
@@ -153,7 +172,7 @@ Please go to run, edit configurations, choose "fall2018.csc2017 in app" under An
 the Code coverage tab. Then click on + to add the classes we listed below. Uncheck the "Include/Exclude"
 to successfully exclude classes. Finally right-click on "fall2018.csc2017" and select "Run Tests in fall2018.csc2017 with Coverage"
 
-## Classes to exclude
+## Classes Excluded from Unit Testing
 For slidingtiles: CustomAdapter, DownloadingActivity, GameActivity, GestureDetectGridView,
 SlidingTilesComplexityActivity, SlidingTilesFileSaverModel, SlidingTilesScoreBoardActivity, StartingActivity.
 
@@ -165,7 +184,7 @@ ImageAdapterGridView, PiecesSelectionActivity, UserPiecesSelection Activity
 
 ## Some Details for GameCenter and SlidingTiles.
 Most of the things we have implemented are straight forward to test.
-In order to test Sign up/Sign in, please enter a username and password, and press the signup button if this is your first time launching the app. Press login to access the starting menu once you have done so with the sane username and password.
+In order to test Sign up/Sign in, please enter a username and password, and press the signup button if this is your first time launching the app. Press login to access the starting menu once you have done so with the same username and password.
 
 The multiple complexities can be tested by following the prompt from the app.
 There is also an option of "Image" in complexity.
@@ -193,8 +212,9 @@ In order to test these codes properly, please use the drawable file from our sub
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License.
 
 ## Acknowledgments
 
-* Special thanks to Suguru Seo for briefly being in our group for about 24 hours.
+* Special thanks to Suguru Seo for briefly being in our Phase 1 group for about 24 hours.
+** Special special thanks to Stephen Utama for coming to the rescue for Phase 2.
