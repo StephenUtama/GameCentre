@@ -154,8 +154,14 @@ the Code coverage tab. Then click on + to add the classes we listed below. Unche
 to successfully exclude classes. Finally right-click on "fall2018.csc2017" and select "Run Tests in fall2018.csc2017 with Coverage"
 
 ## Classes to exclude
-Under SlidingTiles: CustomAdapter, DownloadingActivity, GameActivity, GestureDetectGridView,
+For slidingtiles: CustomAdapter, DownloadingActivity, GameActivity, GestureDetectGridView,
 SlidingTilesComplexityActivity, SlidingTilesFileSaverModel, SlidingTilesScoreBoardActivity, StartingActivity.
+
+For pong: PongFileSaverModel, PongGameActivity, PongGameInfo, PongGameScoreBoards, PongScoreBoardActivity
+PongStartingActivity, PongSurfaceView, SerializableRectF
+
+For coldwar: ColdWarMainActivity, ColdWarMenu, ColdWarSaverModel, ColdWarScoreBoardActivity, GuestPiecesSelectionActivity,
+ImageAdapterGridView, PiecesSelectionActivity, UserPiecesSelection Activity
 
 ## Some Details for GameCenter and SlidingTiles.
 Most of the things we have implemented are straight forward to test.
