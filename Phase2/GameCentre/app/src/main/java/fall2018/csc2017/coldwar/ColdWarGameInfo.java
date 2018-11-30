@@ -8,12 +8,17 @@ import java.util.zip.CheckedOutputStream;
 import generalclasses.GameInfo;
 import generalclasses.ScoreBoard;
 
+/**
+ * The model under the MVC model for the Cold War game. It contains all relevant information regarding
+ * the current state of the game, including the location of each piece, the number of remaining pieces
+ * owned by each owner, etc.
+ */
 public class ColdWarGameInfo extends GameInfo {
 
     private Integer STARTING_REPUTATION = 4;
 
-    static String PLAYER1 = "p1";
-    static String PLAYER2 = "p2";
+    static final String PLAYER1 = "p1";
+    static final String PLAYER2 = "p2";
 
     private Integer userScore = 0;
 

@@ -90,18 +90,23 @@ public class SlidingTilesGameInfo extends GameInfo {
         int sum = 0;
         for (int i = 0; i != Board.NUM_COLS * Board.NUM_ROWS - 1; i++) {
             if (i != blankindex) {
-                for (int j = i + 1; j != Board.NUM_COLS * Board.NUM_ROWS; j++) {
-                    if (j != blankindex) {
-                        if (tiles.get(i).getId() > tiles.get(j).getId()) {
-                            sum++;
-                        }
-                    }
-                }
+                sum += helper_inversions(tiles, blankindex, i);
             }
         }
         return sum;
     }
 
+    private int helper_inversions(List<Tile> tiles, int blankindex, int rowindex) {
+        int sum = 0;
+        for (int j = rowindex + 1; j != Board.NUM_COLS * Board.NUM_ROWS; j++) {
+            if (j != blankindex) {
+                if (tiles.get(rowindex).getId() > tiles.get(j).getId()) {
+                    sum++;
+                }
+            }
+        }
+        return sum;
+    }
     /**
      * @return the board for the corresponding sliding tiles game
      */

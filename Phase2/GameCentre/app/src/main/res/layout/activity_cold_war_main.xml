@@ -31,7 +31,7 @@
 
         <TextView
             android:id="@+id/userReputation"
-            android:layout_width="191dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="8dp"
@@ -40,7 +40,7 @@
 
         <TextView
             android:id="@+id/guestReputation"
-            android:layout_width="195dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="8dp"

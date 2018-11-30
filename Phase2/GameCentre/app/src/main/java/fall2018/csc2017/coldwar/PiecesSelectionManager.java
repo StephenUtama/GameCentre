@@ -79,6 +79,7 @@ public class PiecesSelectionManager {
         Character[] validLetters = {'A', 'B', 'C', 'D', 'E', 'F'};
         Integer[] validNumbers = {1, 2, 3, 4, 5, 6};
 
+        // check for correct length
         for (String position : positions) {
             if (position.length() != 2) {
                 return false;

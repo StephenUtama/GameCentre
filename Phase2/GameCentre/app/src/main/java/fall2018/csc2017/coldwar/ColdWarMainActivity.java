@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -19,6 +20,9 @@ import generalclasses.GameScoreboards;
 import generalclasses.ScoreBoard;
 import generalclasses.User;
 
+/**
+ * The main view under the MVC model for the Cold War game. It contains what is shown to users.
+ */
 public class ColdWarMainActivity extends AppCompatActivity {
 
     private GridView gridView;
@@ -72,7 +76,9 @@ public class ColdWarMainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 controller.setViews(endButton, guestReputationText, userReputationText,
                         selectedPositionText);
-                controller.touchMove(coldWarGameInfo, selectedPosition, position);
+                if (!controller.touchMove(coldWarGameInfo, selectedPosition, position))  {
+                    Toast.makeText(ColdWarMainActivity.this, "Invalid Move", Toast.LENGTH_SHORT).show();
+                }
                 selectedPosition = controller.getSelectedPosition();
                 controller.updateGridView(gridView, coldWarGameInfo);
             }
@@ -114,6 +120,10 @@ public class ColdWarMainActivity extends AppCompatActivity {
 
         // reset lastMoveText
         lastMoveText.setText("");
+
+        // autosave
+        User user = User.usernameToUser.get(coldWarGameInfo.getUserName());
+        mSaver.autoSave(coldWarGameInfo, user);
     }
 
     /**
@@ -182,6 +192,6 @@ public class ColdWarMainActivity extends AppCompatActivity {
     public void save(View view) {
         // determine current user
         User user = User.usernameToUser.get(coldWarGameInfo.getUserName());
-        mSaver.saveButtonListener(coldWarGameInfo, user);
+        mSaver.manualSave(coldWarGameInfo, user);
     }
 }

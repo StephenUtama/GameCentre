@@ -2,6 +2,9 @@ package fall2018.csc2017.coldwar;
 
 import java.util.List;
 
+/**
+ * A utilities package for handling tasks related to beginning, executing, and ending turns.
+ */
 class TurnManagementUtility {
     /**
      * Makes all pieces in info movable and makes visibility anonymous for all. Switch current player

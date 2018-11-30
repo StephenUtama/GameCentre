@@ -3,6 +3,7 @@ package fall2018.csc2017.PongTest;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.mockito.Mockito.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -31,14 +32,14 @@ public class PongScoreBoardManagerTest {
         testScores = mock(LinkedHashMap.class);
         testHighScores = mock(LinkedHashMap.class);
         testActivity = mock(PongScoreBoardActivity.class);
-        testCollections = mock(Collections.class);
-        testComparator = new Comparator() {
-            @Override
-            public int compare(Object o1, Object o2) {
-                return 0;
-            }
-        };
-        testManager = new PongScoreBoardManager(testActivity, testScores, testHighScores);
+//        testCollections = mock(Collections.class);
+//        testComparator = new Comparator() {
+//            @Override
+//            public int compare(Object o1, Object o2) {
+//                return 0;
+//            }
+//        };
+        testManager = spy(new PongScoreBoardManager(testActivity, testScores, testHighScores));
     }
 
     @Test
@@ -47,7 +48,7 @@ public class PongScoreBoardManagerTest {
 
     @Test
     public void displayLocalRankings() {
-        ArrayList localScores = new ArrayList<>();
+        ArrayList<Integer> localScores = new ArrayList<>();
         localScores.add(1);
         localScores.add(2);
         localScores.add(3);
@@ -57,11 +58,15 @@ public class PongScoreBoardManagerTest {
         localScores.add(7);
         localScores.add(8);
         localScores.add(9);
+        localScores.add(10);
         when(testScores.get(isA(String.class))).thenReturn(localScores);
-        when(testCollections.reverseOrder()).thenReturn(testComparator);
-        doNothing().when(testCollections).sort(localScores, testCollections.reverseOrder());
+        doNothing().when(testManager).sortHelper(localScores);
+//        when(testCollections.reverseOrder()).thenReturn(testComparator);
+//        doNothing().when(testCollections).sort(localScores, testCollections.reverseOrder());
         doNothing().when(testManager).setTextValues(isA(int.class), isA(String.class), isA(String.class));
-        testManager.displayLocalRankings(isA(String.class));
+
+        testManager.displayLocalRankings("0601");
+        verify(testManager,times(9)).setTextValues(isA(int.class), isA(String.class), isA(String.class));
 
     }
 

@@ -28,14 +28,26 @@ public class ColdWarSaverModel extends SaverModel {
         return scoreboards;
     }
 
-    public void saveButtonListener(ColdWarGameInfo gameInfo, User user) {
+    public void manualSave(ColdWarGameInfo gameInfo, User user) {
         // get the current time
         String currentTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new
                 Date());
-        user.addSave(gameInfo.getGame(), currentTime, gameInfo);
+        save(gameInfo, user, currentTime);
+    }
+
+    public void autoSave(ColdWarGameInfo gameInfo, User user) {
+        if (!GameOverUtility.isOver(gameInfo)) {
+            String saveName = "Autosave";
+            save(gameInfo, user, saveName);
+        }
+    }
+
+    private void save(ColdWarGameInfo gameInfo, User user, String saveName) {
+        user.addSave(gameInfo.getGame(), saveName, gameInfo);
         saveToFile(SAVE_FILENAME);
         makeToastSavedText();
     }
+
 
     public void startingResume(String username) {
         try {
