@@ -4,13 +4,16 @@ import android.content.Context;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import fall2018.csc2017.slidingtiles.R;
 
+/**
+ * The controller for Cold War. It manages inputs from the user and manipulates and reads from the
+ * model as needed.
+ */
 class ColdWarGameController {
     private int selectedPosition;
     private Button endButton;

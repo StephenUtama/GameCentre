@@ -20,6 +20,9 @@ import generalclasses.GameScoreboards;
 import generalclasses.ScoreBoard;
 import generalclasses.User;
 
+/**
+ * The main view under the MVC model for the Cold War game. It contains what is shown to users.
+ */
 public class ColdWarMainActivity extends AppCompatActivity {
 
     private GridView gridView;

@@ -2,6 +2,9 @@ package fall2018.csc2017.coldwar;
 
 import java.io.Serializable;
 
+/**
+ * The abstract parent for all pieces in the game.
+ */
 public abstract class Agent implements Serializable {
 
     private String owner;
