@@ -123,7 +123,7 @@ speed of the ball and the movement of the ball (i.e how much does the ball move 
 speed of the racket and the movement of the ball (i.e when you tap left how much does the racket move)
 
 * **Class PongGameController:** Controller for Pong. Contains the logic behind the pong game.
-i.e what happens when the ball bounces on the racket, when it hits the bottom screen, whether its paused/playing, etc.
+i.e what happens when the ball bounces on the racket, when it hits the bottom screen, whether it's paused/playing, etc.
 
 * **Class PongStartingActivity:** The main menu for pong. Displays the ScoreBoard, Load Game and New Game button
 for the user to click.

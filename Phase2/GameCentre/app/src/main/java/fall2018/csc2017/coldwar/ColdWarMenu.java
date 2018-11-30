@@ -1,8 +1,10 @@
 package fall2018.csc2017.coldwar;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -30,6 +32,7 @@ public class ColdWarMenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cold_war_menu2);
         assignments();
+        setTheme();
     }
 
     private void assignments() {
@@ -83,5 +86,12 @@ public class ColdWarMenu extends AppCompatActivity {
         user = mSaver.getUser();
         // also load the most recent copy of scores
         scoreboards = mSaver.getScoreboards();
+    }
+
+    private void setTheme() {
+        SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("my_prefs", Context.MODE_PRIVATE);
+        // the second parameter will be fallback if the preference is not found
+        int bg = sharedPref.getInt("background_resources", android.R.color.white);
+        getWindow().setBackgroundDrawableResource(bg);
     }
 }
