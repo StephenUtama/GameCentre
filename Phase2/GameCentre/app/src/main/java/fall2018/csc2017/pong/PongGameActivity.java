@@ -49,14 +49,9 @@ public class PongGameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         // Get existing GameInfo (might be null)
         PongGameInfo gameInfo = (PongGameInfo) getIntent().getSerializableExtra("saveToLoad");
-
-        // Get the username
         String username = getIntent().getStringExtra("username");
-
-        // Get the User
         user = User.usernameToUser.get(username);
 
         // Get a Display object to access screen details
@@ -66,7 +61,6 @@ public class PongGameActivity extends AppCompatActivity {
         Point size = new Point();
         display.getSize(size);
 
-        // Initialize pongView and set it as the view
         if (gameInfo == null) {
             gameInfo = new PongGameInfo(size.x, size.y, username);
             pongView = new PongSurfaceView(this, size.x, size.y, gameInfo);
@@ -75,6 +69,10 @@ public class PongGameActivity extends AppCompatActivity {
             pongView = new PongSurfaceView(this, size.x, size.y, gameInfo);
         }
 
+        viewSetUp(pongView);
+    }
+
+    private void viewSetUp(PongSurfaceView pongview){
         //Create your frame layout
         FrameLayout frameLayout = new FrameLayout(this);
 
