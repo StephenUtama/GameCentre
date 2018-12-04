@@ -48,6 +48,7 @@ public class PongGameControllerTest {
         rectb = mock(RectF.class);
         testController = new PongGameController(testInfo, testGameActivity.getApplicationContext());
         testController.setPongSaver(testSaver);
+        testController.setGameInfo(testInfo);
         when(testInfo.getFps()).thenReturn(1L);
         when(testInfo.getBall()).thenReturn(ball);
         when(testInfo.getRacket()).thenReturn(racket);

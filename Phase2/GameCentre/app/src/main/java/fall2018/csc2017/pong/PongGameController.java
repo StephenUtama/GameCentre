@@ -143,6 +143,7 @@ public class PongGameController implements GameController, Serializable {
     public void setGameInfo(PongGameInfo info){
         this.gameInfo = info;
     }
+
     public PongGameInfo getGameInfo() {
         return gameInfo;
     }
