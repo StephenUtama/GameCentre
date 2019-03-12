@@ -214,7 +214,3 @@ In order to test these codes properly, please use the drawable file from our sub
 
 This project is licensed under the MIT License.
 
-## Acknowledgments
-
-* Special thanks to Suguru Seo for briefly being in our Phase 1 group for about 24 hours.
-** Special special thanks to Stephen Utama for coming to the rescue for Phase 2.
