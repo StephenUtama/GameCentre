@@ -3,6 +3,8 @@
 
 A Game Centre that contains several simple games.
 
+Screenshots: https://docs.google.com/document/d/1OgGNWMUmr137nwz0u7eQh5dLG3-Osp1aFmsSCNlaRS0/edit?usp=sharing
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
